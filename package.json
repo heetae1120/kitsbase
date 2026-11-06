@@ -1,0 +1,15 @@
+{
+  "name": "kitsbase",
+  "version": "1.0.0",
+  "description": "팀이 함께 쓰는 사업 캘린더 (Cloudflare Workers + D1)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "db:migrate:local": "wrangler d1 migrations apply kitsbase-db --local",
+    "db:migrate": "wrangler d1 migrations apply kitsbase-db --remote",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.92.0"
+  },
+  "private": true
+}

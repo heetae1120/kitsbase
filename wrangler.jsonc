@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "kitsbase",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-05-15",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    // 0이면 인원 제한 없음
+    "MAX_MEMBERS": "4"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kitsbase-db",
+      // `npx wrangler d1 create kitsbase-db` 실행 후 나오는 database_id로 바꿔주세요
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": { "enabled": true }
+}
