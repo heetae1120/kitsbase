@@ -17,7 +17,7 @@
 
 | 경로 | 내용 |
 | --- | --- |
-| `public/index.html` | 화면 전체 (HTML 한 파일) |
+| `public/index.html` | 화면 전체 (HTML 한 파일, 배포 시 Worker 코드에 함께 묶임) |
 | `src/worker.js` | 가입·로그인·데이터 저장 API (Cloudflare Worker) |
 | `migrations/` | 데이터베이스 테이블 |
 | `wrangler.jsonc` | Cloudflare 설정 |
@@ -31,7 +31,7 @@ npm install
 npx wrangler login
 ```
 
-데이터베이스를 만들고, 출력되는 `database_id`를 `wrangler.jsonc`의 `REPLACE_WITH_YOUR_D1_DATABASE_ID` 자리에 붙여넣습니다.
+현재 저장소는 이미 `kitsbase-db`에 연결되어 있습니다. 다른 Cloudflare 계정에 새로 배포할 때만, 데이터베이스를 만들고 출력되는 `database_id`를 `wrangler.jsonc`의 `database_id` 자리에 붙여넣습니다.
 
 ```bash
 npx wrangler d1 create kitsbase-db

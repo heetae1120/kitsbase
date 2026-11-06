@@ -3,10 +3,8 @@
   "name": "kitsbase",
   "main": "src/worker.js",
   "compatibility_date": "2026-05-15",
-  "assets": {
-    "directory": "./public",
-    "binding": "ASSETS"
-  },
+  // public/index.html은 Worker 코드에 함께 묶여 배포됩니다
+  "rules": [{ "type": "Text", "globs": ["**/*.html"], "fallthrough": true }],
   "vars": {
     // 0이면 인원 제한 없음
     "MAX_MEMBERS": "4"
@@ -16,7 +14,7 @@
       "binding": "DB",
       "database_name": "kitsbase-db",
       // `npx wrangler d1 create kitsbase-db` 실행 후 나오는 database_id로 바꿔주세요
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "database_id": "2b540a0d-b6b8-457f-b27a-c0e0d2f563e5",
       "migrations_dir": "migrations"
     }
   ],

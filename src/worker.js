@@ -1,3 +1,5 @@
+import INDEX_HTML from "../public/index.html";
+
 // kitsbase API: 팀 초대코드 가입, 이름+비밀번호 로그인, 문서 저장/동기화 (Cloudflare Workers + D1)
 const COLLECTIONS = new Set(["projects", "items", "notes", "folders", "messages", "mindmaps"]);
 const ID_RE = /^[A-Za-z0-9_\-.:@+~]{1,120}$/;
@@ -208,6 +210,15 @@ export default {
         return fail(500, "unavailable", "서버에서 요청을 처리하지 못했습니다.");
       }
     }
-    return env.ASSETS.fetch(request);
+    if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method Not Allowed", { status: 405 });
+    // 화면은 한 페이지(index.html)뿐이라 Worker가 직접 돌려줍니다
+    return new Response(request.method === "HEAD" ? null : INDEX_HTML, {
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "no-cache",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "same-origin",
+      },
+    });
   },
 };
