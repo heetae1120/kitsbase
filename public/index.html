@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Geist:wght@300;500;700;800&family=Geist+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: fixed left rail (bottom tab bar on phones) + one working canvas; the calendar is home, a day panel rides on its right. */
 :root{
@@ -487,132 +487,6 @@ dialog::backdrop{background:rgba(20,10,10,.45);backdrop-filter:blur(2px)}
 .seg button:disabled{opacity:.35;cursor:not-allowed}
 @media (max-width:1180px){.cell-wrap{grid-template-columns:minmax(0,1fr)}.cell-wrap .inspector{height:auto}}
 
-
-/* ---------- landing (logged-out first screen): kitsch bento, deliberately single dark look ---------- */
-#auth.landing{display:block;min-height:100vh;padding:0;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word;color:var(--ink);background:var(--bg);font-family:var(--f-body);
-  --bg:#09090A;--surface:#151517;--surface-2:#202025;--line:#2D2D33;--line-strong:#44444C;--ink:#FFFFFF;--ink-2:rgba(255,255,255,.74);--ink-3:rgba(255,255,255,.5);
-  --accent:#E8FF1F;--accent-ink:#0B0B0C;--accent-soft:rgba(232,255,31,.12);--accent-line:rgba(232,255,31,.45);--danger:#FF7AB4;--today:#FFFFFF;--today-ink:#0B0B0C;
-  --pink:#FF2A85;--lilac:#A9B2FF;--peach:#FFB37A;--mint:#7CF2C4;--shadow:0 20px 50px -20px rgba(0,0,0,.7);--f-lp:"Geist","IBM Plex Sans KR",system-ui,sans-serif;--f-lpm:"Geist Mono","IBM Plex Mono",ui-monospace,monospace;--f-kitsch:"Black Han Sans","IBM Plex Sans KR",sans-serif;color-scheme:dark}
-.lp-wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.lp-nav{display:flex;align-items:center;gap:12px;padding-block:18px}
-.lp-logo{display:flex;align-items:center;gap:10px;font:800 23px/1 var(--f-lp);letter-spacing:-.04em;color:#fff}
-.lp-logo b{color:var(--accent);font-weight:800}
-.lp-logo i{width:32px;height:32px;border-radius:10px;background:var(--accent);display:grid;place-items:center;color:#0B0B0C;transform:rotate(-6deg)}
-.lp-nav nav{margin-left:auto;display:flex;gap:8px}
-.lp-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;border:2px solid #fff;background:transparent;color:#fff;font:700 15.5px var(--f-body);cursor:pointer;text-decoration:none;transition:transform .18s,box-shadow .18s}
-.lp-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--pink)}
-.lp-btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.lp-btn.acid{background:var(--accent);color:#0B0B0C;border-color:var(--accent)}
-.lp-btn.acid:hover{box-shadow:4px 4px 0 #fff}
-.lp-btn.sm{height:38px;padding:0 15px;font-size:13.5px}
-.lp-hero{position:relative;padding-block:34px 18px}
-.lp-sticker{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;background:var(--pink);color:#fff;font:600 12.5px var(--f-lpm);letter-spacing:.02em;transform:rotate(-3deg);border:2px solid #000;box-shadow:3px 3px 0 #000}
-.lp-h1{font:400 clamp(44px,8.2vw,112px)/1.04 var(--f-kitsch);letter-spacing:-.01em;margin:26px 0 0;max-width:14ch;text-wrap:balance}
-.lp-h1 .hl{display:inline-block;color:#0B0B0C;background:var(--accent);padding:0 .14em;transform:rotate(-1.6deg);border-radius:6px}
-.lp-h1 .ol{color:transparent;-webkit-text-stroke:2px #fff}
-.lp-lead{font-size:clamp(16px,1.7vw,19.5px);color:var(--ink-2);max-width:52ch;margin-top:24px;line-height:1.65}
-.lp-lead b{color:#fff}
-.lp-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
-.lp-note{margin-top:14px;font:500 12.5px var(--f-lpm);color:var(--ink-3)}
-.lp-star{position:absolute;right:3%;bottom:10px;width:clamp(120px,15vw,190px);aspect-ratio:1;display:grid;place-items:center;animation:lpspin 18s linear infinite;pointer-events:none}
-.lp-star svg{position:absolute;inset:0;width:100%;height:100%}
-.lp-star span{position:relative;font:400 clamp(16px,1.8vw,22px)/1.1 var(--f-kitsch);color:#0B0B0C;text-align:center;animation:lpspin 18s linear infinite reverse}
-@keyframes lpspin{to{transform:rotate(360deg)}}
-.lp-marquee{position:relative;background:var(--accent);color:#0B0B0C;border-block:2px solid #000;overflow:hidden;transform:rotate(-1.4deg);margin:30px -24px 6px}
-.lp-marquee.b{background:var(--pink);color:#fff;transform:rotate(1deg);margin-top:-8px}
-.lp-marquee div{display:flex;width:max-content;gap:30px;padding-block:13px;font:400 26px/1 var(--f-kitsch);white-space:nowrap;animation:lpm 32s linear infinite}
-.lp-marquee.b div{animation-direction:reverse;font-size:20px}
-@keyframes lpm{to{transform:translateX(-50%)}}
-.lp-sec{padding-block:64px 8px}
-.lp-kicker{font:600 12px var(--f-lpm);letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
-.lp-h2{font:400 clamp(34px,4.8vw,60px)/1.06 var(--f-kitsch);margin-top:12px;text-wrap:balance}
-.lp-h2 em{font-style:normal;color:var(--accent)}
-.lp-sub{color:var(--ink-2);font-size:16.5px;margin-top:12px;max-width:58ch;line-height:1.6}
-.lp-pains{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:30px}
-.lp-pain{background:var(--pc);color:#0B0B0C;border:2px solid #000;border-radius:18px;padding:20px 18px;box-shadow:6px 6px 0 #000;transform:rotate(var(--rot));font:700 17px/1.45 var(--f-body);min-height:150px;display:flex;flex-direction:column;gap:10px;transition:transform .2s}
-.lp-pain:hover{transform:rotate(0) translateY(-4px)}
-.lp-pain small{font:600 11px var(--f-lpm);letter-spacing:.08em;opacity:.6}
-.lp-answer{margin-top:34px;font:400 clamp(22px,2.6vw,32px)/1.3 var(--f-kitsch)}
-.lp-answer mark{background:var(--accent);color:#0B0B0C;padding:0 .2em;border-radius:4px}
-.lp-bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:30px}
-.lp-card{position:relative;isolation:isolate;border-radius:28px;overflow:hidden;padding:24px 24px 22px;min-height:230px;display:flex;flex-direction:column;gap:10px;color:#fff;font-family:var(--f-lp)}
-.lp-card::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none;z-index:3}
-.lp-card.grad::before{content:"";position:absolute;left:8%;right:8%;top:22%;bottom:-8%;border-radius:90px;background:var(--core);filter:blur(60px);z-index:-1}
-.g-blue{background:linear-gradient(180deg,#b9a6ff 0%,#2e43ff 36%,#2e43ff 74%,#6d7dff 100%);--core:#05082a}
-.g-pink{background:linear-gradient(180deg,#ffb3d6 0%,#ff2a85 36%,#ff2a85 74%,#ff6aa8 100%);--core:#3a031c}
-.g-graph{background:linear-gradient(180deg,#9a9aa8 0%,#3a3a44 36%,#3a3a44 74%,#55555f 100%);--core:#060608}
-.g-green{background:linear-gradient(180deg,#a6e8c8 0%,#36956f 36%,#36956f 74%,#58b58c 100%);--core:#061d15}
-.g-copper{background:linear-gradient(180deg,#f6bf96 0%,#c2683a 36%,#c2683a 74%,#dc8a5c 100%);--core:#1d0b05}
-.lp-card.acid{background:var(--accent);color:#0B0B0C}
-.lp-card.glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
-.lp-card.glass::after{display:none}
-.lp-card h3{font:700 23px/1.2 var(--f-body);letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.lp-card p{color:rgba(255,255,255,.86);font:500 14.5px/1.6 var(--f-body);max-width:44ch;position:relative;z-index:2}
-.lp-card.acid p{color:rgba(0,0,0,.72)}
-.lp-cap{font:600 11px var(--f-lpm);letter-spacing:.1em;text-transform:uppercase;opacity:.72}
-.lp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;position:relative;z-index:2}
-.lp-chip{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:13px;background:rgba(0,0,0,.72);color:#fff;font:600 11.5px var(--f-lpm);letter-spacing:-.01em}
-.lp-new{font:600 10.5px var(--f-lpm);background:#000;color:var(--accent);padding:3px 8px;border-radius:999px;letter-spacing:.06em}
-.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}.s3{grid-column:span 3}
-.tall{min-height:380px}
-/* mini visuals */
-.v-cal{position:relative;z-index:2;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:6px;max-width:520px}
-.v-cal span{height:44px;border-radius:9px;background:rgba(0,0,0,.28);padding:4px 5px;display:flex;flex-direction:column;gap:3px;font:600 9.5px var(--f-lpm);color:rgba(255,255,255,.7)}
-.v-cal span.t{background:#fff;color:#0B0B0C}
-.v-cal i{display:block;height:6px;border-radius:3px;background:var(--c)}
-.v-orbit{position:relative;z-index:2;width:150px;height:150px;margin:6px auto 0;display:grid;place-items:center}
-.v-orbit .ring{position:absolute;inset:16px;border-radius:50%;background:conic-gradient(var(--accent) 64%,rgba(255,255,255,.18) 0);-webkit-mask:radial-gradient(circle,transparent 60%,#000 61%);mask:radial-gradient(circle,transparent 60%,#000 61%)}
-.v-orbit .track{position:absolute;inset:0;border:1.5px dashed rgba(255,255,255,.45);border-radius:50%;animation:lpspin 14s linear infinite}
-.v-orbit .track i{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #000}
-.v-orbit .track i:nth-child(1){left:-7px;top:50%;margin-top:-7px;background:var(--accent)}
-.v-orbit .track i:nth-child(2){right:12px;top:8px;background:var(--lilac)}
-.v-orbit .track i:nth-child(3){right:16px;bottom:6px;background:#fff}
-.v-orbit b{font:800 34px/1 var(--f-lp);letter-spacing:-.04em}
-.v-orbit b small{font-size:15px}
-.v-mm{position:relative;z-index:2;width:100%;max-width:520px;height:auto;margin-top:4px}
-.v-cells{position:relative;z-index:2;height:150px;margin-top:2px}
-.v-cells i{position:absolute;border:2.5px solid #fff;background:rgba(255,255,255,.22);animation:lpblob 7s ease-in-out infinite,lpdrift 9s ease-in-out infinite;display:grid;place-items:center;font:700 12px var(--f-lp);font-style:normal;color:#fff}
-.v-cells i:nth-child(1){width:86px;height:86px;left:6%;top:24px;background:rgba(232,255,31,.35);border-color:var(--accent)}
-.v-cells i:nth-child(2){width:62px;height:62px;left:52%;top:6px;animation-delay:-2s,-3s;background:rgba(255,42,133,.35);border-color:#FF9ACB}
-.v-cells i:nth-child(3){width:48px;height:48px;left:66%;top:84px;animation-delay:-4s,-6s}
-.v-cells s{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--peach);text-decoration:none;animation:lpfood 3s ease-in-out infinite}
-@keyframes lpblob{0%,100%{border-radius:58% 42% 50% 50%/48% 56% 44% 52%}33%{border-radius:44% 56% 40% 60%/58% 42% 58% 42%}66%{border-radius:52% 48% 62% 38%/42% 60% 40% 58%}}
-@keyframes lpdrift{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-8px)}}
-@keyframes lpfood{50%{transform:translateY(-6px);opacity:.5}}
-.v-chat{position:relative;z-index:2;display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.v-chat div{align-self:flex-start;max-width:92%;background:#fff;color:#0B0B0C;border-radius:16px 16px 16px 4px;padding:9px 12px;font:600 13px/1.45 var(--f-body);border:2px solid #000;box-shadow:3px 3px 0 #000}
-.v-chat div.me{align-self:flex-end;background:var(--accent);border-radius:16px 16px 4px 16px}
-.v-chat small{display:block;font:600 10.5px var(--f-lpm);opacity:.55;margin-bottom:2px}
-.v-notes{position:relative;z-index:2;height:130px;margin-top:6px}
-.v-notes span{position:absolute;width:120px;height:96px;border-radius:12px;border:2px solid #000;box-shadow:3px 3px 0 #000;padding:10px;color:#0B0B0C;font:700 13px/1.3 var(--f-body);background:var(--nc);transform:rotate(var(--r))}
-.v-notes span small{display:block;font:600 10px var(--f-lpm);opacity:.55;margin-top:4px}
-.lp-dots{position:relative;z-index:2;display:block;height:auto;margin-top:8px}
-.lp-tile{min-height:180px}
-.lp-tile .emo{font-size:34px;line-height:1}
-.lp-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
-.lp-step{border:2px solid #fff;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;background:#111113}
-.lp-step b{font:400 64px/1 var(--f-kitsch);color:transparent;-webkit-text-stroke:2px var(--accent)}
-.lp-step h3{font:700 20px/1.3 var(--f-body)}
-.lp-step p{color:var(--ink-2);font-size:14.5px;line-height:1.6}
-.lp-faq{margin-top:26px;display:flex;flex-direction:column;gap:10px;max-width:860px}
-.lp-faq details{border:1.5px solid var(--line-strong);border-radius:16px;background:#111113;padding:0 20px}
-.lp-faq details[open]{border-color:var(--accent)}
-.lp-faq summary{cursor:pointer;list-style:none;padding:18px 0;font:700 16.5px/1.4 var(--f-body);display:flex;gap:12px;align-items:center}
-.lp-faq summary::-webkit-details-marker{display:none}
-.lp-faq summary::after{content:"+";margin-left:auto;font:400 26px/1 var(--f-lp);color:var(--accent);transition:transform .2s}
-.lp-faq details[open] summary::after{transform:rotate(45deg)}
-.lp-faq details p{color:var(--ink-2);font-size:15px;line-height:1.65;padding-bottom:18px;max-width:64ch}
-.lp-start{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,420px);gap:40px;align-items:center;padding-block:70px 40px}
-.lp-start .lp-h2{font-size:clamp(40px,6vw,80px)}
-#auth.landing .auth-card{width:100%;background:#141416;border:2px solid #fff;border-radius:22px;box-shadow:8px 8px 0 var(--accent);padding:24px 22px 20px}
-#auth.landing .auth-card .brand{display:none}
-.lp-foot{border-top:1.5px solid var(--line);padding-block:26px 34px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--ink-3);font:500 13px var(--f-lpm)}
-.lp-foot b{color:#fff;font-family:var(--f-lp)}
-.lp-foot span:last-child{margin-left:auto}
-@media (max-width:960px){.s8,.s7,.s6,.s5{grid-column:span 12}.s4,.s3{grid-column:span 6}.lp-pains{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-steps{grid-template-columns:minmax(0,1fr)}.lp-start{grid-template-columns:minmax(0,1fr);gap:28px}.lp-star{bottom:-10px;right:0}}
-@media (max-width:600px){.s4,.s3{grid-column:span 12}.lp-pains{grid-template-columns:minmax(0,1fr)}.lp-nav .lp-btn.ghost{display:none}.lp-star{display:none}.tall{min-height:0}.lp-marquee{margin-left:-16px;margin-right:-16px}}
-@media (prefers-reduced-motion:reduce){.lp-star,.lp-star span,.lp-marquee div,.v-orbit .track,.v-cells i,.v-cells s{animation:none}}
-
 /* ---------- mindmap ---------- */
 .mm-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .mm-head .tools{margin-left:auto;display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
@@ -743,7 +617,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
   .topbar .page-title{display:none}
   .search label{width:min(200px,38vw)}
   .view{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
-  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .tabbar{display:grid;grid-template-columns:repeat(6,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
   .tabbar button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--ink-3);padding:4px}
   .tabbar button.active{color:var(--accent)}
   .side{grid-template-columns:minmax(0,1fr)}
@@ -779,124 +653,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
 }
 </style>
 
-<section class="auth landing" id="auth" hidden>
-  <div class="lp-wrap">
-    <header class="lp-nav">
-      <div class="lp-logo"><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i><span>kits<b>base</b></span></div>
-      <nav aria-label="입장"><button type="button" class="lp-btn sm ghost" data-go-auth="login">로그인</button><button type="button" class="lp-btn sm acid" data-go-auth="join">초대코드로 가입</button></nav>
-    </header>
-
-    <div class="lp-hero">
-      <span class="lp-sticker">✦ 4인 전용 · 초대제 · 설치 0</span>
-      <h1 class="lp-h1">우리 팀 기록, <span class="hl">단톡방</span> 말고 <span class="ol">kitsbase</span></h1>
-      <p class="lp-lead">사업별로 <b>일정 · 아이디어 · 결정</b>을 박제하고, 네 명이 같은 화면을 <b>4초 안에</b> 같이 봐요. 캘린더부터 마인드맵, 팀 메모까지 한 판에.</p>
-      <div class="lp-ctas"><button type="button" class="lp-btn acid" data-go-auth="join">초대코드로 입장하기 →</button><button type="button" class="lp-btn" data-go-auth="login">이미 계정 있음 · 로그인</button></div>
-      <p class="lp-note">* 초대코드는 팀 관리자에게 받으세요</p>
-      <div class="lp-star" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#E8FF1F" stroke="#000" stroke-width="2" d="M50 2l7 14 15-7 1 16 16 1-7 15 14 7-14 9 7 15-16 1-1 16-15-7-7 14-7-14-15 7-1-16-16-1 7-15-14-9 14-7-7-15 16-1 1-16 15 7z"/></svg><span>팀 전용<br>한 판</span></div>
-    </div>
-  </div>
-
-  <div class="lp-marquee" aria-hidden="true"><div><span>캘린더 ✦ 작전실 ✦ 전체 마인드맵 ✦ 사업별 마인드맵 ✦ 세포 보기 ✦ 메모장 ✦ 팀 메모 ✦ 통합 검색 ✦ 알림 ✦ 다크 모드 ✦</span><span>캘린더 ✦ 작전실 ✦ 전체 마인드맵 ✦ 사업별 마인드맵 ✦ 세포 보기 ✦ 메모장 ✦ 팀 메모 ✦ 통합 검색 ✦ 알림 ✦ 다크 모드 ✦</span></div></div>
-
-  <div class="lp-wrap">
-    <section class="lp-sec" aria-labelledby="lp-pain-h">
-      <span class="lp-kicker">Sound familiar?</span>
-      <h2 class="lp-h2" id="lp-pain-h">이거 <em>우리 팀</em> 얘기 아님?</h2>
-      <div class="lp-pains"><div class="lp-pain" style="--pc:#FF9ACB;--rot:-2deg"><small>WHERE</small>그 결정, 누구 톡방에 있었더라…?</div><div class="lp-pain" style="--pc:#E8FF1F;--rot:1.5deg"><small>PROGRESS</small>프로젝트 몇 % 왔는지 아무도 모름</div><div class="lp-pain" style="--pc:#A9B2FF;--rot:-1deg"><small>SCATTERED</small>아이디어가 메모앱·노트·톡방에 뿔뿔이</div><div class="lp-pain" style="--pc:#FFB37A;--rot:2deg"><small>LOOP</small>“그거 봤어?” 무한 반복</div></div>
-      <p class="lp-answer">→ 흩어진 거 전부, <mark>사업 단위로 한 판</mark>에 모읍니다.</p>
-    </section>
-
-    <section class="lp-sec" aria-labelledby="lp-feat-h">
-      <span class="lp-kicker">Features · 한 판 정식</span>
-      <h2 class="lp-h2" id="lp-feat-h">기능 전부, <em>한 판에</em> 담았어요</h2>
-      <div class="lp-bento">
-        <article class="lp-card grad g-blue s8 tall">
-          <span class="lp-cap">01 · Calendar</span><h3>📅 캘린더 — 모든 기록의 시작</h3>
-          <p>일정만 적는 캘린더? 노노. <b>일정 · 아이디어 · 미션 · 결정</b> 4종 세트를 날짜와 사업에 딱 묶어 기록해요.</p>
-          <div class="v-cal" id="lp-cal" aria-hidden="true"></div>
-          <div class="lp-chips"><span class="lp-chip">월 · 주 · 목록</span><span class="lp-chip">사업 컬러 필터</span><span class="lp-chip">담당 · 시간 · 상태 · 중요도</span></div>
-        </article>
-        <article class="lp-card acid s4 tall">
-          <span class="lp-cap">Live sync</span><h3>⚡ 실시간 공유</h3>
-          <svg class="lp-dots" id="lp-dots" aria-hidden="true"></svg>
-          <p><b>초</b> 안에 반영. 누가 써도 네 명 화면에 바로 떠요. 새로고침? 안 해도 됨.</p>
-          <div class="lp-chips"><span class="lp-chip">자동 저장</span><span class="lp-chip">서버 보관</span></div>
-        </article>
-
-        <article class="lp-card grad g-pink s5 tall">
-          <span class="lp-cap">02 · War room</span><h3>🔥 작전실 — 우리 사업 지금 어디쯤?</h3>
-          <div class="v-orbit" aria-hidden="true"><span class="track"><i></i><i></i><i></i></span><span class="ring"></span><b>64<small>%</small></b></div>
-          <p>사업이 궤도를 빙글빙글. 진행률 · 담당 · 다음 행동 · 다가오는 일정이 한눈에.</p>
-          <div class="lp-chips"><span class="lp-chip">진행률 자동 계산</span><span class="lp-chip">‘미정’ · ‘필요 없음’ OK</span><span class="lp-chip">사업 요약 표</span><span class="lp-chip">12층 건설 현황</span></div>
-        </article>
-        <article class="lp-card grad g-graph s7 tall">
-          <span class="lp-cap">03 · Mind map</span><h3>🧠 마인드맵 — 전체 ↔ 사업별</h3>
-          <p>사업별 맵에서 아이디어를 펼치고, <b>전체 마인드맵</b>으로 꺼내와 큰 그림. 꺼내온 맵은 테두리째 같이 움직여요.</p>
-          <svg class="v-mm" viewBox="0 0 520 150" aria-hidden="true">
-            <rect x="250" y="8" width="262" height="134" rx="18" fill="rgba(232,255,31,.08)" stroke="#E8FF1F" stroke-width="2" stroke-dasharray="9 6"/>
-            <text x="268" y="32" fill="#E8FF1F" font-family="Geist, sans-serif" font-size="13" font-weight="700">글로벌 사업 · 꺼내옴</text>
-            <path d="M150 75 C 200 75, 220 60, 272 64" stroke="#fff" stroke-width="2" fill="none"/><path d="M150 75 C 200 75, 220 110, 272 112" stroke="#fff" stroke-width="2" fill="none"/>
-            <path d="M372 64 L 410 64" stroke="#A9B2FF" stroke-width="2"/>
-            <rect x="20" y="50" width="130" height="50" rx="14" fill="#fff"/><text x="85" y="80" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif" font-size="14" font-weight="700" fill="#0B0B0C">전체 마인드맵</text>
-            <rect x="272" y="46" width="100" height="36" rx="10" fill="#A9B2FF"/><text x="322" y="69" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif" font-size="12" font-weight="700" fill="#0B0B0C">타깃 고객</text>
-            <circle cx="448" cy="64" r="34" fill="#FFB37A"/><text x="448" y="68" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif" font-size="12" font-weight="700" fill="#0B0B0C">가격 실험</text>
-            <polygon points="322,96 362,114 322,132 282,114" fill="#FF9ACB"/><text x="322" y="118" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif" font-size="11" font-weight="700" fill="#0B0B0C">결정!</text>
-          </svg>
-          <div class="lp-chips"><span class="lp-chip">도형 · 이미지 · 연결선</span><span class="lp-chip">정렬 · 단축키</span><span class="lp-chip">실행 취소</span><span class="lp-chip">자동 저장</span></div>
-        </article>
-
-        <article class="lp-card grad g-green s4">
-          <span class="lp-cap">04 · Cell lab</span><h3>🦠 세포 보기 <span class="lp-new">NEW</span></h3>
-          <div class="v-cells" aria-hidden="true"><i>사업A</i><i>사업B</i><i></i><s style="left:40%;top:30px"></s><s style="left:44%;top:60px;animation-delay:-1s"></s><s style="left:30%;top:120px;animation-delay:-2s"></s></div>
-          <p>사업 = 세포. 아이디어 많을수록 통통해지고, 먹이 주면 헤엄쳐 와요. 두 번 누르면 바로 그 사업 마인드맵.</p>
-        </article>
-        <article class="lp-card glass s4">
-          <span class="lp-cap">05 · Team notes</span><h3>💬 팀 메모</h3>
-          <div class="v-chat" aria-hidden="true"><div><small>→ 대표 B</small>회의 자료 확인 부탁해요!</div><div class="me"><small>읽음 ✓</small>확인 완료 🙌</div><div><small>→ 전체 팀원</small>금요일 회고 잊지 말기</div></div>
-          <p>콕 집어 한 명에게, 아니면 전체에게. 읽음 확인 + 알림까지 챙겨요. “그거 봤어?”는 이제 안녕.</p>
-        </article>
-        <article class="lp-card glass s4">
-          <span class="lp-cap">06 · Notebook</span><h3>📝 메모장</h3>
-          <div class="v-notes" aria-hidden="true"><span style="--nc:#FFF0CC;--r:-5deg;left:0;top:14px">회의록<small>폴더 · 회의</small></span><span style="--nc:#E5F3FF;--r:3deg;left:96px;top:4px">참고자료<small>폴더 · 리서치</small></span><span style="--nc:#FBE7F2;--r:-2deg;left:190px;top:22px">아이디어<small>미분류</small></span></div>
-          <p>회의록 · 참고자료를 사업별 폴더에. 글자 크기 · 색 · 굵기까지 맘대로 꾸미기.</p>
-        </article>
-
-        <article class="lp-card glass s3 lp-tile"><span class="emo" aria-hidden="true">🔍</span><h3>통합 검색</h3><p>일정 · 사업 · 메모를 검색창 하나로 한 방에.</p></article>
-        <article class="lp-card glass s3 lp-tile"><span class="emo" aria-hidden="true">🔔</span><h3>알림</h3><p>앞으로 7일 일정 + 안 읽은 팀 메모를 종 하나에.</p></article>
-        <article class="lp-card glass s3 lp-tile"><span class="emo" aria-hidden="true">📱🌙</span><h3>어디서나, 밤에도</h3><p>PC · 폰 브라우저 그대로. 다크 모드 자동 전환.</p></article>
-        <article class="lp-card grad g-copper s3 lp-tile"><span class="emo" aria-hidden="true">🔒</span><h3>우리끼리만</h3><p>초대코드 있는 팀원만 입장. 정원 4명.</p></article>
-      </div>
-    </section>
-  </div>
-
-  <div class="lp-marquee b" aria-hidden="true"><div><span>일정은 박제 ✦ 아이디어는 키우고 ✦ 결정은 남기고 ✦ 팀은 같은 화면 ✦</span><span>일정은 박제 ✦ 아이디어는 키우고 ✦ 결정은 남기고 ✦ 팀은 같은 화면 ✦</span></div></div>
-
-  <div class="lp-wrap">
-    <section class="lp-sec" aria-labelledby="lp-step-h">
-      <span class="lp-kicker">How to start</span>
-      <h2 class="lp-h2" id="lp-step-h">입장까지 <em>딱 3스텝</em></h2>
-      <div class="lp-steps">
-        <div class="lp-step"><b>01</b><h3>초대코드로 가입</h3><p>팀에서 받은 코드에 이름 + 비밀번호만 정하면 끝. 다음부턴 이름이랑 비번으로 로그인.</p></div>
-        <div class="lp-step"><b>02</b><h3>사업 등록</h3><p>작전실에서 굴릴 사업을 추가해요. 종료일이 아직 미정이어도 OK.</p></div>
-        <div class="lp-step"><b>03</b><h3>박제하고 공유</h3><p>캘린더에 일정, 마인드맵에 아이디어, 팀 메모로 전달사항. 팀원 화면에 몇 초 안에 떠요.</p></div>
-      </div>
-    </section>
-
-    <section class="lp-sec" aria-labelledby="lp-faq-h">
-      <span class="lp-kicker">FAQ</span>
-      <h2 class="lp-h2" id="lp-faq-h">궁금한 거, <em>미리 답함</em></h2>
-      <div class="lp-faq">
-        <details><summary>앱 설치해야 돼요?</summary><p>아니요. 링크를 브라우저로 열면 끝이에요. 휴대폰에서도 똑같이 돼요.</p></details>
-        <details><summary>아무나 들어올 수 있어요?</summary><p>팀 초대코드를 받은 사람만 가입할 수 있고, 팀원은 최대 4명이에요.</p></details>
-        <details><summary>다른 사람이 쓴 건 언제 보여요?</summary><p>몇 초 안에 자동으로 떠요. 새로고침 안 해도 돼요.</p></details>
-        <details><summary>진행률을 매번 직접 넣어야 해요?</summary><p>아니요. 시작일이랑 예상 종료일만 정하면 매일 자동 계산돼요. 필요 없으면 ‘필요 없음’ 고르면 끝.</p></details>
-        <details><summary>전체 마인드맵에서 고치면 원본도 바뀌어요?</summary><p>아니요. 꺼내온 건 복사본이라 사업별 원본은 그대로예요. 테두리를 누르면 원본으로 바로 갈 수 있어요.</p></details>
-        <details><summary>비밀번호 까먹었어요 😇</summary><p>팀 관리자에게 말하면 계정을 초기화해줘요. 다시 가입해도 그동안 쓴 일정 · 메모는 그대로 남아요.</p></details>
-      </div>
-    </section>
-
-    <section class="lp-start" id="start" aria-labelledby="lp-start-h">
-      <div><span class="lp-kicker">Let’s go</span><h2 class="lp-h2" id="lp-start-h">흩어진 기록,<br><em>오늘 한 판으로.</em></h2><p class="lp-sub">초대코드가 있다면 ‘처음 가입’, 이미 계정이 있다면 ‘로그인’.</p></div>
+<section class="auth" id="auth" hidden>
   <div class="auth-card">
     <div class="brand" style="padding:0"><div class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h3v3H8z" fill="currentColor"/></svg></div><div><div class="brand-name">kits<b>base</b></div><small>BUSINESS CALENDAR</small></div></div>
     <div><h1 id="auth-title">팀 작업공간 로그인</h1></div>
@@ -916,10 +673,6 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
       <button class="btn primary" type="submit">가입하고 시작하기</button>
     </form>
     <p class="auth-err" id="auth-err" role="alert"></p>
-  </div>
-    </section>
-
-    <footer class="lp-foot"><b>kitsbase</b><span>팀이 함께 쓰는 사업 캘린더</span><span>캘린더 · 작전실 · 마인드맵 · 메모장 · 팀 메모</span></footer>
   </div>
 </section>
 <div class="app">
@@ -962,6 +715,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
 <div class="toast-wrap" id="toasts" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="/finance-bento.js"></script>
 <script>
 "use strict";
 /* ============ constants & helpers ============ */
@@ -996,6 +750,7 @@ const icon=(name,size=16)=>{const p={
   cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   flame:'<path d="M12 22c4.4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 2.6 7 7 7z"/>',
   map:'<circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6l4 4M18 6l-4 4M6 18l4-4M18 18l-4-4"/>',
+  chart:'<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/>',
   users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
   note:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
   plus:'<path d="M12 5v14M5 12h14"/>', left:'<path d="m15 18-6-6 6-6"/>', right:'<path d="m9 18 6-6-6-6"/>', down:'<path d="m6 9 6 6 6-6"/>',
@@ -1084,7 +839,7 @@ function serverDB(){
 let authColor="#DD3A2E";
 function showAuth(msg){document.body.classList.add("locked");$("#auth").hidden=false;$("#auth-err").textContent=msg||"";
   $("#jo-colors").innerHTML=MEMBER_COLORS.map(c=>`<button type="button" data-auth-color="${c}" class="${c===authColor?"on":""}" style="--sw:${c}" aria-label="${c} 색상"></button>`).join("");
-  if(msg)setTimeout(()=>{const st=$("#start");if(st)st.scrollIntoView({block:"center"})},30)}
+  setTimeout(()=>{const f=$("#auth-login").hidden?$("#jo-invite"):$("#li-name");if(f)f.focus()},30)}
 function hideAuth(){document.body.classList.remove("locked");$("#auth").hidden=true}
 function setAuthTab(t){const join=t==="join";$("#auth-login").hidden=join;$("#auth-join").hidden=!join;$$("[data-auth]").forEach(b=>b.classList.toggle("active",b.dataset.auth===t));
   $("#auth-title").textContent=join?"처음 가입하기":"팀 작업공간 로그인";$("#auth-lead").textContent=join?"팀 초대코드를 입력하고 내 이름과 비밀번호를 정하세요. 다음부터는 이름과 비밀번호로 로그인합니다.":"등록한 이름과 비밀번호로 들어갑니다. 처음이라면 팀에서 받은 초대코드로 가입하세요.";$("#auth-err").textContent=""}
@@ -1121,9 +876,9 @@ function visibleItems(){const pm=projMap();return S.items.filter(it=>isISO(it.ev
 const byTime=(a,b)=>String(a.eventDate).localeCompare(String(b.eventDate))||String(a.time||"99").localeCompare(String(b.time||"99"))||String(a.title).localeCompare(String(b.title));
 
 /* ============ shell ============ */
-const NAV=[{id:"calendar",label:"캘린더",eyebrow:"Business Calendar",icon:"cal"},{id:"projects",label:"작전실",eyebrow:"War Room",icon:"flame"},{id:"mindmap",label:"마인드맵",eyebrow:"Mind Map",icon:"map"},{id:"notes",label:"메모장",eyebrow:"Notebook",icon:"note"},{id:"team",label:"팀 메모",eyebrow:"Team Notes",icon:"users"}];
+const NAV=[{id:"calendar",label:"캘린더",eyebrow:"Business Calendar",icon:"cal"},{id:"projects",label:"작전실",eyebrow:"War Room",icon:"flame"},{id:"mindmap",label:"마인드맵",eyebrow:"Mind Map",icon:"map"},{id:"notes",label:"메모장",eyebrow:"Notebook",icon:"note"},{id:"team",label:"팀 메모",eyebrow:"Team Notes",icon:"users"},{id:"finance",label:"재무",eyebrow:"Finance",icon:"chart"}];
 function renderNav(){
-  const counts={calendar:S.items.length,projects:projects().length,mindmap:"",notes:S.notes.length,team:unreadMemos().length||""};
+  const counts={calendar:S.items.length,projects:projects().length,mindmap:"",notes:S.notes.length,team:unreadMemos().length||"",finance:""};
   $("#nav").innerHTML=`<span class="eyebrow">Workspace</span>`+NAV.map(n=>`<button data-nav="${n.id}" class="${S.nav===n.id?"active":""}">${icon(n.icon,18)}<span>${n.label}</span><span class="count">${S.loaded&&counts[n.id]!==""?counts[n.id]:""}</span></button>`).join("");
   $("#tabbar").innerHTML=NAV.map(n=>`<button data-nav="${n.id}" class="${S.nav===n.id?"active":""}">${icon(n.icon,20)}<span>${n.label}</span></button>`).join("");
   const cur=NAV.find(n=>n.id===S.nav);$("#page-title").textContent=cur.label;$("#page-eyebrow").textContent=cur.eyebrow;
@@ -1133,15 +888,23 @@ function renderNav(){
 }
 function go(nav){if(S.nav===nav)return;if(S.nav==="mindmap")MM.leave();S.nav=nav;if(location.hash!=="#"+nav){try{history.replaceState(null,"","#"+nav)}catch(e){}}render();window.scrollTo(0,0)}
 let raf=0;function scheduleRender(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;render()})}
-function render(){renderNav();const v=$("#view");
+function render(){renderNav();const v=$("#view");if(S.nav!=="finance")FIN.unmount();
   if(S.nav==="calendar")v.innerHTML=renderCalendar();
   else if(S.nav==="projects")v.innerHTML=renderProjects();
   else if(S.nav==="notes")v.innerHTML=renderNotes();
   else if(S.nav==="mindmap")MM.mountOrUpdate(v);
   else if(S.nav==="team")v.innerHTML=renderTeam();
+  else if(S.nav==="finance")FIN.mount(v);
   if(S.nav==="projects")WR.mount();
   if(!$("#search-results").hidden)renderSearch();
 }
+
+/* ============ finance (Finance Bento component, public/finance-bento.js) ============ */
+const FIN={stop:null,host:null,
+  mount(v){if(this.host&&v.contains(this.host))return;this.unmount();v.innerHTML=`<div id="fin-host"></div>`;this.host=$("#fin-host");
+    if(!window.FinanceBento){this.host.innerHTML=`<div class="panel"><div class="empty-block"><strong>재무 대시보드를 불러오지 못했습니다</strong><span>잠시 후 새로고침해 주세요.</span></div></div>`;return}
+    this.stop=window.FinanceBento.render(this.host,{data:window.FinanceBento.demoData,title:"Overview",subtitle:"예시 데이터 · 팀 데이터와 연결되어 있지 않습니다"})},
+  unmount(){if(this.stop){this.stop();this.stop=null}this.host=null}};
 
 /* ============ calendar ============ */
 function loadingNote(){return S.loaded?"":`<div class="loading-note"><span class="spin"></span>공유 데이터를 불러오는 중…</div>`}
@@ -1849,17 +1612,6 @@ const MM={pid:null,curKey:null,tab:(()=>{try{const t=localStorage.getItem("kitsb
   }
 };
 
-/* landing: CTA buttons, mini calendar, dot-matrix number */
-(function lpInit(){
-  const root=$("#auth");if(!root)return;
-  root.addEventListener("click",e=>{const b=e.target.closest("[data-go-auth]");if(!b)return;setAuthTab(b.dataset.goAuth);const st=$("#start");if(st)st.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
-    setTimeout(()=>{const f=b.dataset.goAuth==="join"?$("#jo-invite"):$("#li-name");if(f)f.focus({preventScroll:true})},450)});
-  const cal=$("#lp-cal");if(cal){const pills={3:["#E8FF1F"],6:["#FF9ACB","#fff"],9:["#FFB37A"],12:["#E8FF1F","#A9B2FF"],15:["#fff"],18:["#FF9ACB"],20:["#A9B2FF","#E8FF1F","#fff"],24:["#FFB37A"],27:["#E8FF1F"]};
-    cal.innerHTML=Array.from({length:28},(_,i)=>`<span class="${i===12?"t":""}">${i+1}${(pills[i]||[]).map(c=>`<i style="--c:${c}"></i>`).join("")}</span>`).join("")}
-  const svg=$("#lp-dots");if(svg){const F={"0":["01110","10001","10011","10101","11001","10001","01110"],"4":["00010","00110","01010","10010","11111","00010","00010"]};
-    const txt="4",p=11;let x=0,dots="";for(const ch of txt){const g=F[ch];for(let r=0;r<7;r++)for(let k=0;k<5;k++)dots+=`<circle cx="${(x+k)*p+p/2}" cy="${r*p+p/2}" r="${p*.38}" fill="#0B0B0C" opacity="${g[r][k]==="1"?1:.1}"/>`;x+=6}
-    svg.setAttribute("viewBox",`0 0 ${(x-1)*p} ${7*p}`);svg.setAttribute("width",(x-1)*p);svg.setAttribute("height",7*p);svg.innerHTML=dots}
-})();
 boot();
 </script>
 </body></html>
