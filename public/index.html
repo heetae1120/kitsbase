@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="kitsbase: 팀이 함께 쓰는 사업 캘린더"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%225%22 fill=%22%2316A34A%22/%3E%3Cpath d=%22M6 8h12v10H6zM6 11h12M9 6v3M15 6v3%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>kitsbase</title>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="kitsbase: 팀이 함께 쓰는 사업 캘린더"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%225%22 fill=%22%2316A34A%22/%3E%3Cpath d=%22M6 8h12v10H6zM6 11h12M9 6v3M15 6v3%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>kitsbase</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -18,24 +18,6 @@
   --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --r:10px; --rail:228px;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#000000; --surface:#0E0F0E; --surface-2:#191B19; --line:#272A27; --line-strong:#3B3F3B;
-  --ink:#FFFFFF; --ink-2:#BCC0BC; --ink-3:#848984;
-  --accent:#22C55E; --accent-ink:#000000; --accent-soft:#0C2615; --accent-line:#1D6B3A;
-  --today:#FFFFFF; --today-ink:#000000;
-  --k-event:#6EA2FF; --k-idea:#F2B24B; --k-mission:#A887FF; --k-decision:#2DD4BF;
-  --danger:#FF6B5E; --ok:#22C55E;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.5);
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#000000; --surface:#0E0F0E; --surface-2:#191B19; --line:#272A27; --line-strong:#3B3F3B;
-  --ink:#FFFFFF; --ink-2:#BCC0BC; --ink-3:#848984;
-  --accent:#22C55E; --accent-ink:#000000; --accent-soft:#0C2615; --accent-line:#1D6B3A;
-  --today:#FFFFFF; --today-ink:#000000;
-  --k-event:#6EA2FF; --k-idea:#F2B24B; --k-mission:#A887FF; --k-decision:#2DD4BF;
-  --danger:#FF6B5E; --ok:#22C55E;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.5);
-  color-scheme:dark}
 
 *{box-sizing:border-box}
 html,body{background:var(--bg)}
@@ -268,18 +250,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .stat b{display:block;font:800 30px/1.1 var(--f-display);margin:4px 0 2px}
 .stat small{color:var(--ink-3)}
 
-.yard{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:18px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
-.lot{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px;border-radius:10px;text-align:center;min-width:0}
-.lot:hover{background:var(--surface-2)}
-.tower{width:96px;display:flex;flex-direction:column;gap:2px;justify-content:flex-end;height:250px}
-.floor{height:17px;border-radius:2px;border:1px dashed var(--line-strong);display:flex;gap:3px;align-items:center;justify-content:center;padding:0 6px;position:relative}
-.floor.built{border:0;background:var(--c)}
-.floor.built i{width:9px;height:7px;background:rgba(255,240,200,.85);border-radius:1px}
-.floor.framing{border:1px solid var(--c);background:repeating-linear-gradient(45deg,transparent 0 5px,color-mix(in srgb,var(--c) 30%,transparent) 5px 7px)}
 .foundation{height:10px;background:var(--ink-2);border-radius:2px;width:118px}
-.lot small{font:600 9.5px var(--f-mono);letter-spacing:.08em;color:var(--ink-3)}
-.lot strong{display:block;font-size:14px}
-.lot .meta{font:500 11.5px var(--f-mono);color:var(--ink-2)}
 
 .proj-detail{display:flex;flex-direction:column;gap:14px}
 .proj-top{display:flex;gap:14px;align-items:center}
@@ -297,7 +268,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 
 
 /* ---------- war room orbit ---------- */
-.orb{position:relative;height:clamp(460px,64vh,620px);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:radial-gradient(circle at 22% -10%,color-mix(in srgb,var(--c) 18%,transparent),transparent 55%),var(--surface);outline:none}
+.orb{position:relative;height:clamp(460px,64vh,620px);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);outline:none}
 .orb:focus-visible{box-shadow:0 0 0 2px var(--accent)}
 .orb-canvas{position:absolute;left:50%;top:50%;width:960px;height:520px;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:50% 50%}
 .orb-arc{position:absolute;left:0;top:0;width:960px;height:520px;overflow:visible;pointer-events:none}
@@ -481,7 +452,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 
 /* ---------- sign in ---------- */
 .locked .app,.locked .tabbar{display:none}
-.auth{min-height:100vh;display:grid;place-items:center;padding-block:32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:radial-gradient(circle at 20% 0%,var(--accent-soft),transparent 55%),var(--bg)}
+.auth{min-height:100vh;display:grid;place-items:center;padding-block:32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--bg)}
 .auth-card{width:min(420px,100%);background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:26px 24px 22px;display:flex;flex-direction:column;gap:14px}
 .auth-card h1{font:800 24px/1.15 var(--f-display);letter-spacing:-.02em}
 .auth-card p.lead{color:var(--ink-2);font-size:13.5px;margin-top:-6px}
@@ -526,7 +497,6 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .kind{justify-content:center;vertical-align:middle}
 .arow .kind{min-width:58px}
 .ditem .t span .kind{margin-right:2px}
-.yard{grid-template-columns:repeat(auto-fit,minmax(180px,220px));justify-content:center}
 .stat{text-align:center}
 .sum th.n,.sum td.n{text-align:center}
 .datetile,.num,.orb-th button,.lp-tile{text-align:center}
@@ -846,7 +816,7 @@ const NOTE_COLORS=["#FFFFFF","#FFE5E2","#FFF0CC","#E9F8EE","#E5F3FF","#EFE9FF","
 const OWNERS=["공동","대표 A","대표 B"];
 const KIND={event:{label:"일정"},idea:{label:"아이디어"},mission:{label:"미션"},decision:{label:"결정"}};
 const STATUS_BY_KIND={event:["예정","진행 중","완료"],mission:["예정","진행 중","완료"],idea:["검토","채택","보류"],decision:["확정","재검토"]};
-const TOTAL_FLOORS=12;
+
 const WD=["일","월","화","수","목","금","토"];
 const HEX=/^#[0-9A-Fa-f]{6}$/;
 const $=(s,r=document)=>r.querySelector(s);
@@ -864,7 +834,7 @@ const rgbToHex=(r,g,b)=>"#"+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(+v
 const tint=(hex,s=.14)=>{const {r,g,b}=hexToRgb(col(hex,"#16A34A"));return rgbToHex(255-(255-r)*s,255-(255-g)*s,255-(255-b)*s)};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const scheduleProgress=(s,e)=>{if(!isISO(s)||!isISO(e))return null;const a=parseISO(s).getTime(),b=parseISO(e).getTime(),t=parseISO(todayISO()).getTime();if(b<=a)return null;return clamp(Math.round((t-a)/(b-a)*100),0,100)};
-const floorsOf=p=>Math.max(1,Math.ceil(p/100*TOTAL_FLOORS));
+
 const stageOf=p=>p<25?"기초 공사":p<55?"골조 공사":p<85?"외장 공사":"마감 공사";
 const fmtMD=s=>{const d=parseISO(s);return `${d.getMonth()+1}.${pad(d.getDate())}`};
 const fmtLong=s=>{const d=parseISO(s);return `${d.getMonth()+1}월 ${d.getDate()}일 (${WD[d.getDay()]})`};
@@ -915,7 +885,7 @@ const S={nav:"calendar",projects:[],items:[],notes:[],folders:[],members:[],mess
   cursor:null,selected:todayISO(),calView:"month",filter:"all",expanded:new Set(),search:"",
   projMode:"orbit",notesProject:null,folderFilter:"all",mode:"connecting",loaded:false};
 S.cursor=(d=>new Date(d.getFullYear(),d.getMonth(),1))(parseISO(S.selected));
-try{const v=localStorage.getItem("kitsbase:prefs");if(v){const p=JSON.parse(v);if(["month","week","list"].includes(p.calView))S.calView=p.calView;if(["orbit","build"].includes(p.projMode))S.projMode=p.projMode}}catch(e){}
+try{const v=localStorage.getItem("kitsbase:prefs");if(v){const p=JSON.parse(v);if(["month","week","list"].includes(p.calView))S.calView=p.calView;}}catch(e){}
 const savePrefs=()=>{try{localStorage.setItem("kitsbase:prefs",JSON.stringify({calView:S.calView,projMode:S.projMode}))}catch(e){}};
 let DB=null;const LS="kitsbase:data:v1";const COLS=["projects","items","notes","folders","members","messages","tasks","stock","sales"];
 function loadLocal(){try{const d=JSON.parse(localStorage.getItem(LS)||"null");if(d){COLS.forEach(c=>{if(Array.isArray(d[c]))S[c]=d[c]});if(d.mindmaps&&typeof d.mindmaps==="object")S.mindmaps=d.mindmaps}}catch(e){}try{S.meId=localStorage.getItem("kitsbase:me")||null}catch(e){}}
@@ -1151,7 +1121,7 @@ function openNewProject(){
 function openProjectDetail(p){
   const sch=S.items.filter(it=>it.projectId===p.id&&isISO(it.eventDate)).sort(byTime);const next=sch.find(it=>it.eventDate>=todayISO());
   openDialog({eyebrow:p.category,title:p.name,
-    body:`<div class="proj-detail" style="--c:${p.color}"><div class="proj-top"><div class="proj-badge">${floorsOf(p.progress)}F<small>/ ${TOTAL_FLOORS}F</small></div><p style="color:var(--ink-2)">${esc(p.nextAction)}</p></div>
+    body:`<div class="proj-detail" style="--c:${p.color}"><div class="proj-top"><div class="proj-badge">${pct(p)}</div><p style="color:var(--ink-2)">${esc(p.nextAction)}</p></div>
       <dl class="dl"><div><dt>담당</dt><dd>${esc(p.owner)}</dd></div><div><dt>상태</dt><dd>${esc(stageOf(p.progress))}</dd></div>${p.startDate?`<div><dt>시작</dt><dd class="mono">${esc(p.startDate)}</dd></div>`:""}<div><dt>예상 종료</dt><dd class="mono">${esc(p.deadline)}</dd></div><div><dt>연결 일정</dt><dd>${sch.length}개</dd></div><div><dt>다음 일정</dt><dd>${next?esc(fmtMD(next.eventDate)+" "+next.title):"없음"}</dd></div></dl>
       <div class="progress"><header><span>${p.noProg?"진행률 미사용":p.progressMode==="auto"?"일정 자동 진행률":"직접 입력한 진행률"}</span><b>${pct(p)}</b></header><div class="track"><i style="width:${p.progress}%"></i></div></div>
       <div class="dlg-actions"><button type="button" class="btn" id="d-edit">${icon("pen",14)} 사업 수정</button><span class="spacer"></span><button type="button" class="btn primary" id="d-cal">${icon("cal",14)} 캘린더에서 보기</button></div></div>`,
@@ -1212,8 +1182,8 @@ function orbitHTML(P){
   return `<section class="orb" id="orb" tabindex="0" role="region" aria-roledescription="carousel" aria-label="진행 중인 사업 궤도. 좌우 방향키로 사업을 바꿉니다." style="--c:${cur.color}"><div class="orb-canvas">
     <svg class="orb-arc" viewBox="0 0 960 520" aria-hidden="true"><path id="orb-arc" fill="${cur.color}" opacity=".32"/></svg>
     <div class="orb-pager" role="tablist" aria-label="사업 선택">${P.map((p,i)=>`<button type="button" class="orb-dot ${i===i0?"on":""}" role="tab" aria-selected="${i===i0}" data-orb-go="${i}" style="--c:${p.color}" aria-label="${esc(p.name)}"><i></i></button>`).join("")}</div>
-    <div class="orb-plates" id="orb-plates">${P.map((p,i)=>`<div class="orb-plate ${i===i0?"on":""}" data-plate="${i}" aria-hidden="${i!==i0}"><div class="plate" style="--c:${p.color};--p:${p.progress}"><span class="ring"></span><span class="plate-core">${p.noProg?`<strong style="color:${p.color}">${esc(p.name.slice(0,1))}</strong><small>진행률 미사용</small>`:`<strong>${p.progress}<em>%</em></strong><small>${floorsOf(p.progress)}F · ${esc(stageOf(p.progress))}</small>`}</span></div></div>`).join("")}</div>
-    <div class="orb-head">${P.map((p,i)=>`<div class="orb-hd ${i===i0?"on":""}" data-head="${i}" aria-hidden="${i!==i0}"><p class="orb-eye">#${i+1} · ${p.noProg?"진행률 미사용":`${esc(stageOf(p.progress))} · ${floorsOf(p.progress)}F`}</p><h2><span class="orb-t1" style="font-size:${fitSize(p.category.length,46,320,.58).toFixed(1)}px">${esc(p.category)}</span><span class="orb-t2" style="font-size:${fitSize(p.name.length,56,320,1.02).toFixed(1)}px">${esc(p.name)}</span></h2></div>`).join("")}</div>
+    <div class="orb-plates" id="orb-plates">${P.map((p,i)=>`<div class="orb-plate ${i===i0?"on":""}" data-plate="${i}" aria-hidden="${i!==i0}"><div class="plate" style="--c:${p.color};--p:${p.progress}"><span class="ring"></span><span class="plate-core">${p.noProg?`<strong style="color:${p.color}">${esc(p.name.slice(0,1))}</strong><small>진행률 미사용</small>`:`<strong>${p.progress}<em>%</em></strong><small>${esc(stageOf(p.progress))}</small>`}</span></div></div>`).join("")}</div>
+    <div class="orb-head">${P.map((p,i)=>`<div class="orb-hd ${i===i0?"on":""}" data-head="${i}" aria-hidden="${i!==i0}"><p class="orb-eye">#${i+1} · ${p.noProg?"진행률 미사용":`${esc(stageOf(p.progress))}`}</p><h2><span class="orb-t1" style="font-size:${fitSize(p.category.length,46,320,.58).toFixed(1)}px">${esc(p.category)}</span><span class="orb-t2" style="font-size:${fitSize(p.name.length,56,320,1.02).toFixed(1)}px">${esc(p.name)}</span></h2></div>`).join("")}</div>
     <div class="orb-acts"><button type="button" class="orb-act" data-orb-cal>${icon("cal",15)}캘린더에서 보기</button><button type="button" class="orb-act" data-orb-add>${icon("plus",15)}일정 추가</button></div>
     <div class="orb-card" data-tab="${WR.tab}"><div class="orb-tabs" role="tablist" aria-label="사업 정보"><button type="button" role="tab" data-orb-tab="overview" aria-selected="${WR.tab==="overview"}">개요</button><button type="button" role="tab" data-orb-tab="sched" aria-selected="${WR.tab==="sched"}">다가오는 일정</button></div>
       <div class="orb-bodies">${P.map((p,i)=>{const up=S.items.filter(it=>it.projectId===p.id&&isISO(it.eventDate)&&it.eventDate>=today).sort(byTime).slice(0,4);const tb=i===i0?0:-1;
@@ -1226,16 +1196,15 @@ function orbitHTML(P){
       <button type="button" class="orb-arrow" data-orb-step="1" aria-label="다음 사업"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M1 0v16l11-8z"/></svg></button></div>
   </div><p class="sr" id="orb-live" aria-live="polite">${P.length}개 중 ${i0+1}번째 사업: ${esc(cur.name)}</p></section>`;
 }
-function buildHTML(P){return `<section class="yard" aria-label="사업 건설 현황">${P.length?P.map((p,i)=>{const f=floorsOf(p.progress);return `<button class="lot" data-orb-go="${i}" style="--c:${p.color}"><div class="tower">${Array.from({length:TOTAL_FLOORS},(_,k)=>{const n=TOTAL_FLOORS-k;const st=n<=f?"built":n===f+1?"framing":"future";return `<div class="floor ${st}">${st==="built"?"<i></i><i></i><i></i><i></i>":""}</div>`}).join("")}</div><div class="foundation"></div><small>${esc(p.category)}</small><strong>${esc(p.name)}</strong><span class="meta">${f} / ${TOTAL_FLOORS}층 · ${pct(p)}</span></button>`}).join(""):`<div class="empty-block" style="grid-column:1/-1"><strong>건설 부지가 비어 있습니다</strong><span>새 사업을 추가하면 건물이 올라갑니다.</span></div>`}</section>`}
 function summaryHTML(P,avg){if(!P.length)return "";const today=todayISO();
   return `<section class="panel summary" aria-label="사업 요약"><div class="biz-head"><h3>사업 요약</h3><span>${P.length}개 사업 · 평균 진행률 ${avg}% · 행을 누르면 위 궤도가 그 사업으로 돌아갑니다</span></div><div class="sum-wrap"><table class="sum"><thead><tr><th>사업</th><th>진행률</th><th>담당</th><th>기간</th><th>다음 일정</th><th class="n">일정</th><th class="n">아이디어</th><th class="n">미션</th><th class="n">결정</th><th class="n">메모</th></tr></thead><tbody>${P.map((p,i)=>{const its=S.items.filter(it=>it.projectId===p.id);const c=k=>its.filter(it=>(it.kind||"event")===k).length;const nx=its.filter(it=>isISO(it.eventDate)&&it.eventDate>=today).sort(byTime)[0];
-    return `<tr data-orb-go="${i}" class="${i===WR.idx&&S.projMode==="orbit"?"cur":""}" style="--c:${p.color}"><td><span class="sum-name"><i></i><span><small>${esc(p.category)}</small><strong>${esc(p.name)}</strong></span></span></td><td><span class="sum-prog"><span class="track"><i style="width:${p.progress}%"></i></span><b>${pct(p)}</b></span></td><td>${esc(p.owner)}</td><td class="mono" style="white-space:nowrap">${esc((p.startDate||"—")+" → "+p.deadline)}</td><td><div class="sum-next">${nx?`<span class="mono">${fmtMD(nx.eventDate)}</span> ${esc(nx.title)}`:"—"}</div></td><td class="n">${c("event")}</td><td class="n">${c("idea")}</td><td class="n">${c("mission")}</td><td class="n">${c("decision")}</td><td class="n">${S.notes.filter(n=>n.projectId===p.id).length}</td></tr>`}).join("")}</tbody></table></div></section>`}
+    return `<tr data-orb-go="${i}" class="${i===WR.idx?"cur":""}" style="--c:${p.color}"><td><span class="sum-name"><i></i><span><small>${esc(p.category)}</small><strong>${esc(p.name)}</strong></span></span></td><td><span class="sum-prog"><span class="track"><i style="width:${p.progress}%"></i></span><b>${pct(p)}</b></span></td><td>${esc(p.owner)}</td><td class="mono" style="white-space:nowrap">${esc((p.startDate||"—")+" → "+p.deadline)}</td><td><div class="sum-next">${nx?`<span class="mono">${fmtMD(nx.eventDate)}</span> ${esc(nx.title)}`:"—"}</div></td><td class="n">${c("event")}</td><td class="n">${c("idea")}</td><td class="n">${c("mission")}</td><td class="n">${c("decision")}</td><td class="n">${S.notes.filter(n=>n.projectId===p.id).length}</td></tr>`}).join("")}</tbody></table></div></section>`}
 function renderProjects(){
   const plist=projects();if(WR.idx>=plist.length)WR.idx=0;
   const pp=plist.filter(p=>!p.noProg);const avg=pp.length?Math.round(pp.reduce((s,p)=>s+p.progress,0)/pp.length):0;const sched=S.items.filter(it=>isISO(it.eventDate)&&it.eventDate>=todayISO()).length;
   return `${loadingNote()}<div class="sec-head"><div><h2>kitsbase 작전실</h2><p>진행 중인 사업이 궤도를 돌며 하나씩 나타납니다. 화살표·썸네일·방향키·스와이프로 사업을 바꾸고, 가운데 접시를 누르면 상세가 열립니다.</p></div>
-    <div class="tools"><div class="seg">${[["orbit","사업 궤도"],["build","건설 현황"]].map(([k,l])=>`<button data-projmode="${k}" class="${S.projMode===k?"active":""}">${l}</button>`).join("")}</div></div></div>
-    ${S.projMode==="orbit"?orbitHTML(plist):buildHTML(plist)}
+    </div>
+    ${orbitHTML(plist)}
     <div class="stats"><div class="stat"><b class="mono">${pad(plist.length)}</b><small>진행 중인 사업</small></div><div class="stat"><b class="mono">${avg}%</b><small>평균 진행률</small></div><div class="stat"><b class="mono">${sched}</b><small>오늘 이후 등록된 일정</small></div></div>
     ${summaryHTML(plist,avg)}`;
 }
@@ -1638,7 +1607,6 @@ document.addEventListener("click",async e=>{
   if((el=a("[data-edit-project]"))){const p=projects().find(x=>x.id===el.dataset.editProject);if(p)openProjectEditor(p);return}
   if(a("[data-new-project]")){openNewProject();return}
   if((el=a("[data-detail]"))){const p=projects().find(x=>x.id===el.dataset.detail);if(p)openProjectDetail(p);return}
-  if((el=a("[data-projmode]"))){S.projMode=el.dataset.projmode;savePrefs();render();return}
   if(a("[data-new-note]")){openNoteEditor();return}
   if((el=a("[data-open-note]"))){const n=S.notes.find(x=>x.id===el.dataset.openNote);if(n)openNoteEditor(n);return}
   if((el=a("[data-del-note]"))){const n=S.notes.find(x=>x.id===el.dataset.delNote);if(n&&await askConfirm(`‘${n.title}’ 메모를 삭제할까요?`)){remove("notes",n.id);toast("메모를 삭제했습니다")}return}
