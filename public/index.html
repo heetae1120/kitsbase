@@ -755,6 +755,23 @@ textarea.stk-in{resize:none;height:auto;min-height:32px;padding:6px 8px;line-hei
 .sl-total{margin:2px 0 0;font-size:13px;color:var(--ink-2)}.sl-total b{font-size:16px;color:var(--ink);margin-left:6px}
 @media (max-width:700px){.stk-sum{grid-template-columns:repeat(2,minmax(0,1fr))}.stk-sum>div:nth-child(3){border-left:0}.stk-sum>div:nth-child(n+3){border-top:1px solid var(--line)}.stk-sum b{font-size:17px}}
 @media (pointer:coarse){.stk-del{min-width:36px;min-height:36px}.stk-in{height:38px}}
+
+.sf{padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.sf-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sf-row .chips{margin:0}
+.sf-date{display:inline-flex;align-items:center;gap:6px;margin-left:auto;color:var(--ink-3)}
+.sf select,.sf input{height:34px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;padding:0 10px}
+.sf select:focus,.sf input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.sf .sf-q{flex:1;min-width:180px}
+.sf-ch{display:flex;flex-wrap:wrap;gap:6px;padding-top:8px;border-top:1px solid var(--line)}
+.sf-ch span{display:inline-flex;gap:8px;align-items:center;font-size:12.5px;padding:4px 10px;border-radius:99px;background:var(--surface-2)}
+.sf-ch i{font-style:normal;color:var(--ink-2)}.sf-ch b{font-variant-numeric:tabular-nums}
+.ch-tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--accent-soft);color:color-mix(in srgb,var(--accent) 70%,var(--ink));white-space:nowrap}
+.ch-pick{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px}
+.stk.log td.act .btn{height:28px;padding:0 8px}
+.btn.danger-t:hover{color:var(--danger)}
+.sl-note{margin:0;font-size:12.5px;color:var(--ink-3)}
+@media (max-width:700px){.sf-date{margin-left:0}.sf .sf-q{min-width:100%}}
 </style>
 
 <section class="auth" id="auth" hidden>
@@ -1001,7 +1018,7 @@ function render(){if((S.nav==="team"||S.nav==="stock")&&boardBusy()){S.deferRend
   else if(S.nav==="notes")v.innerHTML=renderNotes();
   else if(S.nav==="mindmap")MM.mountOrUpdate(v);
   else if(S.nav==="team"){v.innerHTML=renderTeam();boardAfter()}
-  else if(S.nav==="stock"){v.innerHTML=renderStock();stockSeedCheck()}
+  else if(S.nav==="stock"){const ae=document.activeElement,pos=ae&&ae.id==="sf-q"?ae.selectionStart:null;v.innerHTML=renderStock();if(pos!=null){const n=$("#sf-q");if(n){n.focus({preventScroll:true});try{n.setSelectionRange(pos,pos)}catch(_){}}}stockSeedCheck()}
   if(S.nav==="projects")WR.mount();
   if(!$("#search-results").hidden)renderSearch();
 }
@@ -1398,16 +1415,46 @@ function renderStock(){const all=stockRows(),cats=[...new Set(all.map(r=>r.categ
           <td>${inp(r,"color")}</td><td class="n">${inp(r,"qty")}</td><td class="n">${inp(r,"price")}</td><td class="n calc" data-amt="${esc(r.id)}">${won(toNum(r.qty)*toNum(r.price))}</td>
           <td class="n sale">${inp(r,"salePrice","",won(r.price))}</td><td class="n sale calc">${sq?won(sq):"–"}</td><td class="n sale calc strong">${sv?won(sv):"–"}</td>
           <td class="act">${me?`<button class="btn sm primary" data-sale="${esc(r.id)}">${icon("plus",12)} 판매</button><button class="stk-del" data-stk-del="${esc(r.id)}" aria-label="행 삭제">${icon("trash",13)}</button>`:""}</td></tr>`})})});
-  const log=S.sales.filter(x=>{const r=all.find(y=>y.id===x.stockId);return !S.stockCat||(r&&(r.category||"미분류")===S.stockCat)}).sort((a,b)=>String(b.date||"").localeCompare(String(a.date||""))||(b.createdAt||0)-(a.createdAt||0));
   return `${loadingNote()}<div class="sec-head"><div><h2>재고현황</h2><p>모든 칸을 눌러 바로 고칠 수 있습니다. Enter를 누르면 아래 칸으로 이동하고, 판매를 기록하면 재고 수량에서 빠집니다.</p></div></div>
   <div class="stk-sum panel"><div><span>재고 수량</span><b data-tot="q">${won(t.q)}</b></div><div><span>재고 금액</span><b data-tot="v">${won(t.v)}원</b></div><div class="s"><span>판매 수량</span><b>${won(t.sq)}</b></div><div class="s"><span>판매 금액</span><b>${won(t.sv)}원</b></div></div>
   <div class="chips stk-chips"><button class="chip ${S.stockCat?"":"active"}" data-stk-cat="">전체 <b>${all.length}</b></button>${cats.map(c=>`<button class="chip ${S.stockCat===c?"active":""}" data-stk-cat="${esc(c)}">${esc(c)} <b>${all.filter(r=>(r.category||"미분류")===c).length}</b></button>`).join("")}</div>
   ${all.length?`<div class="panel stk-wrap"><table class="stk"><thead><tr><th>품목</th><th>제품</th><th>컬러</th><th class="n">수량</th><th class="n">온라인 판매가</th><th class="n">재고 금액</th><th class="n sale">판매가</th><th class="n sale">판매 수량</th><th class="n sale">판매 금액</th><th></th></tr></thead>
     <tbody>${body}</tbody><tfoot><tr><td colspan="3">합계 ${S.stockCat?`· ${esc(S.stockCat)}`:""}</td><td class="n" data-tot="q2">${won(t.q)}</td><td></td><td class="n" data-tot="v2">${won(t.v)}</td><td class="sale"></td><td class="n sale">${won(t.sq)}</td><td class="n sale">${won(t.sv)}</td><td></td></tr></tfoot></table></div>`
     :`<div class="panel"><div class="empty-block"><strong>${S.loaded?"재고를 불러오는 중이거나 아직 품목이 없습니다":"공유 데이터를 불러오는 중…"}</strong><span>품목 추가로 첫 행을 만들 수 있습니다.</span></div></div>`}
-  <div class="sec-head stk-loghead"><div><h3>판매 기록</h3><p>${log.length?`${log.length}건 · 합계 ${won(log.reduce((n,x)=>n+toNum(x.qty)*toNum(x.price),0))}원`:"아직 기록된 판매가 없습니다. 표의 ‘판매’ 버튼으로 기록하세요."}</p></div></div>
-  ${log.length?`<div class="panel stk-wrap"><table class="stk log"><thead><tr><th>날짜</th><th>품목 · 제품 · 컬러</th><th class="n">수량</th><th class="n">판매가</th><th class="n">금액</th><th>판매처 · 메모</th><th>기록</th><th></th></tr></thead><tbody>${log.map(x=>{const r=all.find(y=>y.id===x.stockId);
-    return `<tr><td class="mono">${esc(x.date||"")}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n strong">${won(toNum(x.qty)*toNum(x.price))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td><td class="act">${me?`<button class="stk-del" data-sale-del="${esc(x.id)}" aria-label="판매 기록 삭제">${icon("trash",13)}</button>`:""}</td></tr>`}).join("")}</tbody></table></div>`:""}`}
+  ${renderSalesLog(all,me)}`}
+const SALE_CHANNELS=["스마트스토어","쿠팡","자사몰","오프라인 매장","행사·팝업","도매·B2B"];
+function saleChannels(){return [...new Set([...SALE_CHANNELS,...S.sales.map(x=>(x.channel||"").trim()).filter(Boolean)])]}
+const SF=()=>S.saleF||(S.saleF={from:"",to:"",channel:"",cat:"",who:"",q:""});
+function salePeriod(k){const d=new Date(),iso=x=>`${x.getFullYear()}-${pad(x.getMonth()+1)}-${pad(x.getDate())}`;
+  if(k==="today")return [iso(d),iso(d)];if(k==="week"){const a=new Date(d);a.setDate(d.getDate()-6);return [iso(a),iso(d)]}
+  if(k==="month")return [iso(new Date(d.getFullYear(),d.getMonth(),1)),iso(new Date(d.getFullYear(),d.getMonth()+1,0))];
+  if(k==="last")return [iso(new Date(d.getFullYear(),d.getMonth()-1,1)),iso(new Date(d.getFullYear(),d.getMonth(),0))];return ["",""]}
+function renderSalesLog(all,me){const f=SF(),byId=new Map(all.map(r=>[r.id,r])),q=f.q.trim().toLowerCase();
+  const sorted=S.sales.slice().sort((a,b)=>String(b.date||"").localeCompare(String(a.date||""))||(b.createdAt||0)-(a.createdAt||0));
+  const log=sorted.filter(x=>{const r=byId.get(x.stockId),d=x.date||"";if(f.from&&d<f.from)return false;if(f.to&&d>f.to)return false;
+    if(f.channel&&(f.channel==="__none"?!!(x.channel||"").trim():(x.channel||"").trim()!==f.channel))return false;if(f.cat&&(!r||(r.category||"미분류")!==f.cat))return false;if(f.who&&x.by!==f.who)return false;
+    if(q){const hay=[r&&r.category,r&&r.product,r&&r.color,x.channel,x.memo,x.by].join(" ").toLowerCase();if(!hay.includes(q))return false}return true});
+  const active=Object.values(f).some(Boolean),sq=log.reduce((n,x)=>n+toNum(x.qty),0),sv=log.reduce((n,x)=>n+toNum(x.qty)*toNum(x.price),0);
+  const cats=[...new Set(all.map(r=>r.category||"미분류"))],chans=saleChannels(),whos=[...new Set(S.sales.map(x=>x.by).filter(Boolean))];
+  const per=[["today","오늘"],["week","최근 7일"],["month","이번 달"],["last","지난 달"]].map(([k,l])=>{const [a,b]=salePeriod(k);return `<button type="button" class="chip ${f.from===a&&f.to===b&&a?"active":""}" data-sf-period="${k}">${l}</button>`}).join("");
+  const opt=(v,l,cur)=>`<option value="${esc(v)}" ${v===cur?"selected":""}>${esc(l)}</option>`;
+  const byCh=new Map();log.forEach(x=>{const k=(x.channel||"").trim()||"판매처 미입력";byCh.set(k,(byCh.get(k)||0)+toNum(x.qty)*toNum(x.price))});
+  return `<div class="sec-head stk-loghead"><div><h3>판매 기록</h3><p>${S.sales.length?`전체 ${S.sales.length}건 중 <b>${log.length}건</b> · 수량 ${won(sq)} · 합계 <b>${won(sv)}원</b>`:"아직 기록된 판매가 없습니다. 위 표의 ‘판매’ 버튼으로 기록하세요."}</p></div></div>
+  ${S.sales.length?`<div class="panel sf">
+    <div class="sf-row"><div class="chips sf-per">${per}<button type="button" class="chip ${!f.from&&!f.to?"active":""}" data-sf-period="all">전체 기간</button></div>
+      <label class="sf-date"><input type="date" class="sf-in" data-sf="from" value="${esc(f.from)}" aria-label="시작일"><span>~</span><input type="date" class="sf-in" data-sf="to" value="${esc(f.to)}" aria-label="종료일"></label></div>
+    <div class="sf-row"><select class="sf-in" data-sf="channel" aria-label="판매처">${opt("","판매처 전체",f.channel)}${chans.map(c=>opt(c,c,f.channel)).join("")}${opt("__none","판매처 미입력",f.channel)}</select>
+      <select class="sf-in" data-sf="cat" aria-label="품목">${opt("","품목 전체",f.cat)}${cats.map(c=>opt(c,c,f.cat)).join("")}</select>
+      <select class="sf-in" data-sf="who" aria-label="기록한 사람">${opt("","기록자 전체",f.who)}${whos.map(c=>opt(c,c,f.who)).join("")}</select>
+      <input class="sf-in sf-q" id="sf-q" data-sf="q" value="${esc(f.q)}" placeholder="제품 · 컬러 · 메모 검색" aria-label="판매 기록 검색">${active?`<button type="button" class="btn sm ghost" data-sf-reset>필터 초기화</button>`:""}</div>
+    ${byCh.size>1||active?`<div class="sf-ch">${[...byCh].sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span><i>${esc(k)}</i><b>${won(v)}원</b></span>`).join("")}</div>`:""}</div>
+  ${log.length?`<div class="panel stk-wrap"><table class="stk log"><thead><tr><th>날짜</th><th>판매처</th><th>품목 · 제품 · 컬러</th><th class="n">수량</th><th class="n">판매가</th><th class="n">금액</th><th>메모</th><th>기록</th><th></th></tr></thead><tbody>${log.map(x=>{const r=byId.get(x.stockId);
+    return `<tr><td class="mono">${esc(x.date||"")}</td><td>${(x.channel||"").trim()?`<span class="ch-tag">${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n strong">${won(toNum(x.qty)*toNum(x.price))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
+      <td class="act">${me?`<button class="btn sm ghost" data-sale-edit="${esc(x.id)}">${icon("pen",12)} 수정</button><button class="btn sm ghost danger-t" data-sale-del="${esc(x.id)}">${icon("trash",12)} 삭제</button>`:""}</td></tr>`}).join("")}</tbody></table></div>`
+    :`<div class="panel"><div class="empty-block"><strong>조건에 맞는 판매 기록이 없습니다</strong><span>기간이나 판매처 필터를 바꿔보세요.</span><button class="btn sm" data-sf-reset>필터 초기화</button></div></div>`}`:""}`}
+let sfT=0;
+document.addEventListener("input",e=>{const el=e.target.closest&&e.target.closest(".sf-q");if(!el)return;SF().q=el.value;clearTimeout(sfT);sfT=setTimeout(()=>{const pos=el.selectionStart;render();const n=$("#sf-q");if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}},220)});
+document.addEventListener("change",e=>{const el=e.target.closest&&e.target.closest(".sf-in:not(.sf-q)");if(!el)return;SF()[el.dataset.sf]=el.value;render()});
 function stockRefreshCalc(id){const r=S.stock.find(x=>x.id===id),c=$(`[data-amt="${CSS.escape(id)}"]`);if(r&&c)c.textContent=won(toNum(r.qty)*toNum(r.price));
   const rows=S.stockCat?stockRows().filter(x=>(x.category||"미분류")===S.stockCat):stockRows(),t=stockTotals(rows);
   [["q",won(t.q)],["q2",won(t.q)],["v",won(t.v)+"원"],["v2",won(t.v)]].forEach(([k,v])=>{const e=$(`[data-tot="${k}"]`);if(e)e.textContent=v})}
@@ -1429,18 +1476,29 @@ async function stockAddRow(afterId){const me=myMember();if(!me){toast("로그인
   const id=uid("s");await put("stock",{id,category,product,color:"",qty:0,price:base?base.price:0,salePrice:"",order,createdAt:Date.now(),updatedAt:Date.now()});
   if(document.activeElement)document.activeElement.blur();render();
   setTimeout(()=>{const el=base?$(`[data-stk="${CSS.escape(id)}"][data-f="color"]`):$(`tr[data-row="${CSS.escape(id)}"] [data-grp="category"]`);if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.focus({preventScroll:true});try{el.select()}catch(_){}}},30)}
-function openSaleDialog(id){const r=S.stock.find(x=>x.id===id),me=myMember();if(!r||!me)return;const price=r.salePrice!==""&&r.salePrice!=null?toNum(r.salePrice):toNum(r.price);
-  openDialog({title:"판매 기록",eyebrow:`${r.category||""} · ${r.product||""} · ${r.color||""} — 현재 재고 ${won(r.qty)}개`,
-    body:`<div class="row3"><label class="field">날짜<input id="sl-date" type="date" value="${todayISO()}"></label><label class="field">수량<input id="sl-qty" inputmode="numeric" value="1"></label><label class="field">판매가<input id="sl-price" inputmode="numeric" value="${price}"></label></div>
-      <label class="field"><span>판매처 · 메모 <small>(선택)</small></span><input id="sl-memo" maxlength="120" placeholder="예: 스마트스토어, 오프라인 행사"></label>
-      <p class="sl-total">합계 <b id="sl-sum">${won(price)}원</b></p>
-      <label class="field"><span class="inline-check"><input type="checkbox" id="sl-deduct" checked> 재고 수량에서 빼기</span></label>
-      <div class="dlg-actions"><span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">기록하기</button></div>`,
-    onMount(f){const upd=()=>$("#sl-sum",f).textContent=won(toNum($("#sl-qty",f).value)*toNum($("#sl-price",f).value))+"원";$("#sl-qty",f).addEventListener("input",upd);$("#sl-price",f).addEventListener("input",upd);setTimeout(()=>{$("#sl-qty",f).focus();$("#sl-qty",f).select()},30)},
-    onSubmit(f){const qty=toNum($("#sl-qty",f).value),pr=toNum($("#sl-price",f).value),deduct=$("#sl-deduct",f).checked;if(qty<=0){toast("판매 수량을 1 이상 입력해주세요.");return false}
-      const cur=S.stock.find(x=>x.id===id);if(deduct&&cur&&qty>toNum(cur.qty)&&!confirm(`현재 재고(${won(cur.qty)}개)보다 많습니다. 그래도 기록할까요?`))return false;
-      put("sales",{id:uid("sl"),stockId:id,date:$("#sl-date",f).value||todayISO(),qty,price:pr,memo:$("#sl-memo",f).value.trim(),deducted:deduct?qty:0,by:me.name,createdAt:Date.now()});
-      if(deduct&&cur)put("stock",{...cur,qty:toNum(cur.qty)-qty,updatedAt:Date.now()});toast(`${won(qty*pr)}원 판매를 기록했습니다`)}})}
+function openSaleDialog(id,saleId){const sale=saleId?S.sales.find(x=>x.id===saleId):null;if(sale)id=sale.stockId;const r=S.stock.find(x=>x.id===id),me=myMember();if(!me)return;if(!r&&!sale)return;
+  const price=sale?toNum(sale.price):r.salePrice!==""&&r.salePrice!=null?toNum(r.salePrice):toNum(r.price),chans=saleChannels(),lastCh=sale?sale.channel||"":(S.lastChannel||"");
+  openDialog({title:sale?"판매 기록 수정":"판매 기록",eyebrow:r?`${r.category||""} · ${r.product||""} · ${r.color||""} — 현재 재고 ${won(r.qty)}개`:"삭제된 품목",
+    body:`<div class="row3"><label class="field">날짜<input id="sl-date" type="date" value="${esc(sale?sale.date||todayISO():todayISO())}"></label><label class="field">수량<input id="sl-qty" inputmode="numeric" value="${sale?toNum(sale.qty):1}"></label><label class="field">판매가<input id="sl-price" inputmode="numeric" value="${price}"></label></div>
+      <div class="field">판매처<div class="ch-pick">${chans.map(c=>`<button type="button" class="chip ${c===lastCh?"active":""}" data-ch="${esc(c)}">${esc(c)}</button>`).join("")}</div><input id="sl-ch" maxlength="40" value="${esc(lastCh)}" placeholder="직접 입력 (예: 오늘의집, 지인 판매)"></div>
+      <label class="field"><span>메모 <small>(선택)</small></span><input id="sl-memo" maxlength="120" value="${esc(sale?sale.memo||"":"")}" placeholder="예: 주문번호, 고객명, 특이사항"></label>
+      <p class="sl-total">합계 <b id="sl-sum">${won(price*(sale?toNum(sale.qty):1))}원</b></p>
+      ${sale?`<p class="sl-note">${toNum(sale.deducted)?`이 기록으로 재고 ${won(sale.deducted)}개를 뺐습니다. 수량을 바꾸면 차이만큼 재고도 맞춰집니다.`:"이 기록은 재고에서 빼지 않았습니다."}</p>`:`<label class="field"><span class="inline-check"><input type="checkbox" id="sl-deduct" checked> 재고 수량에서 빼기</span></label>`}
+      <div class="dlg-actions">${sale?`<button type="button" class="btn danger" id="sl-del">${icon("trash",14)} 기록 삭제</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${sale?"저장":"기록하기"}</button></div>`,
+    onMount(f){const upd=()=>$("#sl-sum",f).textContent=won(toNum($("#sl-qty",f).value)*toNum($("#sl-price",f).value))+"원";$("#sl-qty",f).addEventListener("input",upd);$("#sl-price",f).addEventListener("input",upd);
+      const ch=$("#sl-ch",f),sync=()=>$$("[data-ch]",f).forEach(b=>b.classList.toggle("active",b.dataset.ch===ch.value.trim()));
+      $$("[data-ch]",f).forEach(b=>b.addEventListener("click",()=>{ch.value=ch.value.trim()===b.dataset.ch?"":b.dataset.ch;sync()}));ch.addEventListener("input",sync);
+      $("#sl-del",f)?.addEventListener("click",async()=>{dlg.close();await deleteSale(sale.id)});
+      setTimeout(()=>{$("#sl-qty",f).focus();$("#sl-qty",f).select()},30)},
+    onSubmit(f){const qty=toNum($("#sl-qty",f).value),pr=toNum($("#sl-price",f).value),channel=$("#sl-ch",f).value.trim();if(qty<=0){toast("판매 수량을 1 이상 입력해주세요.");return false}
+      const cur=S.stock.find(x=>x.id===id);S.lastChannel=channel;
+      if(sale){const was=toNum(sale.deducted);let deducted=was;if(was&&cur){const diff=qty-was;if(diff)put("stock",{...cur,qty:toNum(cur.qty)-diff,updatedAt:Date.now()});deducted=qty}
+        put("sales",{...sale,date:$("#sl-date",f).value||sale.date,qty,price:pr,channel,memo:$("#sl-memo",f).value.trim(),deducted,updatedAt:Date.now()});toast("판매 기록을 고쳤습니다");return}
+      const deduct=$("#sl-deduct",f).checked;if(deduct&&cur&&qty>toNum(cur.qty)&&!confirm(`현재 재고(${won(cur.qty)}개)보다 많습니다. 그래도 기록할까요?`))return false;
+      put("sales",{id:uid("sl"),stockId:id,date:$("#sl-date",f).value||todayISO(),qty,price:pr,channel,memo:$("#sl-memo",f).value.trim(),deducted:deduct?qty:0,by:me.name,createdAt:Date.now()});
+      if(deduct&&cur)put("stock",{...cur,qty:toNum(cur.qty)-qty,updatedAt:Date.now()});toast(`${channel?channel+" · ":""}${won(qty*pr)}원 판매를 기록했습니다`)}})}
+async function deleteSale(id){const x=S.sales.find(y=>y.id===id);if(!x)return;const r=S.stock.find(y=>y.id===x.stockId),back=toNum(x.deducted);
+  if(await askConfirm(`${x.date||""} ${(x.channel||"").trim()?x.channel+" ":""}판매 기록(${won(toNum(x.qty)*toNum(x.price))}원)을 삭제할까요?${back&&r?` 뺐던 재고 ${won(back)}개를 다시 더합니다.`:""}`)){remove("sales",x.id);if(back&&r)put("stock",{...r,qty:toNum(r.qty)+back,updatedAt:Date.now()});toast("판매 기록을 삭제했습니다")}}
 
 /* ============ notes ============ */
 function renderNotes(){
@@ -1560,7 +1618,10 @@ document.addEventListener("click",async e=>{
   if((el=a("[data-stk-add]"))){stockAddRow(el.dataset.stkAdd);return}
   if((el=a("[data-sale]"))){openSaleDialog(el.dataset.sale);return}
   if((el=a("[data-stk-del]"))){const r=S.stock.find(x=>x.id===el.dataset.stkDel);if(r&&await askConfirm(`‘${r.product||""} ${r.color||""}’ 행을 삭제할까요? 판매 기록은 남습니다.`)){remove("stock",r.id);toast("행을 삭제했습니다")}return}
-  if((el=a("[data-sale-del]"))){const x=S.sales.find(y=>y.id===el.dataset.saleDel);if(!x)return;const r=S.stock.find(y=>y.id===x.stockId),back=toNum(x.deducted);if(await askConfirm(`이 판매 기록을 삭제할까요?${back&&r?` 뺐던 재고 ${won(back)}개를 다시 더합니다.`:""}`)){remove("sales",x.id);if(back&&r)put("stock",{...r,qty:toNum(r.qty)+back,updatedAt:Date.now()});toast("판매 기록을 삭제했습니다")}return}
+  if((el=a("[data-sale-del]"))){deleteSale(el.dataset.saleDel);return}
+  if((el=a("[data-sale-edit]"))){openSaleDialog(null,el.dataset.saleEdit);return}
+  if((el=a("[data-sf-period]"))){const f=SF(),[x,y]=salePeriod(el.dataset.sfPeriod);f.from=x;f.to=y;render();return}
+  if(a("[data-sf-reset]")){S.saleF=null;render();return}
   if((el=a("[data-msgtab]"))){S.msgTab=el.dataset.msgtab;render();return}
   if((el=a("[data-read-memo]"))){markRead(el.dataset.readMemo);return}
   if(a("[data-read-all]")){for(const m of unreadMemos())await markRead(m.id);toast("모두 읽음으로 표시했습니다");return}
