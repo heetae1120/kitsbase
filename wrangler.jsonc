@@ -4,7 +4,7 @@
   "main": "src/worker.js",
   "compatibility_date": "2026-05-15",
   // public/index.html은 Worker 코드에 함께 묶여 배포됩니다
-  "rules": [{ "type": "Text", "globs": ["**/*.html", "**/finance-bento.js"], "fallthrough": true }],
+  "rules": [{ "type": "Text", "globs": ["**/*.html"], "fallthrough": true }],
   "vars": {
     // 0이면 인원 제한 없음
     "MAX_MEMBERS": "4"

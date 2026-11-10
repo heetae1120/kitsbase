@@ -1,5 +1,4 @@
 import INDEX_HTML from "../public/index.html";
-import FINANCE_BENTO_JS from "../public/finance-bento.js";
 
 // kitsbase API: 팀 초대코드 가입, 이름+비밀번호 로그인, 문서 저장/동기화 (Cloudflare Workers + D1)
 const COLLECTIONS = new Set(["projects", "items", "notes", "folders", "messages", "mindmaps"]);
@@ -212,11 +211,6 @@ export default {
       }
     }
     if (request.method !== "GET" && request.method !== "HEAD") return new Response("Method Not Allowed", { status: 405 });
-    if (url.pathname === "/finance-bento.js") {
-      return new Response(request.method === "HEAD" ? null : FINANCE_BENTO_JS, {
-        headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "no-cache", "x-content-type-options": "nosniff" },
-      });
-    }
     // 화면은 한 페이지(index.html)뿐이라 Worker가 직접 돌려줍니다
     return new Response(request.method === "HEAD" ? null : INDEX_HTML, {
       headers: {
