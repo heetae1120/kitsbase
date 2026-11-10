@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="kitsbase: 팀이 함께 쓰는 사업 캘린더"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%225%22 fill=%22%23DD3A2E%22/%3E%3Cpath d=%22M6 8h12v10H6zM6 11h12M9 6v3M15 6v3%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>kitsbase</title>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="kitsbase: 팀이 함께 쓰는 사업 캘린더"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%225%22 fill=%22%2316A34A%22/%3E%3Cpath d=%22M6 8h12v10H6zM6 11h12M9 6v3M15 6v3%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>kitsbase</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -46,7 +46,7 @@ button{cursor:pointer}
 h1,h2,h3,h4{margin:0;text-wrap:balance}
 p{margin:0}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-.eyebrow{font:600 10.5px/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.eyebrow{font:600 11px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* ---------- shell ---------- */
@@ -56,7 +56,7 @@ p{margin:0}
 .brand-mark{width:34px;height:34px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);flex:none}
 .brand-name{font:800 22px/1 var(--f-display);letter-spacing:-.03em}
 .brand-name b{color:var(--accent);font-weight:800}
-.brand small{display:block;font:500 10px/1.3 var(--f-mono);color:var(--ink-3);letter-spacing:.08em;margin-top:3px}
+.brand small{display:block;font:500 11px/1.3 var(--f-mono);color:var(--ink-3);letter-spacing:.08em;margin-top:3px}
 .nav{display:flex;flex-direction:column;gap:2px}
 .nav .eyebrow{padding:0 10px 8px}
 .nav button{display:flex;align-items:center;gap:11px;border:0;background:none;padding:9px 10px;border-radius:8px;color:var(--ink-2);font-weight:600;text-align:left}
@@ -85,7 +85,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .search-results button,.bell-panel button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:0;background:none;border-radius:7px;padding:8px}
 .search-results button:hover,.bell-panel button:hover{background:var(--surface-2)}
 .search-results .empty,.bell-panel .empty{padding:14px;color:var(--ink-3);font-size:13px}
-.res-tag{font:600 10px/1.6 var(--f-mono);letter-spacing:.06em;padding:0 6px;border-radius:4px;background:var(--surface-2);color:var(--ink-2);flex:none;margin-top:2px}
+.res-tag{font:600 11px/1.6 var(--f-mono);letter-spacing:.06em;padding:0 6px;border-radius:4px;background:var(--surface-2);color:var(--ink-2);flex:none;margin-top:2px}
 .res-main{min-width:0}
 .res-main strong{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .res-main span{display:block;font-size:12px;color:var(--ink-3)}
@@ -109,7 +109,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cal-head h2{font:800 clamp(26px,3.2vw,38px)/1 var(--f-display);letter-spacing:-.03em}
 .cal-head h2 span{color:var(--ink-3);font-weight:600}
 .cal-tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:2px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:3px}
 .seg button{border:0;background:none;height:30px;padding:0 12px;border-radius:7px;color:var(--ink-2);font-weight:600;font-size:13px}
 .seg button.active{background:var(--ink);color:var(--bg)}
 .stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:9px;background:var(--surface);height:36px}
@@ -140,10 +140,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .pill{display:flex;align-items:center;gap:5px;border:0;width:100%;text-align:left;border-radius:5px;padding:2px 6px;font-size:12px;font-weight:600;line-height:1.35;background:color-mix(in srgb,var(--c) 14%,var(--surface));color:var(--ink);min-width:0}
 .pill::before{content:"";width:3px;align-self:stretch;border-radius:2px;background:var(--c);flex:none}
 .pill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.pill time{font:500 10.5px var(--f-mono);color:var(--ink-3);flex:none}
+.pill time{font:500 11px var(--f-mono);color:var(--ink-3);flex:none}
 .pill:hover{background:color-mix(in srgb,var(--c) 24%,var(--surface))}
 .more{font-size:11.5px;color:var(--ink-3);font-weight:600;padding-left:6px;border:0;background:none;text-align:left}
-.kind{display:inline-flex;align-items:center;font:600 10px/1.7 var(--f-mono);letter-spacing:.04em;padding:0 6px;border-radius:4px;color:var(--kc);background:color-mix(in srgb,var(--kc) 13%,transparent);flex:none}
+.kind{display:inline-flex;align-items:center;font:600 11px/1.7 var(--f-mono);letter-spacing:.04em;padding:0 6px;border-radius:4px;color:var(--kc);background:color-mix(in srgb,var(--kc) 13%,transparent);flex:none}
 .kind.event{--kc:var(--k-event)} .kind.idea{--kc:var(--k-idea)} .kind.mission{--kc:var(--k-mission)} .kind.decision{--kc:var(--k-decision)}
 
 .week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
@@ -184,7 +184,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .dayhead{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--line)}
 .datetile{width:52px;height:56px;border-radius:9px;background:var(--ink);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
 .datetile strong{font:800 24px/1 var(--f-display)}
-.datetile span{font:600 10px var(--f-mono);letter-spacing:.06em;opacity:.75}
+.datetile span{font:600 11px var(--f-mono);letter-spacing:.06em;opacity:.75}
 .dayhead h3{font-size:16px;font-weight:700}
 .dayhead .btn{margin-left:auto}
 .daylist{padding:6px;display:flex;flex-direction:column;gap:2px;max-height:320px;overflow:auto}
@@ -194,7 +194,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ditem .t{min-width:0;flex:1}
 .ditem .t strong{display:block;font-weight:600;overflow-wrap:anywhere}
 .ditem .t span{font-size:12px;color:var(--ink-3)}
-.ditem .x{border:0;background:none;color:var(--ink-3);padding:2px;border-radius:5px}
+.ditem .x{border:0;background:none;color:var(--ink-3);padding:6px;border-radius:6px;display:grid;place-items:center}
 .ditem .x:hover{color:var(--danger)}
 .panel-empty{padding:18px;color:var(--ink-3);font-size:13px;text-align:center}
 .biz-head{padding:14px 14px 10px;display:flex;align-items:baseline;gap:8px}
@@ -263,34 +263,10 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .sec-head h2{font:800 clamp(24px,3vw,34px)/1.05 var(--f-display);letter-spacing:-.03em}
 .sec-head p{color:var(--ink-2);margin-top:6px;max-width:60ch}
 .sec-head .tools{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-.stage{position:relative;height:clamp(420px,62vh,640px);border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 55%,#3A1410 0%,var(--stage-bg) 62%);border:1px solid var(--stage-line);color:var(--stage-ink)}
-.stage .grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,120,90,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,120,90,.05) 1px,transparent 1px);background-size:44px 44px}
-.ember{position:absolute;bottom:-10px;left:calc(var(--e) * 5.6%);width:4px;height:4px;border-radius:50%;background:#FF9B50;box-shadow:0 0 8px #FF7A2E;animation:rise calc(6s + var(--e) * .37s) linear infinite;animation-delay:calc(var(--e) * -.71s);opacity:.8}
-@keyframes rise{to{transform:translate(calc((var(--e) - 9) * 3px),-700px);opacity:0}}
-.hero-fist{position:absolute;left:50%;top:50%;width:clamp(150px,22vw,230px);transform:translate(-50%,-50%);filter:drop-shadow(0 0 40px rgba(255,90,30,.45));animation:breathe 3.6s ease-in-out infinite;pointer-events:none}
-@keyframes breathe{50%{transform:translate(-50%,-52%) scale(1.03)}}
-.orbit{position:absolute;left:50%;top:50%;width:0;height:0}
-.flame-btn{position:absolute;left:0;top:0;border:0;background:none;color:var(--stage-ink);padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;width:140px;margin-left:-70px;margin-top:-50px;animation:orbit var(--dur) linear infinite;animation-delay:var(--delay)}
-@keyframes orbit{from{transform:rotate(0deg) translateX(var(--rad)) rotate(0deg)}to{transform:rotate(360deg) translateX(var(--rad)) rotate(-360deg)}}
-.stage:hover .flame-btn{animation-play-state:paused}
-.flame{position:relative;width:calc(34px * var(--heat));height:calc(46px * var(--heat));filter:drop-shadow(0 0 var(--glow) var(--fc))}
-.flame i,.flame b{position:absolute;left:50%;bottom:0;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;transform:translateX(-50%);animation:flick 1.3s ease-in-out infinite alternate}
-.flame i{width:100%;height:100%;background:radial-gradient(circle at 50% 75%,#FFE7A8 0%,var(--fc) 55%,color-mix(in srgb,var(--fc) 40%,#300) 100%)}
-.flame b{width:52%;height:58%;background:radial-gradient(circle at 50% 80%,#FFFFFF 0%,#FFE7A8 50%,transparent 75%);animation-duration:.9s}
-@keyframes flick{to{transform:translateX(-50%) scaleY(1.08) scaleX(.94)}}
-.flame-label{background:rgba(20,10,10,.72);border:1px solid var(--stage-line);border-radius:8px;padding:5px 9px;text-align:center;max-width:140px}
-.flame-label small{display:block;font:600 9px var(--f-mono);letter-spacing:.1em;color:var(--stage-ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.flame-label strong{display:block;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.flame-label em{display:block;font:500 10.5px var(--f-mono);font-style:normal;color:#FFB36B}
-.stage-count{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:10px;background:rgba(20,10,10,.7);border:1px solid var(--stage-line);border-radius:10px;padding:10px 14px}
-.stage-count span{font:600 10px var(--f-mono);letter-spacing:.1em;color:var(--stage-ink-2);display:block}
-.stage-count strong{display:block;font-size:14px}
-.stage-empty{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);color:var(--stage-ink-2);font-size:13px}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
 .stat b{display:block;font:800 30px/1.1 var(--f-display);margin:4px 0 2px}
 .stat small{color:var(--ink-3)}
-@media (prefers-reduced-motion: reduce){.flame-btn,.ember,.hero-fist,.flame i,.flame b{animation:none!important}.ember{display:none}}
 
 .yard{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:18px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
 .lot{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px;border-radius:10px;text-align:center;min-width:0}
@@ -308,10 +284,10 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .proj-detail{display:flex;flex-direction:column;gap:14px}
 .proj-top{display:flex;gap:14px;align-items:center}
 .proj-badge{width:64px;height:64px;border-radius:12px;background:color-mix(in srgb,var(--c) 18%,var(--surface));color:var(--c);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;font:800 18px var(--f-display)}
-.proj-badge small{font:600 9px var(--f-mono);color:var(--ink-3)}
+.proj-badge small{font:600 11px var(--f-mono);color:var(--ink-3)}
 .dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .dl div{background:var(--bg);border-radius:8px;padding:8px 10px}
-.dl dt{font:600 10px var(--f-mono);letter-spacing:.08em;color:var(--ink-3)}
+.dl dt{font:600 11px var(--f-mono);letter-spacing:.08em;color:var(--ink-3)}
 .dl dd{margin:2px 0 0;font-weight:600}
 .progress{display:flex;flex-direction:column;gap:6px}
 .progress header{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2)}
@@ -356,9 +332,9 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .orb-badge{position:absolute;left:0;top:0;width:44px;height:58px;border-radius:10px;opacity:.85}
 .orb-num{position:absolute;left:8px;top:6px;font:800 34px/1 var(--f-display);letter-spacing:-.04em;color:var(--ink)}
 .orb-num small{font-size:14px;font-weight:600}
-.orb-floor{position:absolute;left:0;bottom:-2px;font:500 10.5px var(--f-mono);color:var(--ink-3);padding-left:52px}
+.orb-floor{position:absolute;left:0;bottom:-2px;font:500 11px var(--f-mono);color:var(--ink-3);padding-left:52px}
 .orb-owner{font-weight:700;font-size:16px}
-.orb-meta{font:500 10.5px var(--f-mono);color:var(--ink-3);margin:2px 0 10px}
+.orb-meta{font:500 11px var(--f-mono);color:var(--ink-3);margin:2px 0 10px}
 .orb-desc{font-size:12.5px;line-height:1.45;min-height:54px;color:var(--ink-2);overflow-wrap:anywhere}
 .orb-sched{list-style:none;margin:0;padding:0;min-height:54px;display:flex;flex-direction:column;gap:4px;font-size:12px}
 .orb-sched li{display:flex;gap:6px;min-width:0}
@@ -377,7 +353,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .orb-th button.on{background:var(--bg);box-shadow:0 10px 24px -16px rgba(0,0,0,.35),inset 0 0 0 1px var(--line)}
 .orb-th .mini{width:54px;height:54px;border-radius:50%;flex:none;background:radial-gradient(circle,#FFFFFF 0 46%,transparent 47%),conic-gradient(var(--c) calc(var(--p) * 1%),color-mix(in srgb,var(--c) 18%,#E6E9E6) 0);box-shadow:0 4px 8px rgba(0,0,0,.15);transition:transform .45s}
 .orb-th button.on .mini{transform:scale(1.07)}
-.orb-th .lb{font-size:10.5px;font-weight:600;line-height:1.25;text-align:center;max-width:84px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:var(--ink-2)}
+.orb-th .lb{font-size:11px;font-weight:600;line-height:1.25;text-align:center;max-width:84px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:var(--ink-2)}
 .orb-empty{display:grid;place-items:center;height:auto;padding:30px 0}
 .orb-empty img{width:110px;height:auto}
 @media (prefers-reduced-motion:reduce){.orb-track,.orb-dot,.orb-dot i,.orb-th button,.orb-th .mini{transition:none}}
@@ -398,7 +374,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .summary{margin-top:14px}
 .sum-wrap{overflow-x:auto}
 .sum{width:100%;border-collapse:collapse;font-size:13px;min-width:880px}
-.sum th{text-align:left;font:600 10.5px var(--f-mono);letter-spacing:.08em;color:var(--ink-3);padding:8px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap}
+.sum th{text-align:left;font:600 11px var(--f-mono);letter-spacing:.08em;color:var(--ink-3);padding:8px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap}
 .sum td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
 .sum tbody tr:last-child td{border-bottom:0}
 .sum tbody tr{cursor:pointer}
@@ -425,7 +401,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .mem-list li.me{background:var(--accent-soft)}
 .mem-list li>div{min-width:0;flex:1}
 .mem-list strong{display:block;font-weight:600;overflow-wrap:anywhere}
-.mem-list em{font:600 10px var(--f-mono);font-style:normal;color:var(--accent);margin-left:4px}
+.mem-list em{font:600 11px var(--f-mono);font-style:normal;color:var(--accent);margin-left:4px}
 .mem-list li>div span{font-size:12px;color:var(--ink-3)}
 .mem-list li.none{color:var(--ink-3);font-size:13px;justify-content:center;padding:16px}
 .reg-cta{margin:0 10px 10px;padding:14px;border:1px dashed var(--accent-line);border-radius:10px;background:var(--accent-soft);display:flex;flex-direction:column;gap:6px;align-items:flex-start}
@@ -451,9 +427,9 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .bq:nth-child(-n+2){border-bottom:1.5px solid var(--ink)}
 .bq.mine{background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface))}
 .bq-head{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.bq-who{flex:1;min-width:0}.bq-who strong{display:block;font-size:17px;font-weight:700}.bq-who em{font:600 10px var(--f-mono);font-style:normal;color:var(--accent-ink);background:var(--accent);padding:1px 6px;border-radius:99px;margin-left:6px;vertical-align:2px}
+.bq-who{flex:1;min-width:0}.bq-who strong{display:block;font-size:17px;font-weight:700}.bq-who em{font:600 11px var(--f-mono);font-style:normal;color:var(--accent-ink);background:var(--accent);padding:1px 6px;border-radius:99px;margin-left:6px;vertical-align:2px}
 .bq-who span{font-size:12px;color:var(--ink-3)}
-.bq-cnt{display:flex;gap:4px}.bq-cnt span{display:flex;flex-direction:column;align-items:center;min-width:42px;padding:4px 6px;border-radius:8px;background:var(--surface-2);font-size:10.5px;color:var(--ink-3)}.bq-cnt b{font:600 15px var(--f-mono);color:var(--ink)}
+.bq-cnt{display:flex;gap:4px}.bq-cnt span{display:flex;flex-direction:column;align-items:center;min-width:42px;padding:4px 6px;border-radius:8px;background:var(--surface-2);font-size:11px;color:var(--ink-3)}.bq-cnt b{font:600 15px var(--f-mono);color:var(--ink)}
 .bq-sec h4{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--ink-2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .bq-sec h4 .dir{font-weight:600;color:var(--accent);font-size:11.5px}
 .bq-tasks,.bq-memos{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:6px}
@@ -469,8 +445,8 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .bq-form input{flex:1;min-width:0;height:34px;padding:0 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px}
 .bq-form input:focus,.bq-form select:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
 .bq-form select{height:34px;max-width:120px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:12px;padding:0 6px}
-.bq-memos{margin:10px 0 0}.bq-memos li{padding:8px 10px;border-radius:8px;background:var(--surface-2);border-left:3px solid var(--line-strong)}
-.bq-memos li.unread{border-left-color:var(--accent);background:var(--accent-soft)}
+.bq-memos{margin:10px 0 0}.bq-memos li{padding:8px 10px;border-radius:8px;background:var(--surface-2);border:1px solid transparent}
+.bq-memos li.unread{border-color:var(--accent-line);background:var(--accent-soft)}
 .bq-memos .mh{display:flex;align-items:center;gap:6px;font-size:12px;flex-wrap:wrap}.bq-memos .mh span{color:var(--ink-3)}.bq-memos time{margin-left:auto;font:11px var(--f-mono);color:var(--ink-3)}
 .bq-memos p{margin:4px 0 0;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
 .bq-empty,.bq-more{margin:0 0 8px;font-size:12px;color:var(--ink-3);text-align:center;padding:6px 0}
@@ -486,14 +462,14 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .bn:focus{outline:none}.bn.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent);z-index:3}
 .bn.drag{cursor:grabbing;z-index:5;box-shadow:0 10px 24px rgba(0,0,0,.18)}
 .bn.draft{border-style:dashed;border-color:var(--accent);cursor:text;z-index:4}
-.bn-st{align-self:flex-start;font:600 10px/1.5 inherit;padding:1px 8px;border-radius:99px;border:1px solid var(--line-strong);background:var(--surface-2);color:var(--ink-2);cursor:pointer}
+.bn-st{align-self:flex-start;font:600 11px/1.5 inherit;padding:1px 8px;border-radius:99px;border:1px solid var(--line-strong);background:var(--surface-2);color:var(--ink-2);cursor:pointer}
 .bn.draft .bn-st{cursor:default;border-color:var(--accent);color:var(--accent)}
 .bn.st-doing{border-color:color-mix(in srgb,var(--accent) 60%,var(--line-strong))}.bn.st-doing .bn-st{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .bn.st-done{background:var(--surface-2)}.bn.st-done .bn-st{background:var(--ink);border-color:var(--ink);color:var(--bg)}.bn.st-done .bn-t{text-decoration:line-through;color:var(--ink-3)}
 .bn-t{font-size:13px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere;outline:none;min-height:1.4em;min-width:60px}
 .bn-t[contenteditable=true]{cursor:text;user-select:text;-webkit-user-select:text}
 .bn-t:empty::before{content:attr(data-ph);color:var(--ink-3)}
-.bn-meta{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.bn-by{font-size:10.5px;color:var(--ink-3)}
+.bn-meta{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.bn-by{font-size:11px;color:var(--ink-3)}
 .bn-tools{position:absolute;top:calc(100% + 6px);left:-2px;display:flex;gap:2px;background:var(--ink);padding:3px;border-radius:8px;z-index:6;box-shadow:0 6px 16px rgba(0,0,0,.2)}
 .bn-tools button{border:0;background:none;color:var(--bg);font:600 11.5px inherit;padding:5px 9px;border-radius:6px;cursor:pointer;white-space:nowrap}
 .bn-tools button:hover{background:color-mix(in srgb,var(--bg) 18%,transparent)}
@@ -511,7 +487,7 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .auth-card p.lead{color:var(--ink-2);font-size:13.5px;margin-top:-6px}
 .auth-card form{display:flex;flex-direction:column;gap:11px}
 .auth-card .seg{align-self:flex-start}
-.auth-err{min-height:18px;color:var(--danger);font-size:13px;font-weight:600}
+.auth-err{color:var(--danger);font-size:13px;font-weight:600}
 .auth-card .btn.primary{height:42px;font-size:15px}
 .logout{border:0;background:none;color:var(--ink-3);font-size:12px;text-align:left;padding:0;text-decoration:underline;text-underline-offset:3px}
 
@@ -593,12 +569,12 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .mm-zoom{position:absolute;left:10px;bottom:10px;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;z-index:20}
 .mm-zoom button{border:0;background:none;width:30px;height:28px;display:grid;place-items:center;color:var(--ink-2);border-bottom:1px solid var(--line)}
 .mm-zoom button:last-child{border-bottom:0}
-.mm-zoom span{font:500 10px var(--f-mono);text-align:center;color:var(--ink-3);padding:3px 0;border-bottom:1px solid var(--line)}
+.mm-zoom span{font:500 11px var(--f-mono);text-align:center;color:var(--ink-3);padding:3px 0;border-bottom:1px solid var(--line)}
 .mm-mini{position:absolute;right:10px;bottom:10px;width:170px;height:112px;background:var(--surface);border:1px solid var(--line);border-radius:8px;z-index:20;cursor:pointer}
 .inspector{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:14px;overflow:auto;height:clamp(440px,68vh,780px)}
 .inspector h3{font-size:15px;font-weight:700;margin-top:3px}
 .isec{display:flex;flex-direction:column;gap:7px}
-.isec>span{font:600 10px var(--f-mono);letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+.isec>span{font:600 11px var(--f-mono);letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
 .inspector textarea{width:100%;min-height:72px;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px;resize:vertical}
 .inspector small{color:var(--ink-3);font-size:11.5px}
 .ibtns{display:flex;flex-wrap:wrap;gap:4px}
@@ -638,7 +614,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
 .notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .note{background:var(--nc);border:1px solid color-mix(in srgb,var(--nc) 70%,var(--line-strong));border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px;min-height:220px;color:#0A0A0A;min-width:0}
 .note-top{display:flex;align-items:center;gap:6px}
-.note-top>span{font:600 10px var(--f-mono);letter-spacing:.1em;color:#5E625E}
+.note-top>span{font:600 11px var(--f-mono);letter-spacing:.1em;color:#5E625E}
 .note-top .ftag{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;background:rgba(255,255,255,.6);border-radius:5px;padding:1px 6px;color:#4A3B3D}
 .note-top .ftag svg{color:var(--fc)}
 .note-top .del{border:0;background:none;color:#5E625E;padding:2px;border-radius:5px}
@@ -691,7 +667,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
   .tabbar button.active{color:var(--accent)}
   .side{grid-template-columns:minmax(0,1fr)}
   .day{min-height:76px;padding:4px 3px}
-  .pill{padding:1px 3px;font-size:10.5px}
+  .pill{padding:1px 3px;font-size:11px}
   .pill time{display:none}
   .week{grid-template-columns:minmax(0,1fr)}
   .wcol{border-right:0;border-bottom:1px solid var(--line);min-height:0}
@@ -715,11 +691,30 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
   .pill span{display:none}
   .pill{height:6px;padding:0;border-radius:3px;background:var(--c)}
   .pill::before{display:none}
-  .more{font-size:10px;padding-left:2px}
+  .more{font-size:11px;padding-left:2px}
   .row2{grid-template-columns:minmax(0,1fr)}
   .kind-pick{grid-template-columns:repeat(2,1fr)}
   .cal-tools{margin-left:0}
 }
+
+/* ---------- polish: motion, press feedback, browser surfaces ---------- */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-io:cubic-bezier(.77,0,.175,1)}
+.auth-err:empty{display:none}
+::selection{background:color-mix(in srgb,var(--accent) 26%,transparent);color:var(--ink)}
+input,textarea,[contenteditable]{caret-color:var(--accent)}
+html{scrollbar-color:var(--line-strong) transparent}
+*::-webkit-scrollbar{width:10px;height:10px}*::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px;border:3px solid transparent;background-clip:content-box}*::-webkit-scrollbar-track{background:transparent}
+.btn,.seg button,.nav button,.tabbar button,.chip,.fchip button,.bn-st,.bq-st,.orb-arrow,.icon-btn,.me-chip,#bell,.bn-tools button{transition:transform 160ms var(--ease-out),background-color .15s ease,border-color .15s ease,color .15s ease,filter .15s ease}
+.btn:active:not(:disabled),.seg button:active,.nav button:active,.tabbar button:active,.chip:active,.fchip button:active,.bn-st:active,.orb-arrow:active,.me-chip:active,#bell:active,.bn-tools button:active{transform:scale(.97)}
+dialog[open]{animation:dlg-in 220ms var(--ease-out)}
+dialog[open]::backdrop{animation:dlg-fade 220ms ease}
+@keyframes dlg-in{from{opacity:0;transform:translateY(6px) scale(.98)}}
+@keyframes dlg-fade{from{opacity:0}}
+.toast{animation:tin 220ms var(--ease-out)}
+.dlg-meta{margin-top:4px;font-size:12px;font-weight:600;color:var(--ink-3)}
+.field>span small{font-weight:500}
+@media (pointer:coarse){.ditem .x,.bq-x,.fedit,.memo footer .btn{min-width:36px;min-height:36px}}
+@media (prefers-reduced-motion:reduce){dialog[open],dialog[open]::backdrop,.toast{animation:dlg-fade 150ms ease}.btn:active:not(:disabled),.seg button:active,.nav button:active,.tabbar button:active,.chip:active,.fchip button:active,.bn-st:active,.orb-arrow:active,.me-chip:active,#bell:active,.bn-tools button:active{transform:none}}
 </style>
 
 <section class="auth" id="auth" hidden>
@@ -735,7 +730,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
     </form>
     <form id="auth-join" novalidate hidden>
       <label class="field">팀 초대코드<input id="jo-invite" autocomplete="off" required><small>팀 관리자에게 받은 코드입니다.</small></label>
-      <div class="row2"><label class="field">이름<input id="jo-name" autocomplete="username" maxlength="20" placeholder="예: 김민준" required></label><label class="field">역할 <small>(선택)</small><input id="jo-role" maxlength="30" placeholder="예: 공동대표"></label></div>
+      <div class="row2"><label class="field">이름<input id="jo-name" autocomplete="username" maxlength="20" placeholder="예: 김민준" required></label><label class="field"><span>역할 <small>(선택)</small></span><input id="jo-role" maxlength="30" placeholder="예: 공동대표"></label></div>
       <label class="field">비밀번호<input id="jo-pw" type="password" autocomplete="new-password" minlength="6" required><small>6자 이상</small></label>
       <label class="field">비밀번호 확인<input id="jo-pw2" type="password" autocomplete="new-password" required></label>
       <div class="field">표시 색상<div class="swatches" id="jo-colors"></div></div>
@@ -760,7 +755,7 @@ kbd{font:600 11px var(--f-mono);background:var(--surface-2);border:1px solid var
   <div class="main">
     <header class="topbar">
       <div class="mobile-brand brand" style="padding:0"><div class="brand-mark" style="width:30px;height:30px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="brand-name" style="font-size:19px">kits<b>base</b></div></div>
-      <div class="page-title"><span class="eyebrow" id="page-eyebrow">Business Calendar</span><h1 id="page-title">캘린더</h1></div>
+      <div class="page-title"><h1 id="page-title">캘린더</h1></div>
       <div class="top-actions">
         <div class="search" id="search">
           <label><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="search-input" type="search" placeholder="일정·사업·메모 검색" aria-label="검색" autocomplete="off"></label>
@@ -950,7 +945,7 @@ function renderNav(){
   const counts={calendar:S.items.length,projects:projects().length,mindmap:"",notes:S.notes.length,team:unreadMemos().length||""};
   $("#nav").innerHTML=`<span class="eyebrow">Workspace</span>`+NAV.map(n=>`<button data-nav="${n.id}" class="${S.nav===n.id?"active":""}">${icon(n.icon,18)}<span>${n.label}</span><span class="count">${S.loaded&&counts[n.id]!==""?counts[n.id]:""}</span></button>`).join("");
   $("#tabbar").innerHTML=NAV.map(n=>`<button data-nav="${n.id}" class="${S.nav===n.id?"active":""}">${icon(n.icon,20)}<span>${n.label}</span></button>`).join("");
-  const cur=NAV.find(n=>n.id===S.nav);$("#page-title").textContent=cur.label;$("#page-eyebrow").textContent=cur.eyebrow;
+  const cur=NAV.find(n=>n.id===S.nav);$("#page-title").textContent=cur.label;
   $("#top-add span").textContent=S.nav==="projects"?"새 사업":S.nav==="notes"?"새 메모":S.nav==="team"?"업무 추가":"새 항목";
   const up=upcoming();$("#bell-dot").hidden=!(up.length||unreadMemos().length);
   const me=myMember(),chip=$("#me-chip");chip.className="me-chip"+(me?"":" empty");chip.innerHTML=me?`${avatar(me,28)}<span class="nm">${esc(me.name)}</span>`:`${icon("plus",14)}<span class="nm">사용자 등록</span>`;chip.setAttribute("aria-label",me?`${me.name} · 업무현황`:"사용자 등록");
@@ -994,7 +989,7 @@ function renderCalendar(){
       :`<div class="agenda"><div class="empty-block"><strong>${cur.getMonth()+1}월에 등록된 항목이 없습니다</strong><span>일정 추가 버튼으로 이 달의 첫 항목을 기록하세요.</span><button class="btn primary sm" data-add-date="${iso(new Date(y,m,Math.min(28,parseISO(sel).getDate())))}">${icon("plus",14)} 일정 추가</button></div></div>`;
   }
   return `${loadingNote()}<div class="cal-layout"><section style="min-width:0">
-    <div class="cal-head"><div><span class="eyebrow">Tactical Calendar</span><h2>${title}</h2></div>
+    <div class="cal-head"><div><h2>${title}</h2></div>
       <div class="cal-tools"><div class="seg" role="tablist" aria-label="보기 방식">${[["month","월"],["week","주"],["list","목록"]].map(([k,l])=>`<button data-calview="${k}" class="${S.calView===k?"active":""}">${l}</button>`).join("")}</div>
       <div class="stepper"><button data-step="-1" aria-label="이전">${icon("left")}</button><button class="today-btn" data-today>오늘</button><button data-step="1" aria-label="다음">${icon("right")}</button></div>
       <button class="btn primary" data-add-date="${sel}">${icon("plus",15)} 일정 추가</button></div></div>
@@ -1004,7 +999,7 @@ function renderCalendar(){
 function renderSide(pm,plist){
   const sel=S.selected,d=parseISO(sel);const dayItems=visibleItems().filter(it=>it.eventDate===sel).sort(byTime);
   const linked=S.items.filter(it=>it.projectId&&pm.has(it.projectId)&&isISO(it.eventDate)).length;
-  return `<aside class="side"><section class="panel"><div class="dayhead"><div class="datetile"><strong>${d.getDate()}</strong><span>${WD[d.getDay()]}</span></div><div><span class="eyebrow">Selected Day</span><h3>${d.getMonth()+1}월 ${d.getDate()}일</h3></div><button class="btn sm" data-add-date="${sel}">${icon("plus",14)} 추가</button></div>
+  return `<aside class="side"><section class="panel"><div class="dayhead"><div class="datetile"><strong>${d.getDate()}</strong><span>${WD[d.getDay()]}</span></div><div><h3>${d.getMonth()+1}월 ${d.getDate()}일</h3></div><button class="btn sm" data-add-date="${sel}">${icon("plus",14)} 추가</button></div>
     <div class="daylist">${dayItems.length?dayItems.map(it=>{const p=pm.get(it.projectId);return `<div class="ditem" data-item="${esc(it.id)}" style="--c:${itemColor(it,pm)}"><span class="bar"></span><div class="t"><strong>${esc(it.title)}</strong><span><span class="kind ${esc(it.kind)}">${esc(KIND[it.kind]?.label||"일정")}</span> ${esc(it.time?it.time+" · ":"")}${esc(p?p.name:"사업 미지정")} · ${esc(it.owner||"공동")}</span></div><button class="x" data-del-item="${esc(it.id)}" aria-label="${esc(it.title)} 삭제">${icon("trash",14)}</button></div>`}).join(""):`<div class="panel-empty">이 날에는 등록된 항목이 없습니다.</div>`}</div></section>
     <section class="panel"><div class="biz-head"><h3>진행 중인 사업</h3><span>${plist.length}개 사업 · ${linked}개 일정</span></div>
     ${plist.length?plist.map(p=>{const open=S.expanded.has(p.id);const sch=S.items.filter(it=>it.projectId===p.id&&isISO(it.eventDate)).sort(byTime);
@@ -1017,7 +1012,7 @@ const dlg=$("#dlg");
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 function openDialog({eyebrow="",title,desc="",body,wide=false,onSubmit,onMount}){
   dlg.className=wide?"wide":"";
-  dlg.innerHTML=`<form id="dlg-form" novalidate><div class="dlg-head"><div>${eyebrow?`<span class="eyebrow">${esc(eyebrow)}</span>`:""}<h2>${esc(title)}</h2>${desc?`<p>${esc(desc)}</p>`:""}</div><button type="button" class="dlg-close" data-close aria-label="닫기">${icon("x",18)}</button></div><div class="dlg-body">${body}</div></form>`;
+  dlg.innerHTML=`<form id="dlg-form" novalidate><div class="dlg-head"><div><h2>${esc(title)}</h2>${eyebrow?`<p class="dlg-meta">${esc(eyebrow)}</p>`:""}${desc?`<p>${esc(desc)}</p>`:""}</div><button type="button" class="dlg-close" data-close aria-label="닫기">${icon("x",18)}</button></div><div class="dlg-body">${body}</div></form>`;
   const form=$("#dlg-form");form.addEventListener("submit",async e=>{e.preventDefault();if(onSubmit){const r=await onSubmit(form);if(r!==false)dlg.close()}});
   $$("[data-close]",dlg).forEach(b=>b.addEventListener("click",()=>dlg.close()));
   if(!dlg.open)dlg.showModal();onMount&&onMount(form);
@@ -1032,12 +1027,12 @@ function openItemDialog(item,defaults={}){
   const plist=projects();const isNew=!item;
   const it=item||{kind:defaults.kind||"event",title:"",description:"",owner:"공동",eventDate:defaults.date||S.selected,time:"",projectId:defaults.projectId||(S.filter!=="all"?S.filter:(plist[0]?.id||"")),priority:"normal",status:""};
   const statuses=k=>STATUS_BY_KIND[k]||STATUS_BY_KIND.event;
-  openDialog({eyebrow:isNew?"New Entry":"Entry",title:isNew?"새 항목 등록":"항목 편집",desc:isNew?"일정·아이디어·미션·결정을 사업과 연결해 기록합니다. 캘린더와 사업 패널에 함께 표시됩니다.":"",
+  openDialog({title:isNew?"새 항목 등록":"항목 편집",desc:isNew?"일정·아이디어·미션·결정을 사업과 연결해 기록합니다. 캘린더와 사업 패널에 함께 표시됩니다.":"",
     body:`<div class="field">분류<div class="kind-pick">${Object.entries(KIND).map(([k,v])=>`<label><input type="radio" name="kind" value="${k}" ${it.kind===k?"checked":""}><span style="--kc:var(--k-${k})">${v.label}</span></label>`).join("")}</div></div>
       <label class="field">연결 사업<select id="f-project"><option value="">사업 미지정</option>${plist.map(p=>`<option value="${esc(p.id)}" ${p.id===it.projectId?"selected":""}>${esc(p.name)}</option>`).join("")}</select></label>
       <label class="field">제목<input id="f-title" maxlength="120" value="${esc(it.title)}" placeholder="무엇을 진행하나요?" required></label>
       <label class="field">내용<textarea id="f-desc" maxlength="2000" placeholder="배경, 목표 또는 다음 행동을 적어주세요.">${esc(it.description||"")}</textarea></label>
-      <div class="row3"><label class="field">날짜<input id="f-date" type="date" value="${esc(it.eventDate||"")}" required></label><label class="field">시간 <small>(선택)</small><input id="f-time" type="time" value="${esc(it.time||"")}"></label><label class="field">담당<select id="f-owner">${ownerOpts(it.owner)}</select></label></div>
+      <div class="row3"><label class="field">날짜<input id="f-date" type="date" value="${esc(it.eventDate||"")}" required></label><label class="field"><span>시간 <small>(선택)</small></span><input id="f-time" type="time" value="${esc(it.time||"")}"></label><label class="field">담당<select id="f-owner">${ownerOpts(it.owner)}</select></label></div>
       <div class="row2"><label class="field">상태<select id="f-status"></select></label><label class="field">중요도<select id="f-priority"><option value="normal" ${it.priority!=="high"?"selected":""}>보통</option><option value="high" ${it.priority==="high"?"selected":""}>높음</option></select></label></div>
       <div class="dlg-actions">${isNew?"":`<button type="button" class="btn danger" id="f-del">${icon("trash",14)} 삭제</button>`}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${isNew?"등록":"저장"}</button></div>`,
     onMount(f){const st=$("#f-status",f);const fill=k=>{const cur=st.value||it.status;st.innerHTML=statuses(k).map(s=>`<option ${s===cur?"selected":""}>${s}</option>`).join("")};fill(it.kind);
@@ -1082,7 +1077,7 @@ function openProjectEditor(p){
       const raw=S.projects.find(x=>x.id===p.id)||{};put("projects",{...raw,id:p.id,name,category:cat,owner:$("#p-owner",f).value,startDate:pr.start,deadline:pr.deadline,progressMode:pr.mode,progress:pr.progress,nextAction:$("#p-next",f).value.trim(),color,updatedAt:Date.now()});toast("저장했습니다")}});
 }
 function openNewProject(){
-  openDialog({eyebrow:"New Business",title:"새 사업 시작",desc:"예상 종료일과 진행률은 아직 정하지 않았다면 ‘미정’, ‘필요 없음’을 고르세요.",
+  openDialog({title:"새 사업 시작",desc:"예상 종료일과 진행률은 아직 정하지 않았다면 ‘미정’, ‘필요 없음’을 고르세요.",
     body:`<label class="field">사업 이름<input id="n-name" maxlength="80" placeholder="사업 이름"></label>
       <div class="row2"><label class="field">분류<input id="n-cat" maxlength="60" value="NEW BUSINESS" placeholder="예: PLATFORM"></label><label class="field">담당<select id="n-owner">${ownerOpts(myMember()?myMember().name:"공동")}</select></label></div>
       ${progFields("n","auto","",todayISO(),"")}
@@ -1179,10 +1174,10 @@ function summaryHTML(P,avg){if(!P.length)return "";const today=todayISO();
 function renderProjects(){
   const plist=projects();if(WR.idx>=plist.length)WR.idx=0;
   const pp=plist.filter(p=>!p.noProg);const avg=pp.length?Math.round(pp.reduce((s,p)=>s+p.progress,0)/pp.length):0;const sched=S.items.filter(it=>isISO(it.eventDate)&&it.eventDate>=todayISO()).length;
-  return `${loadingNote()}<div class="sec-head"><div><span class="eyebrow">The Fire Command Room</span><h2>kitsbase 작전실</h2><p>진행 중인 사업이 궤도를 돌며 하나씩 나타납니다. 화살표·썸네일·방향키·스와이프로 사업을 바꾸고, 가운데 접시를 누르면 상세가 열립니다.</p></div>
-    <div class="tools"><div class="seg">${[["orbit","사업 궤도"],["build","건설 현황"]].map(([k,l])=>`<button data-projmode="${k}" class="${S.projMode===k?"active":""}">${l}</button>`).join("")}</div><button class="btn primary" data-new-project>${icon("plus",15)} 새 사업</button></div></div>
+  return `${loadingNote()}<div class="sec-head"><div><h2>kitsbase 작전실</h2><p>진행 중인 사업이 궤도를 돌며 하나씩 나타납니다. 화살표·썸네일·방향키·스와이프로 사업을 바꾸고, 가운데 접시를 누르면 상세가 열립니다.</p></div>
+    <div class="tools"><div class="seg">${[["orbit","사업 궤도"],["build","건설 현황"]].map(([k,l])=>`<button data-projmode="${k}" class="${S.projMode===k?"active":""}">${l}</button>`).join("")}</div></div></div>
     ${S.projMode==="orbit"?orbitHTML(plist):buildHTML(plist)}
-    <div class="stats"><div class="stat"><span class="eyebrow">Active Projects</span><b class="mono">${pad(plist.length)}</b><small>진행 중인 사업</small></div><div class="stat"><span class="eyebrow">Average Heat</span><b class="mono">${avg}%</b><small>평균 진행률</small></div><div class="stat"><span class="eyebrow">Next Actions</span><b class="mono">${sched}</b><small>오늘 이후 등록된 일정</small></div></div>
+    <div class="stats"><div class="stat"><b class="mono">${pad(plist.length)}</b><small>진행 중인 사업</small></div><div class="stat"><b class="mono">${avg}%</b><small>평균 진행률</small></div><div class="stat"><b class="mono">${sched}</b><small>오늘 이후 등록된 일정</small></div></div>
     ${summaryHTML(plist,avg)}`;
 }
 
@@ -1204,7 +1199,7 @@ function renderTeamLog(){const me=myMember(),members=sortedMembers(),db=S.mode==
   let list=S.messages.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));const tab=S.msgTab;
   if(tab==="inbox")list=list.filter(m=>memoToMe(m,me)&&m.from!==me.id);else if(tab==="sent")list=list.filter(m=>me&&m.from===me.id);
   const un=unreadMemos();
-  return `<div class="sec-head log-head"><div><span class="eyebrow">Memo Log</span><h2>메모 기록 · 팀원</h2><p>주고받은 메모 전체와 내 계정 설정입니다.</p></div><div class="tools"><button class="btn" data-new-memo ${me?"":"disabled"}>${icon("plus",15)} 메모 보내기</button></div></div>
+  return `<div class="sec-head log-head"><div><h2>메모 기록 · 팀원</h2><p>주고받은 메모 전체와 내 계정 설정입니다.</p></div><div class="tools"><button class="btn" data-new-memo ${me?"":"disabled"}>${icon("plus",15)} 메모 보내기</button></div></div>
   <div class="team-layout"><aside class="panel"><div class="biz-head"><h3>팀원</h3><span>${members.length} / 4명 등록</span></div>
     ${me?"":`<div class="reg-cta"><strong>${canReg?"아직 사용자 등록을 하지 않았습니다":"로그인 정보를 확인할 수 없습니다"}</strong><span>${canReg?"이름과 역할을 등록하면 담당자 선택과 메모 주고받기에 쓰입니다.":"로그아웃 후 다시 로그인해주세요."}</span>${canReg?`<button class="btn primary sm" data-register>${icon("plus",14)} 사용자 등록</button>`:""}</div>`}
     <ul class="mem-list">${members.length?members.map(m=>`<li class="${m.id===S.meId?"me":""}">${avatar(m)}<div><strong>${esc(m.name)}${m.id===S.meId?"<em>나</em>":""}</strong><span>${esc(m.role||"역할 미정")}</span></div>${m.id===S.meId?`<button class="btn ghost sm" data-register>${icon("pen",12)} 수정</button><button class="btn ghost sm" data-password>비밀번호</button>`:`${me?`<button class="btn ghost sm" data-memo-to="${esc(m.id)}">메모</button>`:""}${db?"":`<button class="btn ghost sm" data-switch-me="${esc(m.id)}">이 사용자로</button>`}`}</li>`).join(""):`<li class="none">등록된 팀원이 없습니다.</li>`}</ul>
@@ -1229,12 +1224,12 @@ function renderTeam(){const me=myMember(),pl=projects();
       <header class="bq-head">${avatar(who,38)}<div class="bq-who"><strong>${esc(name)}${mine?"<em>나</em>":""}</strong><span>${m?esc(m.role||"역할 미정"):"가입 전"}</span></div>
         <div class="bq-cnt"><span><b>${cnt("doing")}</b>진행</span><span><b>${cnt("wait")}</b>대기</span><span><b>${cnt("done")}</b>완료</span></div></header>
       <div class="bq-sec"><h4>하는 업무 <span class="hint">빈 곳 더블클릭 · 끌어서 이동 · Tab 하위 업무</span><button class="btn primary sm bq-new" data-bn-new="${esc(name)}" ${me?"":"disabled"}>${icon("plus",13)} 업무</button></h4>
-        <div class="bcv" data-bcv="${esc(name)}"><div class="bcv-stage"><svg class="bcv-lines" aria-hidden="true"></svg>${bnNodes(tasks,name,pl)}</div>${tasks.length?"":`<p class="bcv-empty">빈 곳을 더블클릭해서 업무를 적어보세요</p>`}</div></div>
+        <div class="bcv" data-bcv="${esc(name)}"><div class="bcv-stage"><svg class="bcv-lines" aria-hidden="true"></svg>${bnNodes(tasks,name,pl)}</div>${tasks.length?"":`<p class="bcv-empty">${matchMedia("(pointer:coarse)").matches?"+ 업무 버튼으로 업무를 추가해보세요":"빈 곳을 더블클릭해서 업무를 적어보세요"}</p>`}</div></div>
       <div class="bq-sec"><h4>메모 남기기 <span class="dir">${me?`${esc(me.name)} → ${mine?"전체 팀원":esc(name)}`:"로그인 필요"}</span></h4>
         <form class="bq-form bq-memo" data-memo-person="${esc(name)}"><input name="text" maxlength="500" placeholder="${mine?"팀 전체에게 남길 메모":esc(name)+"에게 남길 메모"}" aria-label="${esc(name)}에게 메모" ${me?"":"disabled"}><button class="btn sm" ${me?"":"disabled"}>보내기</button></form>
         ${memos.length?`<ul class="bq-memos">${memos.slice(0,3).map(memoRow).join("")}</ul>${memos.length>3?`<p class="bq-more">외 ${memos.length-3}개 · 아래 메모 기록에서 확인</p>`:""}`:`<p class="bq-empty">${esc(name)}에게 온 메모가 없습니다.</p>`}</div>
     </section>`};
-  return `${loadingNote()}<div class="sec-head"><div><span class="eyebrow">Team Board</span><h2>업무현황</h2><p>각자 하는 업무와 서로에게 남긴 메모를 한 판에서 확인합니다. 상태 칸을 누르면 대기 → 진행 중 → 완료로 바뀝니다.</p></div></div>
+  return `${loadingNote()}<div class="sec-head"><div><h2>업무현황</h2><p>각자 하는 업무와 서로에게 남긴 메모를 한 판에서 확인합니다. 상태 칸을 누르면 대기 → 진행 중 → 완료로 바뀝니다.</p></div></div>
   <div class="board">${BOARD_PEOPLE.map(quad).join("")}</div>${renderTeamLog()}`}
 /* --- 업무현황: free canvas (mind-map style) --- */
 function bnLayout(tasks){const pos=new Map();let slot=0;const kidsPlaced=new Map();
@@ -1305,7 +1300,7 @@ async function boardSubmit(f){const me=myMember();if(!me){toast("로그인 후 �
 document.addEventListener("submit",e=>{const f=e.target.closest(".bq-form");if(!f)return;e.preventDefault();boardSubmit(f)});
 function focusMyTaskInput(){const me=myMember();bnNew(me&&BOARD_PEOPLE.includes(me.name)?me.name:BOARD_PEOPLE[0])}
 function openMemberEditor(member,isNew){const db=S.mode==="db",cur=isNew?null:(member||null);let color=cur?col(cur.color,MEMBER_COLORS[0]):MEMBER_COLORS[S.members.length%MEMBER_COLORS.length];
-  openDialog({eyebrow:"Team Member",title:cur?"내 정보 수정":isNew?"팀원 추가":"사용자 등록",desc:"이름을 바꾸면 다음 로그인부터 바뀐 이름으로 로그인합니다. 등록한 이름은 담당자 선택과 팀 메모에 쓰입니다.",
+  openDialog({title:cur?"내 정보 수정":isNew?"팀원 추가":"사용자 등록",desc:"이름을 바꾸면 다음 로그인부터 바뀐 이름으로 로그인합니다. 등록한 이름은 담당자 선택과 팀 메모에 쓰입니다.",
     body:`<label class="field">이름<input id="mb-name" maxlength="20" value="${esc(cur?cur.name:"")}" placeholder="예: 김민준"></label><label class="field">역할<input id="mb-role" maxlength="30" value="${esc(cur?cur.role||"":"")}" placeholder="예: 공동대표, 개발, 디자인"></label>
       <div class="field">표시 색상<div class="swatches">${MEMBER_COLORS.map(c=>`<button type="button" data-sw="${c}" class="${c===color?"on":""}" style="--sw:${c}" aria-label="${c} 색상"></button>`).join("")}</div></div>
       <div class="dlg-actions">${cur&&!db?`<button type="button" class="btn danger" id="mb-del">${icon("trash",14)} 사용자 삭제</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${cur?"저장":"등록"}</button></div>`,
@@ -1318,7 +1313,7 @@ function openMemberEditor(member,isNew){const db=S.mode==="db",cur=isNew?null:(m
       if(!db&&(!cur||isNew)){S.meId=id;saveMe()}toast(prev?"저장했습니다":`${name}님, 등록되었습니다`)}});
 }
 function openPasswordDialog(){
-  openDialog({eyebrow:"Account",title:"비밀번호 변경",
+  openDialog({title:"비밀번호 변경",
     body:`<label class="field">현재 비밀번호<input id="pw-cur" type="password" autocomplete="current-password"></label><label class="field">새 비밀번호<input id="pw-new" type="password" autocomplete="new-password"><small>6자 이상</small></label><label class="field">새 비밀번호 확인<input id="pw-new2" type="password" autocomplete="new-password"></label><div class="dlg-actions"><span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">변경</button></div>`,
     onMount(f){setTimeout(()=>$("#pw-cur",f).focus(),30)},
     async onSubmit(f){const next=$("#pw-new",f).value;if(next.length<6){toast("새 비밀번호는 6자 이상이어야 합니다.");return false}if(next!==$("#pw-new2",f).value){toast("새 비밀번호 확인이 일치하지 않습니다.");return false}
@@ -1326,8 +1321,8 @@ function openPasswordDialog(){
 }
 function openMemoDialog(to){const me=myMember();if(!me){toast("먼저 사용자 등록을 해주세요.");openMemberEditor(null);return}
   const others=sortedMembers().filter(m=>m.id!==me.id);
-  openDialog({eyebrow:`From · ${me.name}`,title:"메모 보내기",desc:"받는 사람을 고르고 내용을 적으면 팀 메모 보드와 받는 사람의 알림에 표시됩니다.",
-    body:`<div class="row2"><label class="field">받는 사람<select id="memo-to"><option value="all">전체 팀원</option>${others.map(m=>`<option value="${esc(m.id)}" ${m.id===to?"selected":""}>${esc(m.name)}</option>`).join("")}</select></label><label class="field">관련 사업 <small>(선택)</small><select id="memo-proj"><option value="">없음</option>${projects().map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("")}</select></label></div>
+  openDialog({eyebrow:`보내는 사람 · ${me.name}`,title:"메모 보내기",desc:"받는 사람을 고르고 내용을 적으면 팀 메모 보드와 받는 사람의 알림에 표시됩니다.",
+    body:`<div class="row2"><label class="field">받는 사람<select id="memo-to"><option value="all">전체 팀원</option>${others.map(m=>`<option value="${esc(m.id)}" ${m.id===to?"selected":""}>${esc(m.name)}</option>`).join("")}</select></label><label class="field"><span>관련 사업 <small>(선택)</small></span><select id="memo-proj"><option value="">없음</option>${projects().map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("")}</select></label></div>
       <label class="field">메모<textarea id="memo-text" maxlength="1000" placeholder="전달할 내용을 적어주세요."></textarea></label>
       <div class="dlg-actions"><span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">메모 보내기</button></div>`,
     onMount(f){setTimeout(()=>$("#memo-text",f).focus(),30)},
@@ -1337,13 +1332,13 @@ function openMemoDialog(to){const me=myMember();if(!me){toast("먼저 사용자 
 
 /* ============ notes ============ */
 function renderNotes(){
-  const plist=projects();if(!plist.length)return `${loadingNote()}<div class="sec-head"><div><span class="eyebrow">Project Noteboard</span><h2>사업별 메모장</h2></div></div><div class="panel"><div class="empty-block"><strong>사업을 먼저 추가해주세요</strong><span>메모는 사업별로 정리됩니다.</span><button class="btn primary sm" data-new-project>${icon("plus",14)} 새 사업</button></div></div>`;
+  const plist=projects();if(!plist.length)return `${loadingNote()}<div class="sec-head"><div><h2>사업별 메모장</h2></div></div><div class="panel"><div class="empty-block"><strong>사업을 먼저 추가해주세요</strong><span>메모는 사업별로 정리됩니다.</span><button class="btn primary sm" data-new-project>${icon("plus",14)} 새 사업</button></div></div>`;
   if(!plist.some(p=>p.id===S.notesProject)){S.notesProject=plist[0].id;S.folderFilter="all"}
   const p=plist.find(x=>x.id===S.notesProject);const notes=S.notes.filter(n=>n.projectId===p.id).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
   const folders=S.folders.filter(f=>f.projectId===p.id).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));const fmap=new Map(folders.map(f=>[f.id,f]));
   if(S.folderFilter!=="all"&&S.folderFilter!=="unfiled"&&!fmap.has(S.folderFilter))S.folderFilter="all";
   const vis=notes.filter(n=>S.folderFilter==="all"||(S.folderFilter==="unfiled"?!fmap.has(n.folderId):n.folderId===S.folderFilter));
-  return `${loadingNote()}<div class="sec-head"><div><span class="eyebrow">Project Noteboard</span><h2>사업별 메모장</h2><p>큰 편집기에서 작성한 뒤 사업별 카드로 한눈에 확인하세요.</p></div><div class="tools"><button class="btn primary" data-new-note>${icon("plus",15)} 새 메모</button></div></div>
+  return `${loadingNote()}<div class="sec-head"><div><h2>사업별 메모장</h2><p>큰 편집기에서 작성한 뒤 사업별 카드로 한눈에 확인하세요.</p></div></div>
     <div class="notes-bar" style="--c:${p.color}">${icon("note",18)}<div><span class="eyebrow">현재 사업</span><div style="font-weight:700">${esc(p.name)}</div></div><select id="notes-project" aria-label="메모를 볼 사업 선택">${plist.map(x=>`<option value="${esc(x.id)}" ${x.id===p.id?"selected":""}>${esc(x.name)}</option>`).join("")}</select><span class="count"><i></i><b class="mono">${notes.length}</b>개의 메모</span></div>
     <div class="folders" aria-label="메모 폴더"><span class="fchip ${S.folderFilter==="all"?"active":""}"><button data-folder="all">${icon("folder",15)}전체 <b>${notes.length}</b></button></span><span class="fchip ${S.folderFilter==="unfiled"?"active":""}"><button data-folder="unfiled">${icon("folder",15)}미분류 <b>${notes.filter(n=>!fmap.has(n.folderId)).length}</b></button></span>
       ${folders.map(f=>`<span class="fchip ${S.folderFilter===f.id?"active":""}" style="--fc:${col(themeColor(f.color),"#16A34A")}"><button data-folder="${esc(f.id)}">${icon("folder",15)}${esc(f.name)} <b>${notes.filter(n=>n.folderId===f.id).length}</b></button><button class="fedit" data-edit-folder="${esc(f.id)}" aria-label="${esc(f.name)} 폴더 수정">${icon("pen",12)}</button></span>`).join("")}
@@ -1354,7 +1349,7 @@ function renderNotes(){
 }
 function openFolderEditor(folder){
   const p=projects().find(x=>x.id===S.notesProject);let color=folder?col(themeColor(folder.color),"#16A34A"):(p?p.color:"#16A34A");
-  openDialog({eyebrow:"Project Note Folder",title:folder?"폴더 수정":"새 폴더 만들기",
+  openDialog({title:folder?"폴더 수정":"새 폴더 만들기",
     body:`<label class="field">폴더 이름<input id="fo-name" maxlength="40" value="${esc(folder?.name||"")}" placeholder="예: 회의록, 아이디어, 참고자료"></label><div class="field">폴더 컬러${rgbEditor("fo",color)}</div>
       <div class="dlg-actions">${folder?`<button type="button" class="btn danger" id="fo-del">${icon("trash",14)} 폴더 삭제</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${folder?"폴더 수정":"폴더 만들기"}</button></div>`,
     onMount(f){const w=$("[data-rgb=fo]",f);w.addEventListener("input",e=>color=readRgb(w,e.target));setTimeout(()=>$("#fo-name",f).focus(),30);
@@ -1488,7 +1483,7 @@ const hexA=(hex,a)=>{const c=hexToRgb(col(hex,"#16A34A"));return `rgba(${c.r},${
 const CELLS={raf:0,cv:null,ctx:null,cells:[],food:[],sel:null,drag:null,ro:null,t:0,w:600,h:460,last:0,mounted:false,colors:null,
   mountOrUpdate(v,plist){if(this.mounted&&this.cv&&v.contains(this.cv)){this.sync(plist);this.panel();return}this.mount(v,plist)},
   mount(v,plist){this.stop();this.mounted=true;
-    v.innerHTML=`${loadingNote()}${mmTabs()}<div class="mm-head"><div><span class="eyebrow">Cell Lab</span><h2 style="font:800 clamp(24px,3vw,34px)/1.05 var(--f-display);letter-spacing:-.03em">세포 보기</h2><p style="color:var(--ink-2);margin-top:6px;max-width:62ch">사업 하나가 세포 하나입니다. 마인드맵 도형이 많을수록 세포가 커지고, 안쪽 알갱이가 도형 수만큼 떠다닙니다. 빈 곳을 누르면 먹이가 떨어지고, 세포를 끌어서 던질 수 있습니다. 세포를 두 번 누르면 그 사업의 마인드맵이 열립니다.</p></div></div>
+    v.innerHTML=`${loadingNote()}${mmTabs()}<div class="mm-head"><div><h2 style="font:800 clamp(24px,3vw,34px)/1.05 var(--f-display);letter-spacing:-.03em">세포 보기</h2><p style="color:var(--ink-2);margin-top:6px;max-width:62ch">사업 하나가 세포 하나입니다. 마인드맵 도형이 많을수록 세포가 커지고, 안쪽 알갱이가 도형 수만큼 떠다닙니다. 빈 곳을 누르면 먹이가 떨어지고, 세포를 끌어서 던질 수 있습니다. 세포를 두 번 누르면 그 사업의 마인드맵이 열립니다.</p></div></div>
       <div class="cell-wrap"><div class="cell-stage"><canvas id="cell-cv" role="img" aria-label="사업 세포 보기. 오른쪽 목록에서도 세포를 고를 수 있습니다."></canvas></div><aside class="inspector" id="cell-panel"></aside></div>`;
     this.cv=$("#cell-cv");this.ctx=this.cv.getContext("2d");this.cells=[];this.food=[];if(!plist.some(p=>p.id===this.sel))this.sel=null;this.colors=null;
     const stage=this.cv.parentElement;const fit=()=>{const r=stage.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);if(!r.width)return;this.w=r.width;this.h=r.height;this.cv.width=Math.round(r.width*dpr);this.cv.height=Math.round(r.height*dpr);this.cv.style.width=r.width+"px";this.cv.style.height=r.height+"px";this.ctx.setTransform(dpr,0,0,dpr,0,0)};fit();
@@ -1540,8 +1535,8 @@ const CELLS={raf:0,cv:null,ctx:null,cells:[],food:[],sel:null,drag:null,ro:null,
     cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
     cv.addEventListener("dblclick",e=>{const c=hit(pt(e));if(c)MM.openProject(c.pid)})},
   panel(){const el=$("#cell-panel");if(!el)return;const c=this.cells.find(x=>x.pid===this.sel);
-    if(!c){el.innerHTML=`<div><span class="eyebrow">Cell Lab</span><h3>사업 세포 ${this.cells.length}개</h3></div><p style="color:var(--ink-2);font-size:13px">세포를 누르면 그 사업의 아이디어를 볼 수 있습니다. 아래 목록에서 골라도 됩니다.</p><div class="cell-list">${this.cells.map(x=>`<button type="button" data-cell="${esc(x.pid)}" style="--c:${x.color}"><i></i><span>${esc(x.name)}</span><b>${x.n}</b></button>`).join("")}</div>`;return}
-    el.innerHTML=`<div><span class="eyebrow">${esc(c.category||"")}</span><h3>${esc(c.name)}</h3></div>
+    if(!c){el.innerHTML=`<div><h3>사업 세포 ${this.cells.length}개</h3></div><p style="color:var(--ink-2);font-size:13px">세포를 누르면 그 사업의 아이디어를 볼 수 있습니다. 아래 목록에서 골라도 됩니다.</p><div class="cell-list">${this.cells.map(x=>`<button type="button" data-cell="${esc(x.pid)}" style="--c:${x.color}"><i></i><span>${esc(x.name)}</span><b>${x.n}</b></button>`).join("")}</div>`;return}
+    el.innerHTML=`<div><h3>${esc(c.name)}</h3></div>
       <div class="isec"><span>상태</span><p style="font-size:13px">${c.noProg?"진행률 미사용":`진행률 ${c.progress}%`} · 마인드맵 도형 ${c.n}개</p></div>
       <div class="isec"><span>세포 안의 아이디어</span>${c.labels.length?`<ul class="cell-labels">${c.labels.slice(0,10).map(l=>`<li>${esc(l)}</li>`).join("")}</ul>${c.labels.length>10?`<small>외 ${c.labels.length-10}개</small>`:""}`:`<small>아직 마인드맵에 도형이 없습니다.</small>`}</div>
       <button class="btn primary" type="button" data-cell-open="${esc(c.pid)}">${icon("map",14)} 사업 마인드맵 열기</button>
@@ -1566,7 +1561,7 @@ const MM={pid:null,curKey:null,tab:(()=>{try{const t=localStorage.getItem("kitsb
       return}
     this.mount(v,plist);this.load(key)},
   mount(v,plist){this.mounted=true;const all=this.tab==="all";
-    v.innerHTML=`${mmTabs()}<div class="mm-head"><div><span class="eyebrow">${all?"Master Mind Map":"Business Mind Map"}</span><h2 style="font:800 clamp(24px,3vw,34px)/1.05 var(--f-display);letter-spacing:-.03em">${all?"전체 마인드맵":"사업별 마인드맵"}</h2><p style="color:var(--ink-2);margin-top:6px;max-width:62ch">${all?"모든 사업을 한 판에 모아 큰 그림을 그립니다. 오른쪽에서 사업을 골라 꺼내오면 그 사업의 마인드맵이 테두리로 묶여 들어옵니다. 테두리를 끌면 안의 도형이 함께 움직입니다.":"사업마다 따로 저장되는 마인드맵입니다. 도형을 배치하고 연결점을 드래그해 흐름을 만드세요."}</p></div>
+    v.innerHTML=`${mmTabs()}<div class="mm-head"><div><h2 style="font:800 clamp(24px,3vw,34px)/1.05 var(--f-display);letter-spacing:-.03em">${all?"전체 마인드맵":"사업별 마인드맵"}</h2><p style="color:var(--ink-2);margin-top:6px;max-width:62ch">${all?"모든 사업을 한 판에 모아 큰 그림을 그립니다. 오른쪽에서 사업을 골라 꺼내오면 그 사업의 마인드맵이 테두리로 묶여 들어옵니다. 테두리를 끌면 안의 도형이 함께 움직입니다.":"사업마다 따로 저장되는 마인드맵입니다. 도형을 배치하고 연결점을 드래그해 흐름을 만드세요."}</p></div>
       <div class="tools">${all?`<label class="field" style="font-size:11px">사업 마인드맵 꺼내오기<select id="mm-import"><option value="">사업 선택</option>${plist.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("")}</select></label><button class="btn" id="mm-import-btn" ${plist.length?"":"disabled"}>${icon("plus",14)}꺼내오기</button>`:`<label class="field" style="font-size:11px">사업 선택<select id="mm-project"></select></label>`}<button class="btn" id="mm-save">${icon("save",14)}<span class="save-state" id="mm-status">${esc(this.status)}</span></button></div></div>
       <div class="toolbar"><div class="tg"><span>도형</span>${SHAPES.map(([k,l,ic])=>`<button data-mm-add="${k}" title="${l}">${icon(ic,15)}${l}</button>`).join("")}<button data-mm="image" title="이미지 추가">${icon("img",15)}이미지</button><input type="file" accept="image/*" class="hidden-file" id="mm-file"></div>
         <div class="tg"><span>정렬</span><button data-mm-align="left" data-need="2">← 좌</button><button data-mm-align="hcenter" data-need="2">↔ 중앙</button><button data-mm-align="right" data-need="2">우 →</button><button data-mm-align="top" data-need="2">↑ 상</button><button data-mm-align="vcenter" data-need="2">↕ 중앙</button><button data-mm-align="bottom" data-need="2">하 ↓</button><button data-mm-dist="h" data-need="3">가로 간격</button><button data-mm-dist="v" data-need="3">세로 간격</button></div>
@@ -1614,7 +1609,7 @@ const MM={pid:null,curKey:null,tab:(()=>{try{const t=localStorage.getItem("kitsb
     else{this.nodes=[{id:"root-"+pid,x:380,y:230,w:180,h:72,z:0,data:{label:p.name,shape:"rounded",color:p.color,borderColor:p.color,fillColor:tint(p.color),textColor:"#0A0A0A",fontSize:14,fontWeight:800}}];this.edges=[]}
     this.hist={undo:[],redo:[],cur:this.serialize()};this.loaded=true;this.setStatus(data?"저장됨":"새 마인드맵");this.render();this.renderInspector();requestAnimationFrame(()=>this.fit(false))},
   normNode(n){/* accepts React Flow shape from the original app too */const x=n.x??n.position?.x??0,y=n.y??n.position?.y??0;const w=n.w??parseFloat(n.style?.width)??n.measured?.width??160,h=n.h??parseFloat(n.style?.height)??n.measured?.height??68;
-    const d=n.data||{};return {id:String(n.id),x:+x||0,y:+y||0,w:clamp(+w||160,40,8000),h:clamp(+h||68,30,8000),z:+(n.z??n.zIndex??0)||0,data:{label:String(d.label??""),shape:["rectangle","rounded","circle","diamond"].includes(d.shape)?d.shape:"rounded",color:col(d.color,"#16A34A"),borderColor:col(d.borderColor||d.color,"#16A34A"),fillColor:col(d.fillColor,tint(d.color||"#16A34A")),textColor:col(d.textColor,"#0A0A0A"),fontSize:clamp(+d.fontSize||12,8,42),fontWeight:+d.fontWeight||800,italic:!!d.italic,underline:!!d.underline,image:typeof d.image==="string"&&/^data:image\/(png|jpe?g|webp|gif);base64,/.test(d.image)?d.image:"",imageName:String(d.imageName||""),frame:!!d.frame,sourcePid:String(d.sourcePid||"")}}},
+    const d={...(n.data||{})};if(OLD_DEFAULTS.has(String(d.color||"").toUpperCase())){const oc=d.color,nc=themeColor(oc);if(!d.fillColor||String(d.fillColor).toUpperCase()===String(tint(oc)).toUpperCase())d.fillColor=tint(nc);else if(d.frame&&String(d.fillColor).toUpperCase()===String(tint(oc,.07)).toUpperCase())d.fillColor=tint(nc,.07);if(!d.borderColor||String(d.borderColor).toUpperCase()===String(oc).toUpperCase())d.borderColor=nc;if(String(d.textColor||"").toUpperCase()===String(oc).toUpperCase())d.textColor=nc;d.color=nc}return {id:String(n.id),x:+x||0,y:+y||0,w:clamp(+w||160,40,8000),h:clamp(+h||68,30,8000),z:+(n.z??n.zIndex??0)||0,data:{label:String(d.label??""),shape:["rectangle","rounded","circle","diamond"].includes(d.shape)?d.shape:"rounded",color:col(d.color,"#16A34A"),borderColor:col(d.borderColor||d.color,"#16A34A"),fillColor:col(d.fillColor,tint(d.color||"#16A34A")),textColor:col(d.textColor,"#0A0A0A"),fontSize:clamp(+d.fontSize||12,8,42),fontWeight:+d.fontWeight||800,italic:!!d.italic,underline:!!d.underline,image:typeof d.image==="string"&&/^data:image\/(png|jpe?g|webp|gif);base64,/.test(d.image)?d.image:"",imageName:String(d.imageName||""),frame:!!d.frame,sourcePid:String(d.sourcePid||"")}}},
   serialize(){return JSON.stringify({nodes:this.nodes,edges:this.edges,bg:this.bg})},
   setStatus(s){this.status=s;if(this.els.status)this.els.status.textContent=s},
   changed(opts={}){this.render();if(opts.insp!==false)this.renderInspector();clearTimeout(this.commitT);this.commitT=setTimeout(()=>this.commit(),320);this.scheduleSave()},
@@ -1733,7 +1728,7 @@ const MM={pid:null,curKey:null,tab:(()=>{try{const t=localStorage.getItem("kitsb
   pasteStyle(){if(this.styleClip&&this.sel.size){this.selNodes().forEach(n=>Object.assign(n.data,this.styleClip));this.changed()}},
   layer(front){const L=this.selNodes();if(!L.length)return;const zs=this.nodes.map(n=>n.z||0);const t=front?Math.max(0,...zs)+1:Math.min(0,...zs)-1;L.forEach(n=>n.z=t);this.changed({insp:false})},
   removeSel(){if(this.sel.size){const ids=this.sel;this.nodes=this.nodes.filter(n=>!ids.has(n.id));this.edges=this.edges.filter(e=>!ids.has(e.source)&&!ids.has(e.target));this.sel=new Set()}if(this.selEdge){this.edges=this.edges.filter(e=>e.id!==this.selEdge);this.selEdge=null}this.changed()},
-  showKeys(){openDialog({wide:true,eyebrow:"Design Tool Keys",title:"마인드맵 단축키",body:`<div class="shortcuts"><article><h4>편집</h4><p><kbd>Ctrl Z</kbd>실행 취소</p><p><kbd>Ctrl Y</kbd>다시 실행</p><p><kbd>Ctrl X/C/V</kbd>잘라내기·복사·붙여넣기</p><p><kbd>Ctrl D</kbd>복제</p><p><kbd>Ctrl A</kbd>전체 선택</p><p><kbd>Delete</kbd>삭제</p><p><kbd>Ctrl S</kbd>즉시 저장</p></article><article><h4>텍스트·스타일</h4><p><kbd>F2 / Enter</kbd>텍스트 편집</p><p><kbd>Shift Enter</kbd>줄바꿈</p><p><kbd>Ctrl B/I/U</kbd>굵게·기울임·밑줄</p><p><kbd>Ctrl Shift C/V</kbd>스타일 복사·붙여넣기</p><p><kbd>Shift 드래그</kbd>비율 유지 크기 조절</p></article><article><h4>이동·보기</h4><p><kbd>방향키</kbd>1px 이동</p><p><kbd>Shift 방향키</kbd>10px 이동</p><p><kbd>Tab / Shift Tab</kbd>다음·이전 도형</p><p><kbd>Ctrl [ / ]</kbd>뒤로·앞으로</p><p><kbd>Ctrl 0</kbd>화면 맞춤</p><p><kbd>Space 드래그</kbd>화면 이동</p><p><kbd>Esc</kbd>선택 해제</p></article></div>`})},
+  showKeys(){openDialog({wide:true,title:"마인드맵 단축키",body:`<div class="shortcuts"><article><h4>편집</h4><p><kbd>Ctrl Z</kbd>실행 취소</p><p><kbd>Ctrl Y</kbd>다시 실행</p><p><kbd>Ctrl X/C/V</kbd>잘라내기·복사·붙여넣기</p><p><kbd>Ctrl D</kbd>복제</p><p><kbd>Ctrl A</kbd>전체 선택</p><p><kbd>Delete</kbd>삭제</p><p><kbd>Ctrl S</kbd>즉시 저장</p></article><article><h4>텍스트·스타일</h4><p><kbd>F2 / Enter</kbd>텍스트 편집</p><p><kbd>Shift Enter</kbd>줄바꿈</p><p><kbd>Ctrl B/I/U</kbd>굵게·기울임·밑줄</p><p><kbd>Ctrl Shift C/V</kbd>스타일 복사·붙여넣기</p><p><kbd>Shift 드래그</kbd>비율 유지 크기 조절</p></article><article><h4>이동·보기</h4><p><kbd>방향키</kbd>1px 이동</p><p><kbd>Shift 방향키</kbd>10px 이동</p><p><kbd>Tab / Shift Tab</kbd>다음·이전 도형</p><p><kbd>Ctrl [ / ]</kbd>뒤로·앞으로</p><p><kbd>Ctrl 0</kbd>화면 맞춤</p><p><kbd>Space 드래그</kbd>화면 이동</p><p><kbd>Esc</kbd>선택 해제</p></article></div>`})},
   onTool(e){const b=e.target.closest("button");if(!b||b.disabled)return;const d=b.dataset;
     if(d.mmAdd)this.addNode(d.mmAdd);else if(d.mmAlign)this.align(d.mmAlign);else if(d.mmDist)this.distribute(d.mmDist);
     else if(d.mmEdge){this.edgeType=d.mmEdge;if(this.selEdge){const ed=this.edges.find(x=>x.id===this.selEdge);if(ed){ed.type=d.mmEdge;this.changed();return}}this.render()}
@@ -1742,7 +1737,7 @@ const MM={pid:null,curKey:null,tab:(()=>{try{const t=localStorage.getItem("kitsb
   /* inspector */
   syncSize(){const n=this.single();if(!n)return;const w=$("#mm-w"),h=$("#mm-h");if(w&&document.activeElement!==w)w.value=n.w;if(h&&document.activeElement!==h)h.value=n.h},
   renderInspector(){const el=this.els.insp;if(!el)return;const L=this.selNodes(),n=this.single(),ed=this.edges.find(x=>x.id===this.selEdge);
-    const title=L.length>1?`${L.length}개 도형 선택`:n?"도형 설정":ed?"연결선 설정":"편집 도구";let h=`<div><span class="eyebrow">Selection</span><h3>${title}</h3></div>`;
+    const title=L.length>1?`${L.length}개 도형 선택`:n?"도형 설정":ed?"연결선 설정":"편집 도구";let h=`<div><h3>${title}</h3></div>`;
     const layer=`<div class="ibtns"><button data-i="dup">${icon("copy",13)}복제</button><button data-i="front">${icon("front",13)}맨 앞으로</button><button data-i="back">${icon("back",13)}맨 뒤로</button></div>`;
     if(L.length>1){const f=L[0].data;h+=`<div class="isec"><span>정렬 및 균등 간격</span><div class="ibtns g2"><button data-i="al-left">← 좌측</button><button data-i="al-right">우측 →</button><button data-i="al-top">↑ 상단</button><button data-i="al-bottom">하단 ↓</button><button data-i="al-hcenter">↔ 가로 중앙</button><button data-i="al-vcenter">↕ 세로 중앙</button><button data-i="di-h" ${L.length<3?"disabled":""}>가로 균등</button><button data-i="di-v" ${L.length<3?"disabled":""}>세로 균등</button></div></div>
       <div class="isec"><span>선택 도형 채우기 RGB</span>${rgbEditor("fillColor",col(f.fillColor,"#FFFFFF"))}</div><div class="isec"><span>선택 도형 테두리 RGB</span>${rgbEditor("borderColor",col(f.borderColor,"#16A34A"))}</div><div class="isec"><span>선택 글씨 RGB</span>${rgbEditor("textColor",col(f.textColor,"#0A0A0A"))}</div>${layer}<button class="remove" data-i="del">${icon("trash",14)} 선택 도형 모두 삭제</button>`}
