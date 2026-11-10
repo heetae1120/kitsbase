@@ -41,7 +41,6 @@ async function hashPassword(password, salt) {
 function requireConfig(env) {
   if (!env.DB) return "D1 데이터베이스(DB)가 연결되지 않았습니다.";
   if (!env.SESSION_SECRET || env.SESSION_SECRET.length < 16) return "SESSION_SECRET이 설정되지 않았습니다.";
-  if (!env.INVITE_CODE) return "INVITE_CODE가 설정되지 않았습니다.";
   return null;
 }
 
@@ -90,7 +89,6 @@ async function handleApi(request, env, url) {
   if (path === "/api/register" && method === "POST") {
     const b = await readBody(request);
     if (!b) return fail(400, "invalid_argument", "입력값을 확인해주세요.");
-    if (!safeEqual(String(b.invite || "").trim(), env.INVITE_CODE)) return fail(403, "bad_invite", "초대코드가 맞지 않습니다.");
     const name = cleanName(b.name), password = String(b.password || "");
     if (!name) return fail(400, "invalid_argument", "이름을 입력해주세요.");
     if (password.length < 6) return fail(400, "invalid_argument", "비밀번호는 6자 이상이어야 합니다.");

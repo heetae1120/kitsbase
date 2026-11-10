@@ -748,7 +748,7 @@ textarea.stk-in{resize:none;height:auto;min-height:32px;padding:6px 8px;line-hei
   <div class="auth-card">
     <div class="brand" style="padding:0"><div class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h3v3H8z" fill="currentColor"/></svg></div><div><div class="brand-name">kits<b>base</b></div><small>BUSINESS CALENDAR</small></div></div>
     <div><h1 id="auth-title">팀 작업공간 로그인</h1></div>
-    <p class="lead" id="auth-lead">등록한 이름과 비밀번호로 들어갑니다. 처음이라면 팀에서 받은 초대코드로 가입하세요.</p>
+    <p class="lead" id="auth-lead">등록한 이름과 비밀번호로 들어갑니다. 처음이라면 ‘처음 가입’에서 이름과 비밀번호를 정하세요.</p>
     <div class="seg" role="tablist"><button type="button" data-auth="login" class="active">로그인</button><button type="button" data-auth="join">처음 가입</button></div>
     <form id="auth-login" novalidate>
       <label class="field">이름<input id="li-name" autocomplete="username" maxlength="20" required></label>
@@ -756,7 +756,6 @@ textarea.stk-in{resize:none;height:auto;min-height:32px;padding:6px 8px;line-hei
       <button class="btn primary" type="submit">로그인</button>
     </form>
     <form id="auth-join" novalidate hidden>
-      <label class="field">팀 초대코드<input id="jo-invite" autocomplete="off" required><small>팀 관리자에게 받은 코드입니다.</small></label>
       <div class="row2"><label class="field">이름<input id="jo-name" autocomplete="username" maxlength="20" placeholder="예: 김민준" required></label><label class="field"><span>역할 <small>(선택)</small></span><input id="jo-role" maxlength="30" placeholder="예: 공동대표"></label></div>
       <label class="field">비밀번호<input id="jo-pw" type="password" autocomplete="new-password" minlength="6" required><small>6자 이상</small></label>
       <label class="field">비밀번호 확인<input id="jo-pw2" type="password" autocomplete="new-password" required></label>
@@ -931,17 +930,17 @@ function serverDB(){
 let authColor="#16A34A";
 function showAuth(msg){document.body.classList.add("locked");$("#auth").hidden=false;$("#auth-err").textContent=msg||"";
   $("#jo-colors").innerHTML=MEMBER_COLORS.map(c=>`<button type="button" data-auth-color="${c}" class="${c===authColor?"on":""}" style="--sw:${c}" aria-label="${c} 색상"></button>`).join("");
-  setTimeout(()=>{const f=$("#auth-login").hidden?$("#jo-invite"):$("#li-name");if(f)f.focus()},30)}
+  setTimeout(()=>{const f=$("#auth-login").hidden?$("#jo-name"):$("#li-name");if(f)f.focus()},30)}
 function hideAuth(){document.body.classList.remove("locked");$("#auth").hidden=true}
 function setAuthTab(t){const join=t==="join";$("#auth-login").hidden=join;$("#auth-join").hidden=!join;$$("[data-auth]").forEach(b=>b.classList.toggle("active",b.dataset.auth===t));
-  $("#auth-title").textContent=join?"처음 가입하기":"팀 작업공간 로그인";$("#auth-lead").textContent=join?"팀 초대코드를 입력하고 내 이름과 비밀번호를 정하세요. 다음부터는 이름과 비밀번호로 로그인합니다.":"등록한 이름과 비밀번호로 들어갑니다. 처음이라면 팀에서 받은 초대코드로 가입하세요.";$("#auth-err").textContent=""}
+  $("#auth-title").textContent=join?"처음 가입하기":"팀 작업공간 로그인";$("#auth-lead").textContent=join?"내 이름과 비밀번호를 정하세요. 다음부터는 이름과 비밀번호로 로그인합니다.":"등록한 이름과 비밀번호로 들어갑니다. 처음이라면 ‘처음 가입’에서 이름과 비밀번호를 정하세요.";$("#auth-err").textContent=""}
 $("#auth").addEventListener("click",e=>{const t=e.target.closest("[data-auth]");if(t)setAuthTab(t.dataset.auth);const c=e.target.closest("[data-auth-color]");if(c){authColor=c.dataset.authColor;$$("[data-auth-color]").forEach(b=>b.classList.toggle("on",b===c))}});
 async function authSubmit(form,path,body,btnText){const btn=$("button[type=submit]",form);btn.disabled=true;btn.textContent="확인 중…";$("#auth-err").textContent="";
   try{const d=await api(path,{method:"POST",body:JSON.stringify(body)});startSession(d.user)}catch(e){$("#auth-err").textContent=e.message}finally{btn.disabled=false;btn.textContent=btnText}}
 $("#auth-login").addEventListener("submit",e=>{e.preventDefault();const name=$("#li-name").value.trim(),password=$("#li-pw").value;if(!name||!password){$("#auth-err").textContent="이름과 비밀번호를 입력해주세요.";return}authSubmit(e.target,"/api/login",{name,password},"로그인")});
-$("#auth-join").addEventListener("submit",e=>{e.preventDefault();const invite=$("#jo-invite").value.trim(),name=$("#jo-name").value.trim(),password=$("#jo-pw").value;
-  if(!invite||!name){$("#auth-err").textContent="초대코드와 이름을 입력해주세요.";return}if(password.length<6){$("#auth-err").textContent="비밀번호는 6자 이상이어야 합니다.";return}if(password!==$("#jo-pw2").value){$("#auth-err").textContent="비밀번호 확인이 일치하지 않습니다.";return}
-  authSubmit(e.target,"/api/register",{invite,name,password,role:$("#jo-role").value.trim(),color:authColor},"가입하고 시작하기")});
+$("#auth-join").addEventListener("submit",e=>{e.preventDefault();const name=$("#jo-name").value.trim(),password=$("#jo-pw").value;
+  if(!name){$("#auth-err").textContent="이름을 입력해주세요.";return}if(password.length<6){$("#auth-err").textContent="비밀번호는 6자 이상이어야 합니다.";return}if(password!==$("#jo-pw2").value){$("#auth-err").textContent="비밀번호 확인이 일치하지 않습니다.";return}
+  authSubmit(e.target,"/api/register",{name,password,role:$("#jo-role").value.trim(),color:authColor},"가입하고 시작하기")});
 function startSession(me){hideAuth();MM.mounted=false;CELLS.stop();S.meId=me.id;if(!S.members.some(m=>m.id===me.id))S.members=[...S.members,me];render();
   if(DB){DB.poll();return}
   DB=serverDB();S.mode="db";setSync("","불러오는 중…","서버에서 데이터를 받는 중");
