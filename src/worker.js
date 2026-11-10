@@ -1,7 +1,7 @@
 import INDEX_HTML from "../public/index.html";
 
 // kitsbase API: 팀 초대코드 가입, 이름+비밀번호 로그인, 문서 저장/동기화 (Cloudflare Workers + D1)
-const COLLECTIONS = new Set(["projects", "items", "notes", "folders", "messages", "mindmaps", "tasks"]);
+const COLLECTIONS = new Set(["projects", "items", "notes", "folders", "messages", "mindmaps", "tasks", "stock", "sales"]);
 const ID_RE = /^[A-Za-z0-9_\-.:@+~]{1,120}$/;
 const HEX_RE = /^#[0-9A-Fa-f]{6}$/;
 const MAX_DOC_BYTES = 400_000;
