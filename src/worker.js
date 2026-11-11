@@ -1,7 +1,7 @@
 import INDEX_HTML from "../public/index.html";
 
 // kitsbase API: 팀 초대코드 가입, 이름+비밀번호 로그인, 문서 저장/동기화 (Cloudflare Workers + D1)
-const COLLECTIONS = new Set(["projects", "items", "notes", "folders", "messages", "mindmaps", "tasks", "stock", "sales"]);
+const COLLECTIONS = new Set(["projects", "items", "notes", "folders", "messages", "mindmaps", "tasks", "stock", "sales", "avatars"]);
 const ID_RE = /^[A-Za-z0-9_\-.:@+~]{1,120}$/;
 const HEX_RE = /^#[0-9A-Fa-f]{6}$/;
 const MAX_DOC_BYTES = 400_000;
@@ -164,9 +164,15 @@ async function handleApi(request, env, url) {
 
     if (method === "GET") return existing ? json({ data: existing }) : fail(404, "not_found", "없는 문서입니다.");
 
+    if (collection === "avatars" && id !== me.id) return fail(403, "invalid_argument", "본인 프로필 사진만 바꿀 수 있습니다.");
     if (method === "PUT") {
       let data = await readBody(request);
       if (!data) return fail(400, "invalid_argument", "입력값을 확인해주세요.");
+      if (collection === "avatars") {
+        const img = String(data.img || "");
+        if (!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(img) || img.length > 200_000) return fail(400, "invalid_argument", "사진 형식이나 크기를 확인해주세요.");
+        data = { img, updatedAt: Date.now() };
+      }
       if (collection === "messages") {
         if (!existing) {
           data = { ...data, from: me.id, readBy: [] };

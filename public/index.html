@@ -755,6 +755,23 @@ textarea.stk-in{resize:none;height:auto;min-height:32px;padding:6px 8px;line-hei
 .sl-calc span+span{border-left:1px solid var(--line)}
 .sl-calc b{font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums}
 .sl-calc .p{background:var(--accent-soft)}.sl-calc .p b{color:var(--accent)}
+
+.ava.has-img{background:var(--surface-2);overflow:hidden;box-shadow:0 0 0 1.5px var(--ac)}
+.ava.has-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-top{display:flex;align-items:center;gap:16px;padding:4px 0 6px}
+.pf-ava{width:76px;height:76px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--ac);color:#FFFFFF;font:800 30px/1 var(--f-display);overflow:hidden;box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--ac)}
+.pf-ava img{width:100%;height:100%;object-fit:cover}
+.pf-photo{display:flex;flex-direction:column;gap:3px;min-width:0}.pf-photo strong{font-size:14px}.pf-photo>span{font-size:12px;color:var(--ink-3)}
+.pf-btns{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.pf-btns label{cursor:pointer}
+.sw-custom{position:relative;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px 0 4px;border:1px solid var(--line);border-radius:99px;font-size:12px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.sw-custom input{width:22px;height:22px;border:0;padding:0;background:none;border-radius:50%;cursor:pointer}
+.sw-custom input::-webkit-color-swatch-wrapper{padding:0}.sw-custom input::-webkit-color-swatch{border:0;border-radius:50%}
+.sw-custom.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.ch-tag{background:color-mix(in srgb,var(--cc) 13%,transparent)!important;color:color-mix(in srgb,var(--cc) 78%,var(--ink))!important;display:inline-flex!important;align-items:center;gap:5px}
+.ch-tag i{width:7px;height:7px;border-radius:50%;background:var(--cc)}
+.sf-ch .dot{width:8px;height:8px;border-radius:50%;background:var(--cc);display:inline-block}
+.ch-chip i{width:8px;height:8px;border-radius:50%;background:var(--cc)}
+.ch-chip.active{border-color:var(--cc);box-shadow:inset 0 0 0 1px var(--cc);background:color-mix(in srgb,var(--cc) 10%,var(--surface));color:var(--ink)}
 </style>
 
 <section class="auth" id="auth" hidden>
@@ -769,7 +786,7 @@ textarea.stk-in{resize:none;height:auto;min-height:32px;padding:6px 8px;line-hei
       <button class="btn primary" type="submit">로그인</button>
     </form>
     <form id="auth-join" novalidate hidden>
-      <div class="row2"><label class="field">이름<input id="jo-name" autocomplete="username" maxlength="20" placeholder="예: 김민준" required></label><label class="field"><span>역할 <small>(선택)</small></span><input id="jo-role" maxlength="30" placeholder="예: 공동대표"></label></div>
+      <div class="row2"><label class="field">이름<input id="jo-name" autocomplete="username" maxlength="20" placeholder="예: 김민준" required></label><label class="field"><span>직무 <small>(선택)</small></span><input id="jo-role" maxlength="30" placeholder="예: 대표, 개발, 디자인, 영업"></label></div>
       <label class="field">비밀번호<input id="jo-pw" type="password" autocomplete="new-password" minlength="6" required><small>6자 이상</small></label>
       <label class="field">비밀번호 확인<input id="jo-pw2" type="password" autocomplete="new-password" required></label>
       <div class="field">표시 색상<div class="swatches" id="jo-colors"></div></div>
@@ -893,13 +910,13 @@ function sanitizeRich(html){
 const plainText=html=>{const t=document.createElement("template");t.innerHTML=String(html||"").replace(/<br\s*\/?>/gi,"\n");return (t.content.textContent||"")};
 
 /* ============ state & persistence ============ */
-const S={nav:"calendar",projects:[],items:[],notes:[],folders:[],members:[],messages:[],tasks:[],stock:[],sales:[],mindmaps:{},meId:null,msgTab:"inbox",
+const S={nav:"calendar",projects:[],items:[],notes:[],folders:[],members:[],messages:[],tasks:[],avatars:[],stock:[],sales:[],mindmaps:{},meId:null,msgTab:"inbox",
   cursor:null,selected:todayISO(),calView:"month",filter:"all",expanded:new Set(),search:"",
   projMode:"orbit",notesProject:null,folderFilter:"all",mode:"connecting",loaded:false};
 S.cursor=(d=>new Date(d.getFullYear(),d.getMonth(),1))(parseISO(S.selected));
 try{const v=localStorage.getItem("kitsbase:prefs");if(v){const p=JSON.parse(v);if(["month","week","list"].includes(p.calView))S.calView=p.calView;}}catch(e){}
 const savePrefs=()=>{try{localStorage.setItem("kitsbase:prefs",JSON.stringify({calView:S.calView,projMode:S.projMode}))}catch(e){}};
-let DB=null;const LS="kitsbase:data:v1";const COLS=["projects","items","notes","folders","members","messages","tasks","stock","sales"];
+let DB=null;const LS="kitsbase:data:v1";const COLS=["projects","items","notes","folders","members","messages","tasks","stock","sales","avatars"];
 function loadLocal(){try{const d=JSON.parse(localStorage.getItem(LS)||"null");if(d){COLS.forEach(c=>{if(Array.isArray(d[c]))S[c]=d[c]});if(d.mindmaps&&typeof d.mindmaps==="object")S.mindmaps=d.mindmaps}}catch(e){}try{S.meId=localStorage.getItem("kitsbase:me")||null}catch(e){}}
 function saveMe(){try{if(S.meId)localStorage.setItem("kitsbase:me",S.meId)}catch(e){}}
 function persistLocal(){if(DB)return;try{localStorage.setItem(LS,JSON.stringify({projects:S.projects,items:S.items,notes:S.notes,folders:S.folders,members:S.members,messages:S.messages,mindmaps:S.mindmaps}))}catch(e){toast("브라우저 저장 공간이 가득 찼습니다. 이미지나 메모를 줄여주세요.")}}
@@ -1225,7 +1242,8 @@ function renderProjects(){
 const MEMBER_COLORS=["#16A34A","#2F6FDB","#C27A0C","#7A4FD6","#D62F76","#0F766E"];
 function myMember(){return S.meId?S.members.find(m=>m.id===S.meId)||null:null}
 function memberName(id){if(id==="all")return "전체 팀원";if(typeof id==="string"&&id.startsWith("p:"))return id.slice(2);const m=S.members.find(x=>x.id===id);return m?m.name:"알 수 없음"}
-function avatar(m,size=34){const n=String(m&&m.name||"?").trim()||"?";return `<span class="ava" style="--ac:${col(themeColor(m&&m.color),"#7A7E7A")};width:${size}px;height:${size}px;font-size:${Math.round(size*.42)}px" aria-hidden="true">${esc(n.slice(0,1))}</span>`}
+function avatarImg(m){const a=m&&S.avatars.find(x=>x.id===m.id);return a&&a.img||""}
+function avatar(m,size=34){const img=avatarImg(m);if(img)return `<span class="ava has-img" style="--ac:${col(themeColor(m&&m.color),"#7A7E7A")};width:${size}px;height:${size}px" aria-hidden="true"><img src="${img}" alt=""></span>`;const n=String(m&&m.name||"?").trim()||"?";return `<span class="ava" style="--ac:${col(themeColor(m&&m.color),"#7A7E7A")};width:${size}px;height:${size}px;font-size:${Math.round(size*.42)}px" aria-hidden="true">${esc(n.slice(0,1))}</span>`}
 function sortedMembers(){return S.members.slice().sort((a,b)=>(a.createdAt||0)-(b.createdAt||0))}
 function ownerOpts(cur){const o=["공동",...sortedMembers().map(m=>m.name)];if(!S.members.length)["대표 A","대표 B"].forEach(x=>o.push(x));if(cur&&!o.includes(cur))o.push(cur);return o.map(x=>`<option value="${esc(x)}" ${x===cur?"selected":""}>${esc(x)}</option>`).join("")}
 function memoToMe(m,me){return !!me&&(m.to===me.id||m.to==="all"||m.to==="p:"+me.name)}
@@ -1242,7 +1260,7 @@ function renderTeamLog(){const me=myMember(),members=sortedMembers(),db=S.mode==
   return `<div class="sec-head log-head"><div><h2>메모 기록 · 팀원</h2><p>주고받은 메모 전체와 내 계정 설정입니다.</p></div><div class="tools"><button class="btn" data-new-memo ${me?"":"disabled"}>${icon("plus",15)} 메모 보내기</button></div></div>
   <div class="team-layout"><aside class="panel"><div class="biz-head"><h3>팀원</h3><span>${members.length} / 4명 등록</span></div>
     ${me?"":`<div class="reg-cta"><strong>${canReg?"아직 사용자 등록을 하지 않았습니다":"로그인 정보를 확인할 수 없습니다"}</strong><span>${canReg?"이름과 역할을 등록하면 담당자 선택과 메모 주고받기에 쓰입니다.":"로그아웃 후 다시 로그인해주세요."}</span>${canReg?`<button class="btn primary sm" data-register>${icon("plus",14)} 사용자 등록</button>`:""}</div>`}
-    <ul class="mem-list">${members.length?members.map(m=>`<li class="${m.id===S.meId?"me":""}">${avatar(m)}<div><strong>${esc(m.name)}${m.id===S.meId?"<em>나</em>":""}</strong><span>${esc(m.role||"역할 미정")}</span></div>${m.id===S.meId?`<button class="btn ghost sm" data-register>${icon("pen",12)} 수정</button><button class="btn ghost sm" data-password>비밀번호</button>`:`${me?`<button class="btn ghost sm" data-memo-to="${esc(m.id)}">메모</button>`:""}${db?"":`<button class="btn ghost sm" data-switch-me="${esc(m.id)}">이 사용자로</button>`}`}</li>`).join(""):`<li class="none">등록된 팀원이 없습니다.</li>`}</ul>
+    <ul class="mem-list">${members.length?members.map(m=>`<li class="${m.id===S.meId?"me":""}">${avatar(m)}<div><strong>${esc(m.name)}${m.id===S.meId?"<em>나</em>":""}</strong><span>${esc(m.role||"직무 미정")}</span></div>${m.id===S.meId?`<button class="btn ghost sm" data-register>${icon("pen",12)} 수정</button><button class="btn ghost sm" data-password>비밀번호</button>`:`${me?`<button class="btn ghost sm" data-memo-to="${esc(m.id)}">메모</button>`:""}${db?"":`<button class="btn ghost sm" data-switch-me="${esc(m.id)}">이 사용자로</button>`}`}</li>`).join(""):`<li class="none">등록된 팀원이 없습니다.</li>`}</ul>
     ${db?`<div style="padding:4px 14px 14px"><button class="btn sm" data-logout>로그아웃</button></div>`:""}${db?"":`<p class="team-note">공유 저장소가 없어 이 브라우저에만 저장되는 모드입니다. 한 기기에서 사용자를 바꿔가며 쓸 수 있습니다.</p><div style="padding:0 14px 14px"><button class="btn sm" data-register-new>${icon("plus",13)} 팀원 추가</button></div>`}
   </aside><section style="min-width:0"><div class="memo-tabs"><div class="seg">${[["inbox",`받은 메모${un.length?` ${un.length}`:""}`],["sent","보낸 메모"],["all","전체"]].map(([k,l])=>`<button data-msgtab="${k}" class="${tab===k?"active":""}">${l}</button>`).join("")}</div>${un.length?`<button class="btn sm" data-read-all>모두 읽음</button>`:""}</div>
     <div class="memo-list">${!me&&tab!=="all"?`<div class="panel"><div class="empty-block"><strong>사용자 등록 후 메모를 주고받을 수 있습니다</strong><span>전체 탭에서는 팀 메모를 모두 볼 수 있습니다.</span></div></div>`:list.length?list.map(m=>memoCard(m,me)).join(""):`<div class="panel"><div class="empty-block"><strong>${tab==="inbox"?"받은 메모가 없습니다":tab==="sent"?"보낸 메모가 없습니다":"아직 메모가 없습니다"}</strong><span>팀원 옆의 메모 버튼으로 첫 메모를 남겨보세요.</span></div></div>`}</div></section></div>`;
@@ -1257,11 +1275,11 @@ function renderTeam(){const me=myMember(),pl=projects();
     const tasks=S.tasks.filter(t=>t.person===name).sort((a,b)=>({doing:0,wait:1,done:2}[a.status]??1)-({doing:0,wait:1,done:2}[b.status]??1)||(b.createdAt||0)-(a.createdAt||0));
     const cnt=k=>tasks.filter(t=>(t.status||"wait")===k).length;
     const memos=boardMemos(name);
-    const who={name,color:m?m.color:MEMBER_COLORS[i%MEMBER_COLORS.length]};
+    const who={id:m?m.id:"",name,color:m?m.color:MEMBER_COLORS[i%MEMBER_COLORS.length]};
     const memoRow=x=>{const f=S.members.find(y=>y.id===x.from),unread=mine&&x.from!==me.id&&!(Array.isArray(x.readBy)&&x.readBy.includes(me.id));
       return `<li class="${unread?"unread":""}"><div class="mh"><strong>${esc(f?f.name:"알 수 없음")}</strong><span>→ ${esc(name)}</span><time>${fmtTime(x.createdAt)}</time>${unread?`<button class="btn sm" data-read-memo="${esc(x.id)}">읽음</button>`:""}</div><p>${esc(x.text)}</p></li>`};
     return `<section class="bq ${mine?"mine":""}" style="--ac:${col(themeColor(who.color),"#16A34A")}">
-      <header class="bq-head">${avatar(who,38)}<div class="bq-who"><strong>${esc(name)}${mine?"<em>나</em>":""}</strong><span>${m?esc(m.role||"역할 미정"):"가입 전"}</span></div>
+      <header class="bq-head">${avatar(who,38)}<div class="bq-who"><strong>${esc(name)}${mine?"<em>나</em>":""}</strong><span>${m?esc(m.role||"직무 미정"):"가입 전"}</span></div>
         <div class="bq-cnt"><span><b>${cnt("doing")}</b>진행</span><span><b>${cnt("wait")}</b>대기</span><span><b>${cnt("done")}</b>완료</span></div></header>
       <div class="bq-sec"><h4>하는 업무 <span class="hint">빈 곳 더블클릭 · 끌어서 이동 · Tab 하위 업무</span><button class="btn primary sm bq-new" data-bn-new="${esc(name)}" ${me?"":"disabled"}>${icon("plus",13)} 업무</button></h4>
         <div class="bcv" data-bcv="${esc(name)}"><div class="bcv-stage"><svg class="bcv-lines" aria-hidden="true"></svg>${bnNodes(tasks,name,pl)}</div>${tasks.length?"":`<p class="bcv-empty">${matchMedia("(pointer:coarse)").matches?"+ 업무 버튼으로 업무를 추가해보세요":"빈 곳을 더블클릭해서 업무를 적어보세요"}</p>`}</div></div>
@@ -1339,18 +1357,33 @@ async function boardSubmit(f){const me=myMember();if(!me){toast("로그인 후 �
   render();const sel=f.dataset.addTask?`[data-add-task="${CSS.escape(f.dataset.addTask)}"] input`:`[data-memo-person="${CSS.escape(f.dataset.memoPerson)}"] input`;setTimeout(()=>{const n=$(sel);if(n)n.focus()},0)}
 document.addEventListener("submit",e=>{const f=e.target.closest(".bq-form");if(!f)return;e.preventDefault();boardSubmit(f)});
 function focusMyTaskInput(){const me=myMember();const pp=boardPeople();if(pp.length)bnNew(me&&pp.includes(me.name)?me.name:pp[0])}
-function openMemberEditor(member,isNew){const db=S.mode==="db",cur=isNew?null:(member||null);let color=cur?col(cur.color,MEMBER_COLORS[0]):MEMBER_COLORS[S.members.length%MEMBER_COLORS.length];
-  openDialog({title:cur?"내 정보 수정":isNew?"팀원 추가":"사용자 등록",desc:"이름을 바꾸면 다음 로그인부터 바뀐 이름으로 로그인합니다. 등록한 이름은 담당자 선택과 팀 메모에 쓰입니다.",
-    body:`<label class="field">이름<input id="mb-name" maxlength="20" value="${esc(cur?cur.name:"")}" placeholder="예: 김민준"></label><label class="field">역할<input id="mb-role" maxlength="30" value="${esc(cur?cur.role||"":"")}" placeholder="예: 공동대표, 개발, 디자인"></label>
-      <div class="field">표시 색상<div class="swatches">${MEMBER_COLORS.map(c=>`<button type="button" data-sw="${c}" class="${c===color?"on":""}" style="--sw:${c}" aria-label="${c} 색상"></button>`).join("")}</div></div>
-      <div class="dlg-actions">${cur&&!db?`<button type="button" class="btn danger" id="mb-del">${icon("trash",14)} 사용자 삭제</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${cur?"저장":"등록"}</button></div>`,
-    onMount(f){$$("[data-sw]",f).forEach(b=>b.addEventListener("click",()=>{color=b.dataset.sw;$$("[data-sw]",f).forEach(x=>x.classList.toggle("on",x===b))}));setTimeout(()=>$("#mb-name",f).focus(),30);
+function resizeAvatar(file){return new Promise((res,rej)=>{if(!file||!/^image\//.test(file.type)){rej(new Error("이미지 파일을 골라주세요."));return}
+  const url=URL.createObjectURL(file),im=new Image();im.onload=()=>{const S2=192,c=document.createElement("canvas");c.width=c.height=S2;const x=c.getContext("2d"),k=Math.min(im.naturalWidth,im.naturalHeight);
+    x.fillStyle="#FFFFFF";x.fillRect(0,0,S2,S2);x.drawImage(im,(im.naturalWidth-k)/2,(im.naturalHeight-k)/2,k,k,0,0,S2,S2);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",.86))};
+  im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error("사진을 읽을 수 없습니다."))};im.src=url})}
+function openMemberEditor(member,isNew){const db=S.mode==="db",cur=isNew?null:(member||null);let color=cur?col(themeColor(cur.color),MEMBER_COLORS[0]):MEMBER_COLORS[S.members.length%MEMBER_COLORS.length];
+  let img=cur?avatarImg(cur):"",imgChanged=false;
+  const preview=()=>{const n=(($("#mb-name")||{}).value||(cur&&cur.name)||"?").trim()||"?";return img?`<img src="${img}" alt="">`:`<span>${esc(n.slice(0,1))}</span>`};
+  openDialog({title:cur?"내 프로필":isNew?"팀원 추가":"사용자 등록",desc:"이름·직무·색상·사진은 담당자 표시, 업무현황, 팀 메모에 함께 쓰입니다. 이름을 바꾸면 다음 로그인부터 바뀐 이름으로 로그인합니다.",
+    body:`<div class="pf-top"><div class="pf-ava" id="pf-ava" style="--ac:${color}">${preview()}</div><div class="pf-photo"><strong>프로필 사진</strong><span>정사각형으로 잘려서 저장됩니다.</span><div class="pf-btns"><label class="btn sm"><input type="file" id="pf-file" accept="image/*" hidden>${icon("plus",13)} 사진 올리기</label><button type="button" class="btn sm ghost" id="pf-del" ${img?"":"hidden"}>${icon("trash",13)} 사진 삭제</button></div></div></div>
+      <div class="row2"><label class="field">이름<input id="mb-name" maxlength="20" value="${esc(cur?cur.name:"")}" placeholder="예: 김민준"></label><label class="field">직무<input id="mb-role" maxlength="30" value="${esc(cur?cur.role||"":"")}" placeholder="예: 대표, 개발, 디자인, 영업"></label></div>
+      <div class="field">표시 색상<div class="swatches">${MEMBER_COLORS.map(c=>`<button type="button" data-sw="${c}" class="${c.toUpperCase()===color.toUpperCase()?"on":""}" style="--sw:${c}" aria-label="${c} 색상"></button>`).join("")}<label class="sw-custom ${MEMBER_COLORS.some(c=>c.toUpperCase()===color.toUpperCase())?"":"on"}" title="직접 고르기"><input type="color" id="mb-color" value="${color}" aria-label="색상 직접 고르기"><span>직접</span></label></div></div>
+      <div class="dlg-actions">${cur&&!db?`<button type="button" class="btn danger" id="mb-del">${icon("trash",14)} 사용자 삭제</button>`:""}${cur&&db?`<button type="button" class="btn ghost" data-password>비밀번호 변경</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${cur?"저장":"등록"}</button></div>`,
+    onMount(f){const av=$("#pf-ava",f),paint=()=>{av.style.setProperty("--ac",color);av.innerHTML=preview();$("#pf-del",f).hidden=!img};
+      const pick=c=>{color=c.toUpperCase();$$("[data-sw]",f).forEach(x=>x.classList.toggle("on",x.dataset.sw.toUpperCase()===color));$(".sw-custom",f).classList.toggle("on",!MEMBER_COLORS.some(x=>x.toUpperCase()===color));$("#mb-color",f).value=color;paint()};
+      $$("[data-sw]",f).forEach(b=>b.addEventListener("click",()=>pick(b.dataset.sw)));$("#mb-color",f).addEventListener("input",e=>pick(e.target.value));
+      $("#mb-name",f).addEventListener("input",()=>{if(!img)paint()});
+      $("#pf-file",f).addEventListener("change",async e=>{const file=e.target.files[0];e.target.value="";if(!file)return;try{img=await resizeAvatar(file);imgChanged=true;paint()}catch(err){toast(err.message)}});
+      $("#pf-del",f).addEventListener("click",()=>{img="";imgChanged=true;paint()});
+      setTimeout(()=>$("#mb-name",f).focus(),30);
       $("#mb-del",f)?.addEventListener("click",async()=>{if(await askConfirm(`‘${cur.name}’ 사용자를 삭제할까요? 남긴 메모는 그대로 남습니다.`)){dlg.close();remove("members",cur.id);if(S.meId===cur.id){S.meId=null;try{localStorage.removeItem("kitsbase:me")}catch(e){}}}})},
     onSubmit(f){const name=$("#mb-name",f).value.trim();if(!name){toast("이름을 입력해주세요.");return false}
       if(db&&!S.meId){toast("로그인 정보를 확인할 수 없어 등록할 수 없습니다.");return false}
       const id=db?S.meId:(cur?cur.id:uid("u"));if(S.members.some(m=>m.id!==id&&m.name===name)){toast("같은 이름의 팀원이 이미 있습니다.");return false}
-      const prev=S.members.find(m=>m.id===id);if(prev&&prev.name&&prev.name!==name)S.tasks.filter(t=>t.person===prev.name).forEach(t=>put("tasks",{...t,person:name,updatedAt:Date.now()}));put("members",{...(prev||{}),id,name,role:$("#mb-role",f).value.trim(),color,createdAt:prev&&prev.createdAt||Date.now(),updatedAt:Date.now()});
-      if(!db&&(!cur||isNew)){S.meId=id;saveMe()}toast(prev?"저장했습니다":`${name}님, 등록되었습니다`)}});
+      const prev=S.members.find(m=>m.id===id);if(prev&&prev.name&&prev.name!==name)S.tasks.filter(t=>t.person===prev.name).forEach(t=>put("tasks",{...t,person:name,updatedAt:Date.now()}));
+      put("members",{...(prev||{}),id,name,role:$("#mb-role",f).value.trim(),color,createdAt:prev&&prev.createdAt||Date.now(),updatedAt:Date.now()});
+      if(imgChanged){if(img)put("avatars",{id,img,updatedAt:Date.now()});else if(S.avatars.some(a=>a.id===id))remove("avatars",id)}
+      if(!db&&(!cur||isNew)){S.meId=id;saveMe()}toast(prev?"프로필을 저장했습니다":`${name}님, 등록되었습니다`)}});
 }
 function openPasswordDialog(){
   openDialog({title:"비밀번호 변경",
@@ -1407,6 +1440,11 @@ const saleAmt=x=>toNum(x.qty)*toNum(x.price);
 const saleShip=x=>x.shipping==="free"?toNum(x.shipFee):0;
 const saleProfit=x=>saleAmt(x)-saleShip(x);
 const SHIP_LABEL={free:"무료배송",paid:"유료배송"};
+const CH_FIXED={"스마트스토어":"#16A34A","쿠팡":"#EA580C","자사몰":"#2563EB","오프라인 매장":"#CA8A04","행사·팝업":"#DB2777","도매·B2B":"#475569"};
+const CH_MORE=["#0891B2","#9333EA","#0D9488","#4F46E5","#65A30D","#BE185D","#9A3412","#1D4ED8","#A16207","#0F766E"];
+function chColor(name){name=String(name||"").trim();if(!name)return "#9CA3AF";if(CH_FIXED[name])return CH_FIXED[name];
+  const custom=[...new Set(S.sales.map(x=>(x.channel||"").trim()).filter(c=>c&&!CH_FIXED[c]))].sort();const i=custom.indexOf(name);
+  if(i>=0)return CH_MORE[i%CH_MORE.length];let h=0;for(const c of name)h=(h*31+c.codePointAt(0))>>>0;return CH_MORE[h%CH_MORE.length]}
 const SALE_CHANNELS=["스마트스토어","쿠팡","자사몰","오프라인 매장","행사·팝업","도매·B2B"];
 function saleChannels(){return [...new Set([...SALE_CHANNELS,...S.sales.map(x=>(x.channel||"").trim()).filter(Boolean)])]}
 const SF=()=>S.saleF||(S.saleF={from:"",to:"",channel:"",cat:"",who:"",ship:"",q:""});
@@ -1433,9 +1471,9 @@ function renderSalesLog(all,me){const f=SF(),byId=new Map(all.map(r=>[r.id,r])),
       <select class="sf-in" data-sf="who" aria-label="기록한 사람">${opt("","기록자 전체",f.who)}${whos.map(c=>opt(c,c,f.who)).join("")}</select>
       <select class="sf-in" data-sf="ship" aria-label="배송">${opt("","배송 전체",f.ship)}${opt("free","무료배송",f.ship)}${opt("paid","유료배송",f.ship)}${opt("none","배송 미선택",f.ship)}</select>
       <input class="sf-in sf-q" id="sf-q" data-sf="q" value="${esc(f.q)}" placeholder="제품 · 컬러 · 메모 검색" aria-label="판매 기록 검색">${active?`<button type="button" class="btn sm ghost" data-sf-reset>필터 초기화</button>`:""}</div>
-    ${byCh.size>1||active?`<div class="sf-ch">${[...byCh].sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span><i>${esc(k)}</i><b>${won(v)}원</b></span>`).join("")}</div>`:""}</div>
+    ${byCh.size>1||active?`<div class="sf-ch">${[...byCh].sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span style="--cc:${chColor(k==="판매처 미입력"?"":k)}"><em class="dot"></em><i>${esc(k)}</i><b>${won(v)}원</b></span>`).join("")}</div>`:""}</div>
   ${log.length?`<div class="panel stk-wrap"><table class="stk log"><thead><tr><th>날짜</th><th>판매처</th><th>품목 · 제품 · 컬러</th><th class="n">수량</th><th class="n">판매가</th><th class="n">판매 금액</th><th>배송</th><th class="n">택배비</th><th class="n">이익금</th><th>메모</th><th>기록</th><th></th></tr></thead><tbody>${log.map(x=>{const r=byId.get(x.stockId);
-    return `<tr><td class="mono">${esc(x.date||"")}</td><td>${(x.channel||"").trim()?`<span class="ch-tag">${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n">${won(saleAmt(x))}</td><td>${x.shipping?`<span class="ship-tag ${x.shipping}">${SHIP_LABEL[x.shipping]}</span>`:`<span class="muted">미선택</span>`}</td><td class="n ${saleShip(x)?"neg":"muted"}">${saleShip(x)?"−"+won(saleShip(x)):"–"}</td><td class="n strong">${won(saleProfit(x))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
+    return `<tr><td class="mono">${esc(x.date||"")}</td><td>${(x.channel||"").trim()?`<span class="ch-tag" style="--cc:${chColor(x.channel)}"><i></i>${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n">${won(saleAmt(x))}</td><td>${x.shipping?`<span class="ship-tag ${x.shipping}">${SHIP_LABEL[x.shipping]}</span>`:`<span class="muted">미선택</span>`}</td><td class="n ${saleShip(x)?"neg":"muted"}">${saleShip(x)?"−"+won(saleShip(x)):"–"}</td><td class="n strong">${won(saleProfit(x))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
       <td class="act">${me?`<button class="btn sm ghost" data-sale-edit="${esc(x.id)}">${icon("pen",12)} 수정</button><button class="btn sm ghost danger-t" data-sale-del="${esc(x.id)}">${icon("trash",12)} 삭제</button>`:""}</td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="3">합계 · ${log.length}건</td><td class="n">${won(sq)}</td><td></td><td class="n">${won(sv)}</td><td></td><td class="n neg">${(()=>{const fee=log.reduce((n,x)=>n+saleShip(x),0);return fee?"−"+won(fee):"0"})()}</td><td class="n profit">${won(log.reduce((n,x)=>n+saleProfit(x),0))}</td><td colspan="3"></td></tr></tfoot></table></div>`
     :`<div class="panel"><div class="empty-block"><strong>조건에 맞는 판매 기록이 없습니다</strong><span>기간이나 판매처 필터를 바꿔보세요.</span><button class="btn sm" data-sf-reset>필터 초기화</button></div></div>`}`:""}`}
 let sfT=0;
@@ -1468,7 +1506,7 @@ function openSaleDialog(id,saleId){const sale=saleId?S.sales.find(x=>x.id===sale
     body:`<div class="row3"><label class="field">날짜<input id="sl-date" type="date" value="${esc(sale?sale.date||todayISO():todayISO())}"></label><label class="field">수량<input id="sl-qty" inputmode="numeric" value="${sale?toNum(sale.qty):1}"></label><label class="field">판매가<input id="sl-price" inputmode="numeric" value="${price}"></label></div>
       <div class="field">배송<div class="seg ship-seg" role="group" aria-label="배송 방식"><button type="button" data-ship="paid">유료배송 <small>고객 부담</small></button><button type="button" data-ship="free">무료배송 <small>판매자 부담</small></button></div><input type="hidden" id="sl-shipping" value="${esc(sale?sale.shipping||"paid":S.lastShip||"paid")}"></div>
       <label class="field ship-fee"><span>택배비 <small>(무료배송일 때 내가 낸 금액)</small></span><input id="sl-fee" inputmode="numeric" value="${sale?toNum(sale.shipFee)||"":S.lastShipFee||""}" placeholder="예: 3000"></label>
-      <div class="field">판매처<div class="ch-pick">${chans.map(c=>`<button type="button" class="chip ${c===lastCh?"active":""}" data-ch="${esc(c)}">${esc(c)}</button>`).join("")}</div><input id="sl-ch" maxlength="40" value="${esc(lastCh)}" placeholder="직접 입력 (예: 오늘의집, 지인 판매)"></div>
+      <div class="field">판매처<div class="ch-pick">${chans.map(c=>`<button type="button" class="chip ch-chip ${c===lastCh?"active":""}" data-ch="${esc(c)}" style="--cc:${chColor(c)}"><i></i>${esc(c)}</button>`).join("")}</div><input id="sl-ch" maxlength="40" value="${esc(lastCh)}" placeholder="직접 입력 (예: 오늘의집, 지인 판매)"></div>
       <label class="field"><span>메모 <small>(선택)</small></span><input id="sl-memo" maxlength="120" value="${esc(sale?sale.memo||"":"")}" placeholder="예: 주문번호, 고객명, 특이사항"></label>
       <div class="sl-calc"><span>판매 금액<b id="sl-sum">0원</b></span><span>택배비<b id="sl-feeout" class="neg">0원</b></span><span class="p">이익금<b id="sl-profit">0원</b></span></div>
       ${sale?`<p class="sl-note">${toNum(sale.deducted)?`이 기록으로 재고 ${won(sale.deducted)}개를 뺐습니다. 수량을 바꾸면 차이만큼 재고도 맞춰집니다.`:"이 기록은 재고에서 빼지 않았습니다."}</p>`:`<label class="field"><span class="inline-check"><input type="checkbox" id="sl-deduct" checked> 재고 수량에서 빼기</span></label>`}
@@ -1583,7 +1621,7 @@ document.addEventListener("click",async e=>{
   if(a("#search label")&&innerWidth<=480){$("#search").classList.add("open");$("#search-input").focus()}
   if(a("#top-add")){if(S.nav==="projects")openNewProject();else if(S.nav==="team")focusMyTaskInput();else if(S.nav==="stock")stockAddRow();else if(S.nav==="notes"){if(projects().length)openNoteEditor();else openNewProject()}else openItemDialog(null,{kind:"mission"});return}
   if(a("[data-go-team]")){$("#bell-panel").hidden=true;S.msgTab="inbox";if(S.nav==="team")render();else go("team");return}
-  if(a("#me-chip")){if(myMember()){S.msgTab="inbox";if(S.nav==="team")render();else go("team")}else openMemberEditor(null);return}
+  if(a("#me-chip")){openMemberEditor(myMember());return}
   if(a("[data-logout]")){logout();return}
   if((el=a("[data-mm-tab]"))){MM.setTab(el.dataset.mmTab);return}
   if((el=a("[data-cell-open]"))){MM.openProject(el.dataset.cellOpen);return}
