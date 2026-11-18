@@ -790,6 +790,16 @@ body{font-family:var(--f-body);letter-spacing:-.005em}
 .today .num,.day.today .num{background:var(--today);color:var(--today-ink)}
 .chip.active{border-color:var(--ink)}
 ::selection{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+
+.mode-seg{display:flex;width:100%}.mode-seg button{flex:1;height:40px}.mode-seg button small{font-weight:500;opacity:.7;margin-left:4px}
+.mode-tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.mode-tag.buy{background:var(--accent-soft);color:var(--accent-text)}
+.mode-tag.consign{background:var(--sub-soft);color:var(--sub-ink);box-shadow:inset 0 0 0 1px var(--sub)}
+.stk td.cost small{display:block;font-size:11px;color:var(--ink-3);font-weight:500;white-space:nowrap}
+.ship-fee.off{opacity:.45}
+.sl-calc em{font-style:normal}.sl-calc small{font-size:11px;font-weight:500;color:var(--ink-3);min-height:14px}
+@media (max-width:480px){.top-actions{gap:6px;min-width:0}.top-actions .btn.primary{padding:0 11px}}
+.stk.log{min-width:1100px}.stk.log td,.stk.log th{padding-left:6px!important;padding-right:6px!important}.stk.log td.act .btn{padding:0 6px!important;gap:3px}.stk.log tbody td:nth-child(11){min-width:110px}.stk.log td.mono,.stk.log td.muted,.stk.log td.n{white-space:nowrap}.stk.log tbody td:nth-child(4){min-width:160px}
 </style>
 
 <section class="auth" id="auth" hidden>
@@ -1439,7 +1449,7 @@ function stockGroups(rows){const out=[];rows.forEach(r=>{let c=out[out.length-1]
 function stockTotals(rows){let q=0,v=0,sq=0,sv=0,sp=0;rows.forEach(r=>{q+=toNum(r.qty);v+=toNum(r.qty)*toNum(r.price);salesOf(r.id).forEach(x=>{sq+=toNum(x.qty);sv+=saleAmt(x);sp+=saleProfit(x)})});return {q,v,sq,sv,sp}}
 function renderStock(){const all=stockRows(),cats=[...new Set(all.map(r=>r.category||"미분류"))];if(S.stockCat&&!cats.includes(S.stockCat))S.stockCat="";
   const rows=S.stockCat?all.filter(r=>(r.category||"미분류")===S.stockCat):all,t=stockTotals(rows),me=myMember(),ro=me?"":"disabled";
-  const inp=(r,f,cls="",ph="")=>{const num=["qty","price","salePrice"].includes(f),v=r[f]??"";return `<input class="stk-in ${num?"num":""} ${cls}" data-stk="${esc(r.id)}" data-f="${f}" value="${esc(num&&v!==""?won(v):v)}" placeholder="${esc(ph)}" ${num?'inputmode="numeric"':""} aria-label="${f}" ${ro}>`};
+  const inp=(r,f,cls="",ph="")=>{const num=["qty","price","salePrice"].includes(f),v=r[f]??"";return `<input class="stk-in ${num?"num":""} ${cls}" data-stk="${esc(r.id)}" data-f="${f}" value="${esc(num&&v!==""?won(v):v)}" placeholder="${esc(ph)}" ${num?'inputmode="text" pattern="-?[0-9,]*"':""} aria-label="${f}" ${ro}>`};
   let body="";
   stockGroups(rows).forEach(g=>{const catN=g.prods.reduce((n,p)=>n+p.rows.length,0),catIds=g.prods.flatMap(p=>p.rows.map(r=>r.id)).join(",");
     g.prods.forEach((p,pi)=>{const ids=p.rows.map(r=>r.id).join(",");
@@ -1456,8 +1466,13 @@ function renderStock(){const all=stockRows(),cats=[...new Set(all.map(r=>r.categ
     :`<div class="panel"><div class="empty-block"><strong>${S.loaded?"재고를 불러오는 중이거나 아직 품목이 없습니다":"공유 데이터를 불러오는 중…"}</strong><span>품목 추가로 첫 행을 만들 수 있습니다.</span></div></div>`}
   ${renderSalesLog(all,me)}`}
 const saleAmt=x=>toNum(x.qty)*toNum(x.price);
-const saleShip=x=>x.shipping==="free"?toNum(x.shipFee):0;
-const saleProfit=x=>saleAmt(x)-saleShip(x);
+const isConsign=x=>x.mode==="consign";
+const saleShip=x=>!isConsign(x)&&x.shipping==="free"?toNum(x.shipFee):0;
+const saleBox=x=>isConsign(x)?0:toNum(x.boxFee);
+const saleConsign=x=>isConsign(x)?toNum(x.consignPrice)*toNum(x.qty):0;
+const saleCost=x=>saleShip(x)+saleBox(x)+saleConsign(x);
+const saleProfit=x=>saleAmt(x)-saleCost(x);
+const MODE_LABEL={buy:"사입",consign:"위탁"};
 const SHIP_LABEL={free:"무료배송",paid:"유료배송"};
 const CH_FIXED={"스마트스토어":"#03A94D","쿠팡":"#EA580C","자사몰":"#2563EB","오프라인 매장":"#CA8A04","행사·팝업":"#DB2777","도매·B2B":"#475569"};
 const CH_MORE=["#9333EA","#0D9488","#B45309","#4F46E5","#65A30D","#BE185D","#9A3412","#1D4ED8","#A16207","#0F766E"];
@@ -1466,7 +1481,7 @@ function chColor(name){name=String(name||"").trim();if(!name)return "#9CA3AF";if
   if(i>=0)return CH_MORE[i%CH_MORE.length];let h=0;for(const c of name)h=(h*31+c.codePointAt(0))>>>0;return CH_MORE[h%CH_MORE.length]}
 const SALE_CHANNELS=["스마트스토어","쿠팡","자사몰","오프라인 매장","행사·팝업","도매·B2B"];
 function saleChannels(){return [...new Set([...SALE_CHANNELS,...S.sales.map(x=>(x.channel||"").trim()).filter(Boolean)])]}
-const SF=()=>S.saleF||(S.saleF={from:"",to:"",channel:"",cat:"",who:"",ship:"",q:""});
+const SF=()=>S.saleF||(S.saleF={from:"",to:"",channel:"",cat:"",who:"",ship:"",mode:"",q:""});
 function salePeriod(k){const d=new Date(),iso=x=>`${x.getFullYear()}-${pad(x.getMonth()+1)}-${pad(x.getDate())}`;
   if(k==="today")return [iso(d),iso(d)];if(k==="week"){const a=new Date(d);a.setDate(d.getDate()-6);return [iso(a),iso(d)]}
   if(k==="month")return [iso(new Date(d.getFullYear(),d.getMonth(),1)),iso(new Date(d.getFullYear(),d.getMonth()+1,0))];
@@ -1474,7 +1489,7 @@ function salePeriod(k){const d=new Date(),iso=x=>`${x.getFullYear()}-${pad(x.get
 function renderSalesLog(all,me){const f=SF(),byId=new Map(all.map(r=>[r.id,r])),q=f.q.trim().toLowerCase();
   const sorted=S.sales.slice().sort((a,b)=>String(b.date||"").localeCompare(String(a.date||""))||(b.createdAt||0)-(a.createdAt||0));
   const log=sorted.filter(x=>{const r=byId.get(x.stockId),d=x.date||"";if(f.from&&d<f.from)return false;if(f.to&&d>f.to)return false;
-    if(f.channel&&(f.channel==="__none"?!!(x.channel||"").trim():(x.channel||"").trim()!==f.channel))return false;if(f.cat&&(!r||(r.category||"미분류")!==f.cat))return false;if(f.who&&x.by!==f.who)return false;if(f.ship&&(f.ship==="none"?!!x.shipping:x.shipping!==f.ship))return false;
+    if(f.channel&&(f.channel==="__none"?!!(x.channel||"").trim():(x.channel||"").trim()!==f.channel))return false;if(f.cat&&(!r||(r.category||"미분류")!==f.cat))return false;if(f.who&&x.by!==f.who)return false;if(f.ship&&(f.ship==="none"?!!x.shipping:x.shipping!==f.ship))return false;if(f.mode&&(isConsign(x)?"consign":"buy")!==f.mode)return false;
     if(q){const hay=[r&&r.category,r&&r.product,r&&r.color,x.channel,x.memo,x.by].join(" ").toLowerCase();if(!hay.includes(q))return false}return true});
   const active=Object.values(f).some(Boolean),sq=log.reduce((n,x)=>n+toNum(x.qty),0),sv=log.reduce((n,x)=>n+toNum(x.qty)*toNum(x.price),0);
   const cats=[...new Set(all.map(r=>r.category||"미분류"))],chans=saleChannels(),whos=[...new Set(S.sales.map(x=>x.by).filter(Boolean))];
@@ -1482,18 +1497,19 @@ function renderSalesLog(all,me){const f=SF(),byId=new Map(all.map(r=>[r.id,r])),
   const opt=(v,l,cur)=>`<option value="${esc(v)}" ${v===cur?"selected":""}>${esc(l)}</option>`;
   const byCh=new Map();log.forEach(x=>{const k=(x.channel||"").trim()||"판매처 미입력";byCh.set(k,(byCh.get(k)||0)+toNum(x.qty)*toNum(x.price))});
   return `<div class="sec-head stk-loghead"><div><h3>판매 기록</h3><p>${S.sales.length?`전체 ${S.sales.length}건 중 <b>${log.length}건</b>${active?" (필터 적용)":""}`:"아직 기록된 판매가 없습니다. 위 표의 ‘판매’ 버튼으로 기록하세요."}</p></div></div>
-  ${S.sales.length?`<div class="stk-sum sl-sum panel"><div><span>판매 수량</span><b>${won(sq)}</b></div><div><span>판매 금액 합계</span><b>${won(sv)}원</b></div><div><span>택배비 합계 <small>(무료배송)</small></span><b class="neg">${(()=>{const fee=log.reduce((n,x)=>n+saleShip(x),0);return fee?"−"+won(fee):"0"})()}원</b></div><div class="s"><span>이익금 합계</span><b>${won(log.reduce((n,x)=>n+saleProfit(x),0))}원</b></div></div><div class="panel sf">
+  ${S.sales.length?`<div class="stk-sum sl-sum panel"><div><span>판매 수량</span><b>${won(sq)}</b></div><div><span>판매 금액 합계</span><b>${won(sv)}원</b></div><div><span>비용 합계 <small>(택배·박스·위탁가)</small></span><b class="neg">${(()=>{const c=log.reduce((n,x)=>n+saleCost(x),0);return c?"−"+won(c):"0"})()}원</b></div><div class="s"><span>이익금 합계 <small>(위탁은 차익)</small></span><b>${won(log.reduce((n,x)=>n+saleProfit(x),0))}원</b></div></div><div class="panel sf">
     <div class="sf-row"><div class="chips sf-per">${per}<button type="button" class="chip ${!f.from&&!f.to?"active":""}" data-sf-period="all">전체 기간</button></div>
       <label class="sf-date"><input type="date" class="sf-in" data-sf="from" value="${esc(f.from)}" aria-label="시작일"><span>~</span><input type="date" class="sf-in" data-sf="to" value="${esc(f.to)}" aria-label="종료일"></label></div>
     <div class="sf-row"><select class="sf-in" data-sf="channel" aria-label="판매처">${opt("","판매처 전체",f.channel)}${chans.map(c=>opt(c,c,f.channel)).join("")}${opt("__none","판매처 미입력",f.channel)}</select>
       <select class="sf-in" data-sf="cat" aria-label="품목">${opt("","품목 전체",f.cat)}${cats.map(c=>opt(c,c,f.cat)).join("")}</select>
       <select class="sf-in" data-sf="who" aria-label="기록한 사람">${opt("","기록자 전체",f.who)}${whos.map(c=>opt(c,c,f.who)).join("")}</select>
+      <select class="sf-in" data-sf="mode" aria-label="판매 방식">${opt("","방식 전체",f.mode)}${opt("buy","사입",f.mode)}${opt("consign","위탁",f.mode)}</select>
       <select class="sf-in" data-sf="ship" aria-label="배송">${opt("","배송 전체",f.ship)}${opt("free","무료배송",f.ship)}${opt("paid","유료배송",f.ship)}${opt("none","배송 미선택",f.ship)}</select>
       <input class="sf-in sf-q" id="sf-q" data-sf="q" value="${esc(f.q)}" placeholder="제품 · 컬러 · 메모 검색" aria-label="판매 기록 검색">${active?`<button type="button" class="btn sm ghost" data-sf-reset>필터 초기화</button>`:""}</div>
     ${byCh.size>1||active?`<div class="sf-ch">${[...byCh].sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span style="--cc:${chColor(k==="판매처 미입력"?"":k)}"><em class="dot"></em><i>${esc(k)}</i><b>${won(v)}원</b></span>`).join("")}</div>`:""}</div>
-  ${log.length?`<div class="panel stk-wrap"><table class="stk log"><thead><tr><th>날짜</th><th>판매처</th><th>품목 · 제품 · 컬러</th><th class="n">수량</th><th class="n">판매가</th><th class="n">판매 금액</th><th>배송</th><th class="n">택배비</th><th class="n">이익금</th><th>메모</th><th>기록</th><th></th></tr></thead><tbody>${log.map(x=>{const r=byId.get(x.stockId);
-    return `<tr><td class="mono">${esc(x.date||"")}</td><td>${(x.channel||"").trim()?`<span class="ch-tag" style="--cc:${chColor(x.channel)}"><i></i>${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n">${won(saleAmt(x))}</td><td>${x.shipping?`<span class="ship-tag ${x.shipping}">${SHIP_LABEL[x.shipping]}</span>`:`<span class="muted">미선택</span>`}</td><td class="n ${saleShip(x)?"neg":"muted"}">${saleShip(x)?"−"+won(saleShip(x)):"–"}</td><td class="n strong">${won(saleProfit(x))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
-      <td class="act">${me?`<button class="btn sm ghost" data-sale-edit="${esc(x.id)}">${icon("pen",12)} 수정</button><button class="btn sm ghost danger-t" data-sale-del="${esc(x.id)}">${icon("trash",12)} 삭제</button>`:""}</td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="3">합계 · ${log.length}건</td><td class="n">${won(sq)}</td><td></td><td class="n">${won(sv)}</td><td></td><td class="n neg">${(()=>{const fee=log.reduce((n,x)=>n+saleShip(x),0);return fee?"−"+won(fee):"0"})()}</td><td class="n profit">${won(log.reduce((n,x)=>n+saleProfit(x),0))}</td><td colspan="3"></td></tr></tfoot></table></div>`
+  ${log.length?`<div class="panel stk-wrap"><table class="stk log"><thead><tr><th>날짜</th><th>방식</th><th>판매처</th><th>품목 · 제품 · 컬러</th><th class="n">수량</th><th class="n">판매가</th><th class="n">판매 금액</th><th>배송</th><th class="n">비용</th><th class="n">이익금 · 차익</th><th>메모</th><th>기록</th><th></th></tr></thead><tbody>${log.map(x=>{const r=byId.get(x.stockId);
+    return `<tr><td class="mono">${esc(x.date||"")}</td><td><span class="mode-tag ${isConsign(x)?"consign":"buy"}">${MODE_LABEL[isConsign(x)?"consign":"buy"]}</span></td><td>${(x.channel||"").trim()?`<span class="ch-tag" style="--cc:${chColor(x.channel)}"><i></i>${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n">${won(saleAmt(x))}</td><td>${isConsign(x)?`<span class="muted">–</span>`:x.shipping?`<span class="ship-tag ${x.shipping}">${SHIP_LABEL[x.shipping]}</span>`:`<span class="muted">미선택</span>`}</td><td class="n cost ${saleCost(x)?"neg":"muted"}">${saleCost(x)?"−"+won(saleCost(x)):"–"}${saleCost(x)?`<small>${isConsign(x)?`위탁가 ${won(x.consignPrice)} × ${won(x.qty)}`:[saleShip(x)?`택배 ${won(saleShip(x))}`:"",saleBox(x)?`박스 ${won(saleBox(x))}`:""].filter(Boolean).join(" · ")}</small>`:""}</td><td class="n strong">${won(saleProfit(x))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
+      <td class="act">${me?`<button class="btn sm ghost" data-sale-edit="${esc(x.id)}">${icon("pen",12)} 수정</button><button class="btn sm ghost danger-t" data-sale-del="${esc(x.id)}">${icon("trash",12)} 삭제</button>`:""}</td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="4">합계 · ${log.length}건</td><td class="n">${won(sq)}</td><td></td><td class="n">${won(sv)}</td><td></td><td class="n neg">${(()=>{const c=log.reduce((n,x)=>n+saleCost(x),0);return c?"−"+won(c):"0"})()}</td><td class="n profit">${won(log.reduce((n,x)=>n+saleProfit(x),0))}</td><td colspan="3"></td></tr></tfoot></table></div>`
     :`<div class="panel"><div class="empty-block"><strong>조건에 맞는 판매 기록이 없습니다</strong><span>기간이나 판매처 필터를 바꿔보세요.</span><button class="btn sm" data-sf-reset>필터 초기화</button></div></div>`}`:""}`}
 let sfT=0;
 document.addEventListener("input",e=>{const el=e.target.closest&&e.target.closest(".sf-q");if(!el)return;SF().q=el.value;clearTimeout(sfT);sfT=setTimeout(()=>{const pos=el.selectionStart;render();const n=$("#sf-q");if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}},220)});
@@ -1521,33 +1537,44 @@ async function stockAddRow(afterId){const me=myMember();if(!me){toast("로그인
   setTimeout(()=>{const el=base?$(`[data-stk="${CSS.escape(id)}"][data-f="color"]`):$(`tr[data-row="${CSS.escape(id)}"] [data-grp="category"]`);if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.focus({preventScroll:true});try{el.select()}catch(_){}}},30)}
 function openSaleDialog(id,saleId){const sale=saleId?S.sales.find(x=>x.id===saleId):null;if(sale)id=sale.stockId;const r=S.stock.find(x=>x.id===id),me=myMember();if(!me)return;if(!r&&!sale)return;
   const price=sale?toNum(sale.price):r.salePrice!==""&&r.salePrice!=null?toNum(r.salePrice):toNum(r.price),chans=saleChannels(),lastCh=sale?sale.channel||"":(S.lastChannel||"");
+  const mode0=sale?(isConsign(sale)?"consign":"buy"):(S.lastMode||"buy"),nv=v=>v===0||v?v:"";
+  const numIn=(id,v,ph="")=>`<input id="${id}" inputmode="text" pattern="-?[0-9,]*" value="${esc(nv(v))}" placeholder="${ph}">`;
   openDialog({title:sale?"판매 기록 수정":"판매 기록",eyebrow:r?`${r.category||""} · ${r.product||""} · ${r.color||""} — 현재 재고 ${won(r.qty)}개`:"삭제된 품목",
-    body:`<div class="row3"><label class="field">날짜<input id="sl-date" type="date" value="${esc(sale?sale.date||todayISO():todayISO())}"></label><label class="field">수량<input id="sl-qty" inputmode="numeric" value="${sale?toNum(sale.qty):1}"></label><label class="field">판매가<input id="sl-price" inputmode="numeric" value="${price}"></label></div>
-      <div class="field">배송<div class="seg ship-seg" role="group" aria-label="배송 방식"><button type="button" data-ship="paid">유료배송 <small>고객 부담</small></button><button type="button" data-ship="free">무료배송 <small>판매자 부담</small></button></div><input type="hidden" id="sl-shipping" value="${esc(sale?sale.shipping||"paid":S.lastShip||"paid")}"></div>
-      <label class="field ship-fee"><span>택배비 <small>(무료배송일 때 내가 낸 금액)</small></span><input id="sl-fee" inputmode="numeric" value="${sale?toNum(sale.shipFee)||"":S.lastShipFee||""}" placeholder="예: 3000"></label>
+    body:`<div class="field">판매 방식<div class="seg mode-seg" role="group" aria-label="판매 방식"><button type="button" data-mode="buy">사입 <small>내 재고를 직접 판매</small></button><button type="button" data-mode="consign">위탁 <small>판매가 − 위탁가 = 차익</small></button></div><input type="hidden" id="sl-mode" value="${mode0}"></div>
+      <div class="row3"><label class="field">날짜<input id="sl-date" type="date" value="${esc(sale?sale.date||todayISO():todayISO())}"></label><label class="field">수량${numIn("sl-qty",sale?toNum(sale.qty):1)}</label><label class="field">판매가${numIn("sl-price",price)}</label></div>
+      <label class="field only-consign"><span>위탁가 <small>(1개당)</small></span>${numIn("sl-consign",sale&&isConsign(sale)?toNum(sale.consignPrice):(S.lastConsign??""),"예: 20000")}</label>
+      <div class="only-buy"><div class="field">배송<div class="seg ship-seg" role="group" aria-label="배송 방식"><button type="button" data-ship="paid">유료배송 <small>고객 부담</small></button><button type="button" data-ship="free">무료배송 <small>판매자 부담</small></button></div><input type="hidden" id="sl-shipping" value="${esc(sale?sale.shipping||"paid":S.lastShip||"paid")}"></div>
+        <div class="row2"><label class="field ship-fee"><span>택배비 <small>(무료배송일 때 낸 금액)</small></span>${numIn("sl-fee",sale?toNum(sale.shipFee)||"":S.lastShipFee||"","예: 3000")}</label><label class="field"><span>택배박스 금액 <small>(선택)</small></span>${numIn("sl-box",sale?toNum(sale.boxFee)||"":S.lastBox||"","예: 500")}</label></div></div>
       <div class="field">판매처<div class="ch-pick">${chans.map(c=>`<button type="button" class="chip ch-chip ${c===lastCh?"active":""}" data-ch="${esc(c)}" style="--cc:${chColor(c)}"><i></i>${esc(c)}</button>`).join("")}</div><input id="sl-ch" maxlength="40" value="${esc(lastCh)}" placeholder="직접 입력 (예: 오늘의집, 지인 판매)"></div>
       <label class="field"><span>메모 <small>(선택)</small></span><input id="sl-memo" maxlength="120" value="${esc(sale?sale.memo||"":"")}" placeholder="예: 주문번호, 고객명, 특이사항"></label>
-      <div class="sl-calc"><span>판매 금액<b id="sl-sum">0원</b></span><span>택배비<b id="sl-feeout" class="neg">0원</b></span><span class="p">이익금<b id="sl-profit">0원</b></span></div>
+      <div class="sl-calc"><span>판매 금액<b id="sl-sum">0원</b></span><span><em id="sl-costlbl">비용</em><b id="sl-feeout" class="neg">0원</b><small id="sl-costd"></small></span><span class="p"><em id="sl-plbl">이익금</em><b id="sl-profit">0원</b></span></div>
       ${sale?`<p class="sl-note">${toNum(sale.deducted)?`이 기록으로 재고 ${won(sale.deducted)}개를 뺐습니다. 수량을 바꾸면 차이만큼 재고도 맞춰집니다.`:"이 기록은 재고에서 빼지 않았습니다."}</p>`:`<label class="field"><span class="inline-check"><input type="checkbox" id="sl-deduct" checked> 재고 수량에서 빼기</span></label>`}
       <div class="dlg-actions">${sale?`<button type="button" class="btn danger" id="sl-del">${icon("trash",14)} 기록 삭제</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${sale?"저장":"기록하기"}</button></div>`,
-    onMount(f){const shipIn=$("#sl-shipping",f),feeWrap=$(".ship-fee",f);
-      const upd=()=>{const amt=toNum($("#sl-qty",f).value)*toNum($("#sl-price",f).value),free=shipIn.value==="free",fee=free?toNum($("#sl-fee",f).value):0;
-        $$("[data-ship]",f).forEach(b=>b.classList.toggle("active",b.dataset.ship===shipIn.value));feeWrap.hidden=!free;
-        $("#sl-sum",f).textContent=won(amt)+"원";$("#sl-feeout",f).textContent=(fee?"−"+won(fee):"0")+"원";$("#sl-profit",f).textContent=won(amt-fee)+"원"};
+    onMount(f){const shipIn=$("#sl-shipping",f),modeIn=$("#sl-mode",f),feeWrap=$(".ship-fee",f);
+      const upd=()=>{const x=saleFrom(f);const consign=x.mode==="consign";
+        $$("[data-mode]",f).forEach(b=>b.classList.toggle("active",b.dataset.mode===modeIn.value));$$("[data-ship]",f).forEach(b=>b.classList.toggle("active",b.dataset.ship===shipIn.value));
+        $$(".only-consign",f).forEach(e=>e.hidden=!consign);$$(".only-buy",f).forEach(e=>e.hidden=consign);feeWrap.classList.toggle("off",shipIn.value!=="free");$("#sl-fee",f).disabled=shipIn.value!=="free";
+        const c=saleCost(x);$("#sl-sum",f).textContent=won(saleAmt(x))+"원";$("#sl-feeout",f).textContent=(c?"−"+won(c):"0")+"원";$("#sl-costlbl",f).textContent=consign?"위탁가 합계":"택배·박스비";
+        $("#sl-costd",f).textContent=consign?`${won(x.consignPrice)} × ${won(x.qty)}`:[saleShip(x)?`택배 ${won(saleShip(x))}`:"",saleBox(x)?`박스 ${won(saleBox(x))}`:""].filter(Boolean).join(" · ");
+        $("#sl-plbl",f).textContent=consign?"차익":"이익금";$("#sl-profit",f).textContent=won(saleProfit(x))+"원";$("#sl-profit",f).classList.toggle("neg",saleProfit(x)<0)};
+      $$("[data-mode]",f).forEach(b=>b.addEventListener("click",()=>{modeIn.value=b.dataset.mode;upd();if(modeIn.value==="consign"){const ci=$("#sl-consign",f);ci.focus();ci.select()}}));
       $$("[data-ship]",f).forEach(b=>b.addEventListener("click",()=>{shipIn.value=b.dataset.ship;upd();if(shipIn.value==="free"){const fi=$("#sl-fee",f);fi.focus();fi.select()}}));
-      ["#sl-qty","#sl-price","#sl-fee"].forEach(id=>$(id,f).addEventListener("input",upd));upd();
+      ["#sl-qty","#sl-price","#sl-fee","#sl-box","#sl-consign"].forEach(id=>$(id,f).addEventListener("input",upd));upd();
       const ch=$("#sl-ch",f),sync=()=>$$("[data-ch]",f).forEach(b=>b.classList.toggle("active",b.dataset.ch===ch.value.trim()));
       $$("[data-ch]",f).forEach(b=>b.addEventListener("click",()=>{ch.value=ch.value.trim()===b.dataset.ch?"":b.dataset.ch;sync()}));ch.addEventListener("input",sync);
       $("#sl-del",f)?.addEventListener("click",async()=>{dlg.close();await deleteSale(sale.id)});
       setTimeout(()=>{$("#sl-qty",f).focus();$("#sl-qty",f).select()},30)},
-    onSubmit(f){const qty=toNum($("#sl-qty",f).value),pr=toNum($("#sl-price",f).value),channel=$("#sl-ch",f).value.trim();if(qty<=0){toast("판매 수량을 1 이상 입력해주세요.");return false}
-      const cur=S.stock.find(x=>x.id===id);S.lastChannel=channel;
+    onSubmit(f){const x=saleFrom(f),qty=x.qty,pr=x.price,channel=$("#sl-ch",f).value.trim();if(!qty){toast("판매 수량을 입력해주세요. 반품은 마이너스(-)로 적을 수 있습니다.");return false}
+      if(x.mode==="consign"&&$("#sl-consign",f).value.trim()===""){toast("위탁가를 입력해주세요.");$("#sl-consign",f).focus();return false}
+      const cur=S.stock.find(y=>y.id===id);S.lastChannel=channel;S.lastMode=x.mode;if(x.mode==="consign")S.lastConsign=x.consignPrice;else{S.lastShip=x.shipping;if(x.shipping==="free")S.lastShipFee=x.shipFee||"";S.lastBox=x.boxFee||""}
+      const money={mode:x.mode,shipping:x.shipping,shipFee:x.shipFee,boxFee:x.boxFee,consignPrice:x.consignPrice};
       if(sale){const was=toNum(sale.deducted);let deducted=was;if(was&&cur){const diff=qty-was;if(diff)put("stock",{...cur,qty:toNum(cur.qty)-diff,updatedAt:Date.now()});deducted=qty}
-        put("sales",{...sale,date:$("#sl-date",f).value||sale.date,qty,price:pr,channel,memo:$("#sl-memo",f).value.trim(),...shipOf(f),deducted,updatedAt:Date.now()});toast("판매 기록을 고쳤습니다");return}
+        put("sales",{...sale,date:$("#sl-date",f).value||sale.date,qty,price:pr,channel,memo:$("#sl-memo",f).value.trim(),...money,deducted,updatedAt:Date.now()});toast("판매 기록을 고쳤습니다");return}
       const deduct=$("#sl-deduct",f).checked;if(deduct&&cur&&qty>toNum(cur.qty)&&!confirm(`현재 재고(${won(cur.qty)}개)보다 많습니다. 그래도 기록할까요?`))return false;
-      put("sales",{id:uid("sl"),stockId:id,date:$("#sl-date",f).value||todayISO(),qty,price:pr,channel,memo:$("#sl-memo",f).value.trim(),...shipOf(f),deducted:deduct?qty:0,by:me.name,createdAt:Date.now()});
-      if(deduct&&cur)put("stock",{...cur,qty:toNum(cur.qty)-qty,updatedAt:Date.now()});toast(`${channel?channel+" · ":""}${won(qty*pr)}원 판매를 기록했습니다`)}})}
-function shipOf(f){const shipping=$("#sl-shipping",f).value==="free"?"free":"paid",shipFee=shipping==="free"?toNum($("#sl-fee",f).value):0;S.lastShip=shipping;if(shipping==="free")S.lastShipFee=shipFee||"";return {shipping,shipFee}}
+      put("sales",{id:uid("sl"),stockId:id,date:$("#sl-date",f).value||todayISO(),qty,price:pr,channel,memo:$("#sl-memo",f).value.trim(),...money,deducted:deduct?qty:0,by:me.name,createdAt:Date.now()});
+      if(deduct&&cur)put("stock",{...cur,qty:toNum(cur.qty)-qty,updatedAt:Date.now()});toast(`${MODE_LABEL[x.mode]} · ${channel?channel+" · ":""}${x.mode==="consign"?"차익":"이익"} ${won(saleProfit(x))}원 기록했습니다`)}})}
+function saleFrom(f){const mode=$("#sl-mode",f).value==="consign"?"consign":"buy",shipping=$("#sl-shipping",f).value==="free"?"free":"paid";
+  return {mode,qty:toNum($("#sl-qty",f).value),price:toNum($("#sl-price",f).value),shipping,shipFee:mode==="buy"&&shipping==="free"?toNum($("#sl-fee",f).value):0,boxFee:mode==="buy"?toNum($("#sl-box",f).value):0,consignPrice:mode==="consign"?toNum($("#sl-consign",f).value):0}}
 async function deleteSale(id){const x=S.sales.find(y=>y.id===id);if(!x)return;const r=S.stock.find(y=>y.id===x.stockId),back=toNum(x.deducted);
   if(await askConfirm(`${x.date||""} ${(x.channel||"").trim()?x.channel+" ":""}판매 기록(${won(toNum(x.qty)*toNum(x.price))}원)을 삭제할까요?${back&&r?` 뺐던 재고 ${won(back)}개를 다시 더합니다.`:""}`)){remove("sales",x.id);if(back&&r)put("stock",{...r,qty:toNum(r.qty)+back,updatedAt:Date.now()});toast("판매 기록을 삭제했습니다")}}
 
