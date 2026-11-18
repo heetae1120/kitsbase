@@ -800,6 +800,14 @@ body{font-family:var(--f-body);letter-spacing:-.005em}
 .sl-calc em{font-style:normal}.sl-calc small{font-size:11px;font-weight:500;color:var(--ink-3);min-height:14px}
 @media (max-width:480px){.top-actions{gap:6px;min-width:0}.top-actions .btn.primary{padding:0 11px}}
 .stk.log{min-width:1100px}.stk.log td,.stk.log th{padding-left:6px!important;padding-right:6px!important}.stk.log td.act .btn{padding:0 6px!important;gap:3px}.stk.log tbody td:nth-child(11){min-width:110px}.stk.log td.mono,.stk.log td.muted,.stk.log td.n{white-space:nowrap}.stk.log tbody td:nth-child(4){min-width:160px}
+
+.ex-tag{display:inline-flex;align-items:center;gap:3px;margin-left:6px;font-size:11px;font-weight:700;padding:1px 7px;border-radius:99px;background:var(--sub-soft);color:var(--sub-ink);box-shadow:inset 0 0 0 1px var(--sub);vertical-align:1px;white-space:nowrap}
+.ex-from{display:block;font-size:11px;color:var(--ink-3);margin-top:2px}
+.ex-box{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}
+.ex-box span{font-size:12px;font-weight:700;color:var(--ink-3)}.ex-box strong{font-size:14px;min-width:0}.ex-box b{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ex-arrow{display:flex;align-items:center;gap:6px;justify-content:center;font-size:12px;font-weight:600;color:var(--accent-text);margin:-2px 0}
+.field select#ex-item{height:40px}
+.stk.log td.act .btn{min-width:0}
 </style>
 
 <section class="auth" id="auth" hidden>
@@ -899,6 +907,7 @@ const icon=(name,size=16)=>{const p={
   cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   flame:'<path d="M12 22c4.4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 2.6 7 7 7z"/>',
   map:'<circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6l4 4M18 6l-4 4M6 18l4-4M18 18l-4-4"/>',
+  swap:'<path d="M7 4 3 8l4 4"/><path d="M3 8h14"/><path d="m17 20 4-4-4-4"/><path d="M21 16H7"/>',
   box:'<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/>',
   users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
   note:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
@@ -1508,8 +1517,8 @@ function renderSalesLog(all,me){const f=SF(),byId=new Map(all.map(r=>[r.id,r])),
       <input class="sf-in sf-q" id="sf-q" data-sf="q" value="${esc(f.q)}" placeholder="제품 · 컬러 · 메모 검색" aria-label="판매 기록 검색">${active?`<button type="button" class="btn sm ghost" data-sf-reset>필터 초기화</button>`:""}</div>
     ${byCh.size>1||active?`<div class="sf-ch">${[...byCh].sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span style="--cc:${chColor(k==="판매처 미입력"?"":k)}"><em class="dot"></em><i>${esc(k)}</i><b>${won(v)}원</b></span>`).join("")}</div>`:""}</div>
   ${log.length?`<div class="panel stk-wrap"><table class="stk log"><thead><tr><th>날짜</th><th>방식</th><th>판매처</th><th>품목 · 제품 · 컬러</th><th class="n">수량</th><th class="n">판매가</th><th class="n">판매 금액</th><th>배송</th><th class="n">비용</th><th class="n">이익금 · 차익</th><th>메모</th><th>기록</th><th></th></tr></thead><tbody>${log.map(x=>{const r=byId.get(x.stockId);
-    return `<tr><td class="mono">${esc(x.date||"")}</td><td><span class="mode-tag ${isConsign(x)?"consign":"buy"}">${MODE_LABEL[isConsign(x)?"consign":"buy"]}</span></td><td>${(x.channel||"").trim()?`<span class="ch-tag" style="--cc:${chColor(x.channel)}"><i></i>${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n">${won(saleAmt(x))}</td><td>${isConsign(x)?`<span class="muted">–</span>`:x.shipping?`<span class="ship-tag ${x.shipping}">${SHIP_LABEL[x.shipping]}</span>`:`<span class="muted">미선택</span>`}</td><td class="n cost ${saleCost(x)?"neg":"muted"}">${saleCost(x)?"−"+won(saleCost(x)):"–"}${saleCost(x)?`<small>${isConsign(x)?`위탁가 ${won(x.consignPrice)} × ${won(x.qty)}`:[saleShip(x)?`택배 ${won(saleShip(x))}`:"",saleBox(x)?`박스 ${won(saleBox(x))}`:""].filter(Boolean).join(" · ")}</small>`:""}</td><td class="n strong">${won(saleProfit(x))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
-      <td class="act">${me?`<button class="btn sm ghost" data-sale-edit="${esc(x.id)}">${icon("pen",12)} 수정</button><button class="btn sm ghost danger-t" data-sale-del="${esc(x.id)}">${icon("trash",12)} 삭제</button>`:""}</td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="4">합계 · ${log.length}건</td><td class="n">${won(sq)}</td><td></td><td class="n">${won(sv)}</td><td></td><td class="n neg">${(()=>{const c=log.reduce((n,x)=>n+saleCost(x),0);return c?"−"+won(c):"0"})()}</td><td class="n profit">${won(log.reduce((n,x)=>n+saleProfit(x),0))}</td><td colspan="3"></td></tr></tfoot></table></div>`
+    return `<tr><td class="mono">${esc(x.date||"")}</td><td><span class="mode-tag ${isConsign(x)?"consign":"buy"}">${MODE_LABEL[isConsign(x)?"consign":"buy"]}</span></td><td>${(x.channel||"").trim()?`<span class="ch-tag" style="--cc:${chColor(x.channel)}"><i></i>${esc(x.channel)}</span>`:`<span class="muted">미입력</span>`}</td><td>${r?`${esc(r.category||"")} · ${esc(r.product||"")} · <b>${esc(r.color||"")}</b>`:`<span class="muted">삭제된 품목</span>`}${(x.exchanges||[]).length?`<span class="ex-tag" title="${esc(exchangeText(x))}">${icon("swap",11)} 교환 ${(x.exchanges||[]).length>1?(x.exchanges.length+"회"):""}</span><small class="ex-from">${esc(exchangeText(x,true))}</small>`:""}</td><td class="n">${won(x.qty)}</td><td class="n">${won(x.price)}</td><td class="n">${won(saleAmt(x))}</td><td>${isConsign(x)?`<span class="muted">–</span>`:x.shipping?`<span class="ship-tag ${x.shipping}">${SHIP_LABEL[x.shipping]}</span>`:`<span class="muted">미선택</span>`}</td><td class="n cost ${saleCost(x)?"neg":"muted"}">${saleCost(x)?"−"+won(saleCost(x)):"–"}${saleCost(x)?`<small>${isConsign(x)?`위탁가 ${won(x.consignPrice)} × ${won(x.qty)}`:[saleShip(x)?`택배 ${won(saleShip(x))}`:"",saleBox(x)?`박스 ${won(saleBox(x))}`:""].filter(Boolean).join(" · ")}</small>`:""}</td><td class="n strong">${won(saleProfit(x))}</td><td>${esc(x.memo||"")}</td><td class="muted">${esc(x.by||"")}</td>
+      <td class="act">${me?`<button class="btn sm ghost" data-sale-edit="${esc(x.id)}">수정</button><button class="btn sm ghost" data-sale-ex="${esc(x.id)}">교환</button><button class="btn sm ghost danger-t" data-sale-del="${esc(x.id)}">삭제</button>`:""}</td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="4">합계 · ${log.length}건</td><td class="n">${won(sq)}</td><td></td><td class="n">${won(sv)}</td><td></td><td class="n neg">${(()=>{const c=log.reduce((n,x)=>n+saleCost(x),0);return c?"−"+won(c):"0"})()}</td><td class="n profit">${won(log.reduce((n,x)=>n+saleProfit(x),0))}</td><td colspan="3"></td></tr></tfoot></table></div>`
     :`<div class="panel"><div class="empty-block"><strong>조건에 맞는 판매 기록이 없습니다</strong><span>기간이나 판매처 필터를 바꿔보세요.</span><button class="btn sm" data-sf-reset>필터 초기화</button></div></div>`}`:""}`}
 let sfT=0;
 document.addEventListener("input",e=>{const el=e.target.closest&&e.target.closest(".sf-q");if(!el)return;SF().q=el.value;clearTimeout(sfT);sfT=setTimeout(()=>{const pos=el.selectionStart;render();const n=$("#sf-q");if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}},220)});
@@ -1575,6 +1584,34 @@ function openSaleDialog(id,saleId){const sale=saleId?S.sales.find(x=>x.id===sale
       if(deduct&&cur)put("stock",{...cur,qty:toNum(cur.qty)-qty,updatedAt:Date.now()});toast(`${MODE_LABEL[x.mode]} · ${channel?channel+" · ":""}${x.mode==="consign"?"차익":"이익"} ${won(saleProfit(x))}원 기록했습니다`)}})}
 function saleFrom(f){const mode=$("#sl-mode",f).value==="consign"?"consign":"buy",shipping=$("#sl-shipping",f).value==="free"?"free":"paid";
   return {mode,qty:toNum($("#sl-qty",f).value),price:toNum($("#sl-price",f).value),shipping,shipFee:mode==="buy"&&shipping==="free"?toNum($("#sl-fee",f).value):0,boxFee:mode==="buy"?toNum($("#sl-box",f).value):0,consignPrice:mode==="consign"?toNum($("#sl-consign",f).value):0}}
+function stockLabel(r){return r?`${r.category||""} · ${r.product||""} · ${r.color||""}`:"삭제된 품목"}
+function exchangeText(x,last){const ex=x.exchanges||[];if(!ex.length)return "";const one=e=>`${e.date||""} ${stockLabel(S.stock.find(y=>y.id===e.fromStockId))} ${won(e.fromQty)}개 → ${stockLabel(S.stock.find(y=>y.id===e.toStockId))} ${won(e.toQty)}개`;
+  if(last){const e=ex[ex.length-1],f=S.stock.find(y=>y.id===e.fromStockId);return `기존: ${f?`${f.product||""} ${f.color||""}`:"삭제된 품목"} ${won(e.fromQty)}개`}return ex.map(one).join("\n")}
+function openExchangeDialog(saleId){const x=S.sales.find(y=>y.id===saleId),me=myMember();if(!x||!me)return;const r0=S.stock.find(y=>y.id===x.stockId),rows=stockRows();
+  const groups=[...new Set(rows.map(r=>r.category||"미분류"))].map(c=>`<optgroup label="${esc(c)}">${rows.filter(r=>(r.category||"미분류")===c).map(r=>`<option value="${esc(r.id)}" ${r.id===x.stockId?"selected":""}>${esc(r.product||"")} · ${esc(r.color||"")} (재고 ${won(r.qty)})</option>`).join("")}</optgroup>`).join("");
+  const back=toNum(x.deducted);
+  openDialog({title:"교환",eyebrow:`${x.date||""} · ${(x.channel||"").trim()||"판매처 미입력"} · ${MODE_LABEL[isConsign(x)?"consign":"buy"]}`,
+    body:`<div class="ex-box"><span>기존</span><strong>${esc(stockLabel(r0))}</strong><b>${won(x.qty)}개 · ${won(x.price)}원</b></div>
+      <div class="ex-arrow">${icon("swap",16)} 이렇게 바꿉니다</div>
+      <label class="field">바꿀 품목<select id="ex-item">${groups}</select></label>
+      <div class="row3"><label class="field">수량<input id="ex-qty" inputmode="text" pattern="-?[0-9,]*" value="${toNum(x.qty)}"></label><label class="field">판매가<input id="ex-price" inputmode="text" pattern="-?[0-9,]*" value="${toNum(x.price)}"></label><label class="field">교환일<input id="ex-date" type="date" value="${todayISO()}"></label></div>
+      <label class="field"><span>교환 사유 · 메모 <small>(선택)</small></span><input id="ex-memo" maxlength="120" placeholder="예: 색상 변경 요청, 불량 교환"></label>
+      <label class="field"><span class="inline-check"><input type="checkbox" id="ex-stock" ${back?"checked":""}> 재고 맞추기 <small>${back?`(기존 품목에 ${won(back)}개 되돌리고, 바꿀 품목에서 새 수량만큼 뺍니다)`:"(이 판매는 재고에서 빼지 않았던 기록입니다)"}</small></span></label>
+      <p class="sl-note" id="ex-prev"></p>
+      <div class="dlg-actions"><span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">교환하기</button></div>`,
+    onMount(f){const sel=$("#ex-item",f),upd=()=>{const r=S.stock.find(y=>y.id===sel.value),q=toNum($("#ex-qty",f).value),st=$("#ex-stock",f).checked;
+        $("#ex-prev",f).textContent=r?`${stockLabel(r)} · ${won(q)}개 · ${won(q*toNum($("#ex-price",f).value))}원${st?` — 교환 후 재고: ${r.id===x.stockId?won(toNum(r.qty)+back-q):won(toNum(r.qty)-q)}개`:""}`:""};
+      sel.addEventListener("change",()=>{const r=S.stock.find(y=>y.id===sel.value);if(r&&!isConsign(x)){const pr=r.salePrice!==""&&r.salePrice!=null?toNum(r.salePrice):toNum(r.price);if(pr)$("#ex-price",f).value=pr}upd()});
+      ["#ex-qty","#ex-price"].forEach(i=>$(i,f).addEventListener("input",upd));$("#ex-stock",f).addEventListener("change",upd);upd();setTimeout(()=>sel.focus(),30)},
+    onSubmit(f){const toId=$("#ex-item",f).value,qty=toNum($("#ex-qty",f).value),price=toNum($("#ex-price",f).value),adj=$("#ex-stock",f).checked;
+      if(!toId){toast("바꿀 품목을 골라주세요.");return false}if(!qty){toast("수량을 입력해주세요.");return false}
+      if(toId===x.stockId&&qty===toNum(x.qty)&&price===toNum(x.price)){toast("바뀐 내용이 없습니다.");return false}
+      const to=S.stock.find(y=>y.id===toId),from=S.stock.find(y=>y.id===x.stockId);
+      if(adj){if(toId===x.stockId){if(to){const nq=toNum(to.qty)+back-qty;put("stock",{...to,qty:nq,updatedAt:Date.now()})}}
+        else{if(from&&back)put("stock",{...from,qty:toNum(from.qty)+back,updatedAt:Date.now()});if(to){if(qty>toNum(to.qty)&&!confirm(`바꿀 품목의 재고(${won(to.qty)}개)보다 많습니다. 그래도 교환할까요?`))return false;put("stock",{...to,qty:toNum(to.qty)-qty,updatedAt:Date.now()})}}}
+      const ev={date:$("#ex-date",f).value||todayISO(),fromStockId:x.stockId,fromQty:toNum(x.qty),fromPrice:toNum(x.price),toStockId:toId,toQty:qty,toPrice:price,memo:$("#ex-memo",f).value.trim(),by:me.name,at:Date.now()};
+      put("sales",{...x,stockId:toId,qty,price,deducted:adj?qty:0,exchanges:[...(x.exchanges||[]),ev],updatedAt:Date.now()});
+      toast(`교환했습니다: ${to?`${to.product||""} ${to.color||""}`:""} ${won(qty)}개`)}})}
 async function deleteSale(id){const x=S.sales.find(y=>y.id===id);if(!x)return;const r=S.stock.find(y=>y.id===x.stockId),back=toNum(x.deducted);
   if(await askConfirm(`${x.date||""} ${(x.channel||"").trim()?x.channel+" ":""}판매 기록(${won(toNum(x.qty)*toNum(x.price))}원)을 삭제할까요?${back&&r?` 뺐던 재고 ${won(back)}개를 다시 더합니다.`:""}`)){remove("sales",x.id);if(back&&r)put("stock",{...r,qty:toNum(r.qty)+back,updatedAt:Date.now()});toast("판매 기록을 삭제했습니다")}}
 
@@ -1697,6 +1734,7 @@ document.addEventListener("click",async e=>{
   if((el=a("[data-sale]"))){openSaleDialog(el.dataset.sale);return}
   if((el=a("[data-stk-del]"))){const r=S.stock.find(x=>x.id===el.dataset.stkDel);if(r&&await askConfirm(`‘${r.product||""} ${r.color||""}’ 행을 삭제할까요? 판매 기록은 남습니다.`)){remove("stock",r.id);toast("행을 삭제했습니다")}return}
   if((el=a("[data-sale-del]"))){deleteSale(el.dataset.saleDel);return}
+  if((el=a("[data-sale-ex]"))){openExchangeDialog(el.dataset.saleEx);return}
   if((el=a("[data-sale-edit]"))){openSaleDialog(null,el.dataset.saleEdit);return}
   if((el=a("[data-sf-period]"))){const f=SF(),[x,y]=salePeriod(el.dataset.sfPeriod);f.from=x;f.to=y;render();return}
   if(a("[data-sf-reset]")){S.saleF=null;render();return}
