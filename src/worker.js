@@ -32,11 +32,6 @@ async function hmac(secret, msg) {
   return b64u(await crypto.subtle.sign("HMAC", key, enc.encode(msg)));
 }
 
-async function hashPassword(password, salt) {
-  const key = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: enc.encode(salt), iterations: 100000, hash: "SHA-256" }, key, 256);
-  return b64u(bits);
-}
 
 function requireConfig(env) {
   if (!env.DB) return "D1 데이터베이스(DB)가 연결되지 않았습니다.";
@@ -89,29 +84,27 @@ async function handleApi(request, env, url) {
   if (path === "/api/register" && method === "POST") {
     const b = await readBody(request);
     if (!b) return fail(400, "invalid_argument", "입력값을 확인해주세요.");
-    const name = cleanName(b.name), password = String(b.password || "");
+    const name = cleanName(b.name);
     if (!name) return fail(400, "invalid_argument", "이름을 입력해주세요.");
-    if (password.length < 6) return fail(400, "invalid_argument", "비밀번호는 6자 이상이어야 합니다.");
     const max = Number(env.MAX_MEMBERS || 0);
     if (max > 0) {
       const { n } = await env.DB.prepare("SELECT COUNT(*) AS n FROM users").first();
       if (n >= max) return fail(403, "team_full", `팀원은 최대 ${max}명까지 등록할 수 있습니다.`);
     }
     if (await env.DB.prepare("SELECT 1 FROM users WHERE name = ?").bind(name).first()) return fail(409, "name_taken", "같은 이름의 팀원이 이미 있습니다.");
-    const id = "u_" + randomId(9), salt = randomId(16), now = Date.now();
+    const id = "u_" + randomId(9), now = Date.now();
     const color = HEX_RE.test(b.color || "") ? b.color.toUpperCase() : "#DD3A2E";
     await env.DB.prepare("INSERT INTO users (id, name, role, color, pw_hash, pw_salt, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
-      .bind(id, name, cleanText(b.role, 30), color, await hashPassword(password, salt), salt, now, now).run();
+      .bind(id, name, cleanText(b.role, 30), color, "", "", now, now).run();
     const user = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(id).first();
     return json({ user: publicUser(user) }, 201, { "set-cookie": await sessionCookie(env, id, url) });
   }
 
   if (path === "/api/login" && method === "POST") {
     const b = await readBody(request);
-    const name = cleanName(b && b.name), password = String((b && b.password) || "");
+    const name = cleanName(b && b.name);
     const user = name ? await env.DB.prepare("SELECT * FROM users WHERE name = ?").bind(name).first() : null;
-    const ok = user && safeEqual(await hashPassword(password, user.pw_salt), user.pw_hash);
-    if (!ok) return fail(401, "bad_login", "이름 또는 비밀번호가 맞지 않습니다.");
+    if (!user) return fail(401, "bad_login", "등록된 이름이 없습니다. 처음이라면 ‘처음 가입’을 눌러주세요.");
     return json({ user: publicUser(user) }, 200, { "set-cookie": await sessionCookie(env, user.id, url) });
   }
 
@@ -122,15 +115,6 @@ async function handleApi(request, env, url) {
 
   if (path === "/api/me" && method === "GET") return json({ user: publicUser(me) });
 
-  if (path === "/api/password" && method === "POST") {
-    const b = await readBody(request);
-    const row = await env.DB.prepare("SELECT pw_hash, pw_salt FROM users WHERE id = ?").bind(me.id).first();
-    if (!b || !safeEqual(await hashPassword(String(b.current || ""), row.pw_salt), row.pw_hash)) return fail(403, "bad_login", "현재 비밀번호가 맞지 않습니다.");
-    if (String(b.next || "").length < 6) return fail(400, "invalid_argument", "새 비밀번호는 6자 이상이어야 합니다.");
-    const salt = randomId(16);
-    await env.DB.prepare("UPDATE users SET pw_hash = ?, pw_salt = ?, updated_at = ? WHERE id = ?").bind(await hashPassword(String(b.next), salt), salt, Date.now(), me.id).run();
-    return json({ ok: true });
-  }
 
   if (path === "/api/sync" && method === "GET") {
     const since = Math.max(0, Number(url.searchParams.get("since")) || 0);

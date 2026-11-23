@@ -814,17 +814,14 @@ body{font-family:var(--f-body);letter-spacing:-.005em}
   <div class="auth-card">
     <div class="brand" style="padding:0"><div class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h3v3H8z" fill="currentColor"/></svg></div><div><div class="brand-name">kits<b>base</b></div><small>BUSINESS CALENDAR</small></div></div>
     <div><h1 id="auth-title">팀 작업공간 로그인</h1></div>
-    <p class="lead" id="auth-lead">등록한 이름과 비밀번호로 들어갑니다. 처음이라면 ‘처음 가입’에서 이름과 비밀번호를 정하세요.</p>
+    <p class="lead" id="auth-lead">등록한 이름을 입력하면 바로 들어갑니다. 처음이라면 ‘처음 가입’에서 이름을 정하세요.</p>
     <div class="seg" role="tablist"><button type="button" data-auth="login" class="active">로그인</button><button type="button" data-auth="join">처음 가입</button></div>
     <form id="auth-login" novalidate>
       <label class="field">이름<input id="li-name" autocomplete="username" maxlength="20" required></label>
-      <label class="field">비밀번호<input id="li-pw" type="password" autocomplete="current-password" required></label>
       <button class="btn primary" type="submit">로그인</button>
     </form>
     <form id="auth-join" novalidate hidden>
       <div class="row2"><label class="field">이름<input id="jo-name" autocomplete="username" maxlength="20" placeholder="예: 김민준" required></label><label class="field"><span>직무 <small>(선택)</small></span><input id="jo-role" maxlength="30" placeholder="예: 대표, 개발, 디자인, 영업"></label></div>
-      <label class="field">비밀번호<input id="jo-pw" type="password" autocomplete="new-password" minlength="6" required><small>6자 이상</small></label>
-      <label class="field">비밀번호 확인<input id="jo-pw2" type="password" autocomplete="new-password" required></label>
       <div class="field">표시 색상<div class="swatches" id="jo-colors"></div></div>
       <button class="btn primary" type="submit">가입하고 시작하기</button>
     </form>
@@ -1000,14 +997,14 @@ function showAuth(msg){document.body.classList.add("locked");$("#auth").hidden=f
   setTimeout(()=>{const f=$("#auth-login").hidden?$("#jo-name"):$("#li-name");if(f)f.focus()},30)}
 function hideAuth(){document.body.classList.remove("locked");$("#auth").hidden=true}
 function setAuthTab(t){const join=t==="join";$("#auth-login").hidden=join;$("#auth-join").hidden=!join;$$("[data-auth]").forEach(b=>b.classList.toggle("active",b.dataset.auth===t));
-  $("#auth-title").textContent=join?"처음 가입하기":"팀 작업공간 로그인";$("#auth-lead").textContent=join?"내 이름과 비밀번호를 정하세요. 다음부터는 이름과 비밀번호로 로그인합니다.":"등록한 이름과 비밀번호로 들어갑니다. 처음이라면 ‘처음 가입’에서 이름과 비밀번호를 정하세요.";$("#auth-err").textContent=""}
+  $("#auth-title").textContent=join?"처음 가입하기":"팀 작업공간 로그인";$("#auth-lead").textContent=join?"내 이름을 정하세요. 다음부터는 이 이름만 입력하면 로그인됩니다.":"등록한 이름을 입력하면 바로 들어갑니다. 처음이라면 ‘처음 가입’에서 이름을 정하세요.";$("#auth-err").textContent=""}
 $("#auth").addEventListener("click",e=>{const t=e.target.closest("[data-auth]");if(t)setAuthTab(t.dataset.auth);const c=e.target.closest("[data-auth-color]");if(c){authColor=c.dataset.authColor;$$("[data-auth-color]").forEach(b=>b.classList.toggle("on",b===c))}});
 async function authSubmit(form,path,body,btnText){const btn=$("button[type=submit]",form);btn.disabled=true;btn.textContent="확인 중…";$("#auth-err").textContent="";
   try{const d=await api(path,{method:"POST",body:JSON.stringify(body)});startSession(d.user)}catch(e){$("#auth-err").textContent=e.message}finally{btn.disabled=false;btn.textContent=btnText}}
-$("#auth-login").addEventListener("submit",e=>{e.preventDefault();const name=$("#li-name").value.trim(),password=$("#li-pw").value;if(!name||!password){$("#auth-err").textContent="이름과 비밀번호를 입력해주세요.";return}authSubmit(e.target,"/api/login",{name,password},"로그인")});
-$("#auth-join").addEventListener("submit",e=>{e.preventDefault();const name=$("#jo-name").value.trim(),password=$("#jo-pw").value;
-  if(!name){$("#auth-err").textContent="이름을 입력해주세요.";return}if(password.length<6){$("#auth-err").textContent="비밀번호는 6자 이상이어야 합니다.";return}if(password!==$("#jo-pw2").value){$("#auth-err").textContent="비밀번호 확인이 일치하지 않습니다.";return}
-  authSubmit(e.target,"/api/register",{name,password,role:$("#jo-role").value.trim(),color:authColor},"가입하고 시작하기")});
+$("#auth-login").addEventListener("submit",e=>{e.preventDefault();const name=$("#li-name").value.trim();if(!name){$("#auth-err").textContent="이름을 입력해주세요.";return}authSubmit(e.target,"/api/login",{name},"로그인")});
+$("#auth-join").addEventListener("submit",e=>{e.preventDefault();const name=$("#jo-name").value.trim();
+  if(!name){$("#auth-err").textContent="이름을 입력해주세요.";return}
+  authSubmit(e.target,"/api/register",{name,role:$("#jo-role").value.trim(),color:authColor},"가입하고 시작하기")});
 function startSession(me){hideAuth();MM.mounted=false;CELLS.stop();S.meId=me.id;if(!S.members.some(m=>m.id===me.id))S.members=[...S.members,me];render();
   if(DB){DB.poll();return}
   DB=serverDB();S.mode="db";setSync("","불러오는 중…","서버에서 데이터를 받는 중");
@@ -1298,7 +1295,7 @@ function renderTeamLog(){const me=myMember(),members=sortedMembers(),db=S.mode==
   return `<div class="sec-head log-head"><div><h2>메모 기록 · 팀원</h2><p>주고받은 메모 전체와 내 계정 설정입니다.</p></div><div class="tools"><button class="btn" data-new-memo ${me?"":"disabled"}>${icon("plus",15)} 메모 보내기</button></div></div>
   <div class="team-layout"><aside class="panel"><div class="biz-head"><h3>팀원</h3><span>${members.length} / 4명 등록</span></div>
     ${me?"":`<div class="reg-cta"><strong>${canReg?"아직 사용자 등록을 하지 않았습니다":"로그인 정보를 확인할 수 없습니다"}</strong><span>${canReg?"이름과 역할을 등록하면 담당자 선택과 메모 주고받기에 쓰입니다.":"로그아웃 후 다시 로그인해주세요."}</span>${canReg?`<button class="btn primary sm" data-register>${icon("plus",14)} 사용자 등록</button>`:""}</div>`}
-    <ul class="mem-list">${members.length?members.map(m=>`<li class="${m.id===S.meId?"me":""}">${avatar(m)}<div><strong>${esc(m.name)}${m.id===S.meId?"<em>나</em>":""}</strong><span>${esc(m.role||"직무 미정")}</span></div>${m.id===S.meId?`<button class="btn ghost sm" data-register>${icon("pen",12)} 수정</button><button class="btn ghost sm" data-password>비밀번호</button>`:`${me?`<button class="btn ghost sm" data-memo-to="${esc(m.id)}">메모</button>`:""}${db?"":`<button class="btn ghost sm" data-switch-me="${esc(m.id)}">이 사용자로</button>`}`}</li>`).join(""):`<li class="none">등록된 팀원이 없습니다.</li>`}</ul>
+    <ul class="mem-list">${members.length?members.map(m=>`<li class="${m.id===S.meId?"me":""}">${avatar(m)}<div><strong>${esc(m.name)}${m.id===S.meId?"<em>나</em>":""}</strong><span>${esc(m.role||"직무 미정")}</span></div>${m.id===S.meId?`<button class="btn ghost sm" data-register>${icon("pen",12)} 수정</button>`:`${me?`<button class="btn ghost sm" data-memo-to="${esc(m.id)}">메모</button>`:""}${db?"":`<button class="btn ghost sm" data-switch-me="${esc(m.id)}">이 사용자로</button>`}`}</li>`).join(""):`<li class="none">등록된 팀원이 없습니다.</li>`}</ul>
     ${db?`<div style="padding:4px 14px 14px"><button class="btn sm" data-logout>로그아웃</button></div>`:""}${db?"":`<p class="team-note">공유 저장소가 없어 이 브라우저에만 저장되는 모드입니다. 한 기기에서 사용자를 바꿔가며 쓸 수 있습니다.</p><div style="padding:0 14px 14px"><button class="btn sm" data-register-new>${icon("plus",13)} 팀원 추가</button></div>`}
   </aside><section style="min-width:0"><div class="memo-tabs"><div class="seg">${[["inbox",`받은 메모${un.length?` ${un.length}`:""}`],["sent","보낸 메모"],["all","전체"]].map(([k,l])=>`<button data-msgtab="${k}" class="${tab===k?"active":""}">${l}</button>`).join("")}</div>${un.length?`<button class="btn sm" data-read-all>모두 읽음</button>`:""}</div>
     <div class="memo-list">${!me&&tab!=="all"?`<div class="panel"><div class="empty-block"><strong>사용자 등록 후 메모를 주고받을 수 있습니다</strong><span>전체 탭에서는 팀 메모를 모두 볼 수 있습니다.</span></div></div>`:list.length?list.map(m=>memoCard(m,me)).join(""):`<div class="panel"><div class="empty-block"><strong>${tab==="inbox"?"받은 메모가 없습니다":tab==="sent"?"보낸 메모가 없습니다":"아직 메모가 없습니다"}</strong><span>팀원 옆의 메모 버튼으로 첫 메모를 남겨보세요.</span></div></div>`}</div></section></div>`;
@@ -1402,11 +1399,11 @@ function resizeAvatar(file){return new Promise((res,rej)=>{if(!file||!/^image\//
 function openMemberEditor(member,isNew){const db=S.mode==="db",cur=isNew?null:(member||null);let color=cur?col(themeColor(cur.color),MEMBER_COLORS[0]):MEMBER_COLORS[S.members.length%MEMBER_COLORS.length];
   let img=cur?avatarImg(cur):"",imgChanged=false;
   const preview=()=>{const n=(($("#mb-name")||{}).value||(cur&&cur.name)||"?").trim()||"?";return img?`<img src="${img}" alt="">`:`<span>${esc(n.slice(0,1))}</span>`};
-  openDialog({title:cur?"내 프로필":isNew?"팀원 추가":"사용자 등록",desc:"이름·직무·색상·사진은 담당자 표시, 업무현황, 팀 메모에 함께 쓰입니다. 이름을 바꾸면 다음 로그인부터 바뀐 이름으로 로그인합니다.",
+  openDialog({title:cur?"내 프로필":isNew?"팀원 추가":"사용자 등록",desc:"이름·직무·색상·사진은 담당자 표시, 업무현황, 팀 메모에 함께 쓰입니다. 이름을 바꾸면 다음 로그인부터 바뀐 이름을 입력하면 됩니다.",
     body:`<div class="pf-top"><div class="pf-ava" id="pf-ava" style="--ac:${color}">${preview()}</div><div class="pf-photo"><strong>프로필 사진</strong><span>정사각형으로 잘려서 저장됩니다.</span><div class="pf-btns"><label class="btn sm"><input type="file" id="pf-file" accept="image/*" hidden>${icon("plus",13)} 사진 올리기</label><button type="button" class="btn sm ghost" id="pf-del" ${img?"":"hidden"}>${icon("trash",13)} 사진 삭제</button></div></div></div>
       <div class="row2"><label class="field">이름<input id="mb-name" maxlength="20" value="${esc(cur?cur.name:"")}" placeholder="예: 김민준"></label><label class="field">직무<input id="mb-role" maxlength="30" value="${esc(cur?cur.role||"":"")}" placeholder="예: 대표, 개발, 디자인, 영업"></label></div>
       <div class="field">표시 색상<div class="swatches">${MEMBER_COLORS.map(c=>`<button type="button" data-sw="${c}" class="${c.toUpperCase()===color.toUpperCase()?"on":""}" style="--sw:${c}" aria-label="${c} 색상"></button>`).join("")}<label class="sw-custom ${MEMBER_COLORS.some(c=>c.toUpperCase()===color.toUpperCase())?"":"on"}" title="직접 고르기"><input type="color" id="mb-color" value="${color}" aria-label="색상 직접 고르기"><span>직접</span></label></div></div>
-      <div class="dlg-actions">${cur&&!db?`<button type="button" class="btn danger" id="mb-del">${icon("trash",14)} 사용자 삭제</button>`:""}${cur&&db?`<button type="button" class="btn ghost" data-password>비밀번호 변경</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${cur?"저장":"등록"}</button></div>`,
+      <div class="dlg-actions">${cur&&!db?`<button type="button" class="btn danger" id="mb-del">${icon("trash",14)} 사용자 삭제</button>`:""}<span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">${cur?"저장":"등록"}</button></div>`,
     onMount(f){const av=$("#pf-ava",f),paint=()=>{av.style.setProperty("--ac",color);av.innerHTML=preview();$("#pf-del",f).hidden=!img};
       const pick=c=>{color=c.toUpperCase();$$("[data-sw]",f).forEach(x=>x.classList.toggle("on",x.dataset.sw.toUpperCase()===color));$(".sw-custom",f).classList.toggle("on",!MEMBER_COLORS.some(x=>x.toUpperCase()===color));$("#mb-color",f).value=color;paint()};
       $$("[data-sw]",f).forEach(b=>b.addEventListener("click",()=>pick(b.dataset.sw)));$("#mb-color",f).addEventListener("input",e=>pick(e.target.value));
@@ -1422,13 +1419,6 @@ function openMemberEditor(member,isNew){const db=S.mode==="db",cur=isNew?null:(m
       put("members",{...(prev||{}),id,name,role:$("#mb-role",f).value.trim(),color,createdAt:prev&&prev.createdAt||Date.now(),updatedAt:Date.now()});
       if(imgChanged){if(img)put("avatars",{id,img,updatedAt:Date.now()});else if(S.avatars.some(a=>a.id===id))remove("avatars",id)}
       if(!db&&(!cur||isNew)){S.meId=id;saveMe()}toast(prev?"프로필을 저장했습니다":`${name}님, 등록되었습니다`)}});
-}
-function openPasswordDialog(){
-  openDialog({title:"비밀번호 변경",
-    body:`<label class="field">현재 비밀번호<input id="pw-cur" type="password" autocomplete="current-password"></label><label class="field">새 비밀번호<input id="pw-new" type="password" autocomplete="new-password"><small>6자 이상</small></label><label class="field">새 비밀번호 확인<input id="pw-new2" type="password" autocomplete="new-password"></label><div class="dlg-actions"><span class="spacer"></span><button type="button" class="btn" data-close>취소</button><button class="btn primary" type="submit">변경</button></div>`,
-    onMount(f){setTimeout(()=>$("#pw-cur",f).focus(),30)},
-    async onSubmit(f){const next=$("#pw-new",f).value;if(next.length<6){toast("새 비밀번호는 6자 이상이어야 합니다.");return false}if(next!==$("#pw-new2",f).value){toast("새 비밀번호 확인이 일치하지 않습니다.");return false}
-      try{await api("/api/password",{method:"POST",body:JSON.stringify({current:$("#pw-cur",f).value,next})});toast("비밀번호를 바꿨습니다")}catch(e){toast(e.message);return false}}});
 }
 function openMemoDialog(to){const me=myMember();if(!me){toast("먼저 사용자 등록을 해주세요.");openMemberEditor(null);return}
   const others=sortedMembers().filter(m=>m.id!==me.id);
@@ -1710,7 +1700,6 @@ document.addEventListener("click",async e=>{
   if((el=a("[data-cell-open]"))){MM.openProject(el.dataset.cellOpen);return}
   if((el=a("[data-cell-import]"))){MM.importToAll(el.dataset.cellImport);return}
   if((el=a("[data-cell]"))){CELLS.sel=el.dataset.cell||null;CELLS.panel();return}
-  if(a("[data-password]")){openPasswordDialog();return}
   if(dlg.contains(t)||$("#confirm").contains(t))return;
   if((el=a("[data-orb-go]"))){const i=+el.dataset.orbGo;if($("#orb")){WR.go(i);if(el.tagName==="TR")$("#orb").scrollIntoView({behavior:"smooth",block:"center"})}else{const p=projects()[i];if(p)openProjectDetail(p)}return}
   if((el=a("[data-orb-step]"))){const d=+el.dataset.orbStep;WR.go(WR.idx+d,d);return}
